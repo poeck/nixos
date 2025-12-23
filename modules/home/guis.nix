@@ -11,8 +11,6 @@
     mission-center
     # Discord
     discord
-    # Helium browser
-    helium
     # Cursor editor
     code-cursor
   ];

@@ -1,70 +1,97 @@
 {
-  lib,
-  pkgs,
-  _experimental-update-script-combinators,
-  nix-update-script,
-  ...
-}:
-let
-  version = "0.7.6.1";
-  sourceMap = {
-    x86_64-linux = pkgs.fetchurl {
-      url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-x86_64.AppImage";
-      hash = "sha256-SUpXcyQXUjZR57pNabVR/cSrGOMKvgzW0PSCLdB8d+E=";
+lib,
+unzip,
+autoPatchelfHook,
+stdenv,
+fetchurl,
+xorg,
+libgbm,
+cairo,
+libudev-zero,
+libxkbcommon,
+nspr,
+nss,
+libcupsfilters,
+pango,
+qt5,
+alsa-lib,
+atk,
+at-spi2-core,
+at-spi2-atk,
+ }:
+
+stdenv.mkDerivation rec {
+    name = "helium";
+    version = "0.7.6.1";
+
+    src = fetchurl {
+	url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-x86_64_linux.tar.xz";
+        sha256 = "sha256-RL0MMsYmcboZt7aq2R/6onLX1bTxlEbhlwB7yBb84os=";
     };
-    aarch64-linux = pkgs.fetchurl {
-      url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-arm64.AppImage";
-      hash = "sha256-AeW92FU65XVJKGPi+A/iz7Jvtb7wKIO3xG3Cx7v4kRg=";
-    };
-  };
-in
-pkgs.appimageTools.wrapType2 rec {
-  pname = "helium";
-  inherit version;
 
-  src =
-    sourceMap.${pkgs.stdenv.hostPlatform.system}
-      or (throw "Unsupported system: ${pkgs.stdenv.hostPlatform.system}");
-
-  passthru.updateScript = _experimental-update-script-combinators.sequence [
-    (nix-update-script {
-      extraArgs = [
-        "--system"
-        "x86_64-linux"
-      ];
-    })
-    (nix-update-script {
-      extraArgs = [
-        "--system"
-        "aarch64-linux"
-        "--version"
-        "skip"
-      ];
-    })
-  ];
-
-  extraInstallCommands =
-    let
-      contents = pkgs.appimageTools.extractType2 { inherit pname version src; };
-    in
-    ''
-      mkdir -p "$out/share/applications"
-      mkdir -p "$out/share/lib/helium"
-      cp -r ${contents}/opt/helium/locales "$out/share/lib/helium"
-      cp -r ${contents}/usr/share/* "$out/share"
-      cp "${contents}/${pname}.desktop" "$out/share/applications/"
-      substituteInPlace $out/share/applications/${pname}.desktop --replace-fail 'Exec=AppRun' 'Exec=${meta.mainProgram}'
-    '';
-
-  meta = {
-    description = "Private, fast, and honest web browser based on Chromium";
-    homepage = "https://github.com/imputnet/helium-chromium";
-    changelog = "https://github.com/imputnet/helium-linux/releases/tag/${version}";
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
+    nativeBuildInputs = [ 
+        unzip
+        autoPatchelfHook
     ];
-    license = lib.licenses.gpl3;
-    mainProgram = "helium";
-  };
+
+    autoPatchelfIgnoreMissingDeps = [
+        "libQt6Core.so.6"
+        "libQt6Gui.so.6"
+        "libQt6Widgets.so.6"
+    ];
+    
+    runtimeDependencies = [  ];
+    buildInputs = [
+        unzip
+        xorg.libxcb
+        xorg.libX11
+        xorg.libXcomposite
+        xorg.libXdamage
+        xorg.libXext
+        xorg.libXfixes
+        xorg.libXrandr
+        libgbm
+        cairo
+        pango
+        libudev-zero
+        libxkbcommon
+        nspr
+        nss
+        libcupsfilters
+        alsa-lib
+        atk
+        at-spi2-core
+        at-spi2-atk
+        qt5.qtbase
+        qt5.qttools
+        qt5.qtx11extras
+        qt5.wrapQtAppsHook
+    ];
+
+    installPhase = ''
+        runHook preInstall
+        mkdir -p $out/bin
+        mv * $out/bin/
+        mv $out/bin/chrome $out/bin/helium
+        mkdir -p $out/share/applications
+        
+        cat <<INI> $out/share/applications/helium.desktop
+[Desktop Entry]
+Name=Helium
+GenericName=Web Browser
+Terminal=false
+Icon=$out/bin/product_logo_256.png
+Exec=$out/bin/helium
+Type=Application
+Categories=Network;WebBrowser;
+INI
+    
+        '';
+
+
+    meta = with lib; {
+        homepage = "https://github.com/imputnet/helium-linux";
+        description = "Helium Browser";
+        platforms = platforms.linux;
+    };
 }

@@ -14,12 +14,7 @@
   environment.etc = {
     "1password/custom_allowed_browsers" = {
       text = ''
-        helium
-        chrome
-        chromium
-        helium-bin
-        chrome-bin
-        chromium-bin
+        .helium-wrapped
       '';
       mode = "0755";
 

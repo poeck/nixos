@@ -1,8 +1,9 @@
 { pkgs, ... }:
 {
   fonts.fontconfig.enable = true;
+
   home.packages = with pkgs; [
-    # Common fonts used by websites
+    # Common fonts
     corefonts
     vista-fonts
     # Symbols

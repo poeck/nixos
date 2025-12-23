@@ -30,7 +30,6 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'stevearc/oil.nvim'
 Plug 'olacin/telescope-cc.nvim'
 Plug 'supermaven-inc/supermaven-nvim'
-Plug 'luckasRanarison/tailwind-tools.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'windwp/nvim-ts-autotag'

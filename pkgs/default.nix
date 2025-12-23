@@ -4,5 +4,5 @@
   ...
 }:
 {
-  helium = pkgs.callPackage ./helium { inherit inputs; };
+  # helium = pkgs.callPackage ./helium { inherit inputs; };
 }

@@ -9,7 +9,7 @@
     # Auto suspend and lock
     "hypridle"
     # Waybar
-    "swaybar"
+    "waybar"
     # GUI & tray for wifi
     # Notification center
     "swaync"
@@ -27,5 +27,7 @@
     "wl-paste --watch cliphist store &"
     # Launcher
     "vicinae server --replace"
+    # Password manager
+    "1password --silent %U"
   ];
 }

@@ -103,6 +103,14 @@
       DISABLE_MAGIC_FUNCTIONS=true
       export "MICRO_TRUECOLOR=1"
 
+      # Disable mouse support in zsh to let tmux handle scrolling
+      # This prevents mouse scroll events from being interpreted as arrow keys
+      # When running inside tmux, ensure mouse events are handled by tmux, not zsh
+      if [[ -n "$TMUX" ]]; then
+        # Disable mouse reporting so tmux can handle all mouse events
+        printf '\e[?1000l\e[?1002l\e[?1003l\e[?1006l' > /dev/tty
+      fi
+
       setopt sharehistory
       setopt hist_ignore_space
       setopt hist_ignore_all_dups

@@ -102,5 +102,3 @@ require('nvim-ts-autotag').setup({
   },
 })
 require('mini.move').setup()
-
-require("tailwind-tools").setup({})
