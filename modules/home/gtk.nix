@@ -1,7 +1,5 @@
 { pkgs, ... }:
 {
-  fonts.fontconfig.enable = true;
-
   home.packages = with pkgs; [
     # Common fonts
     corefonts
@@ -15,6 +13,14 @@
     # UI font
     cantarell-fonts
   ];
+
+  fonts.fontconfig = {
+    enable = true;
+    defaultFonts = {
+      sansSerif = [ "Cantarell" ];
+      monospace = [ "JetBrainsMono Nerd Font Mono" ];
+    };
+  };
 
   gtk = {
     enable = true;

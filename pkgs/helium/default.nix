@@ -71,7 +71,20 @@ stdenv.mkDerivation rec {
     installPhase = ''
         runHook preInstall
         mkdir -p $out/bin
-        mv * $out/bin/
+        
+        # Move all files except conflicting binaries
+        for file in *; do
+            case "$file" in
+                xdg-*)
+                    # Skip xdg-utils binaries to avoid conflicts
+                    continue
+                    ;;
+                *)
+                    cp -r "$file" $out/bin/
+                    ;;
+            esac
+        done
+        
         mv $out/bin/chrome $out/bin/helium
         mkdir -p $out/share/applications
         

@@ -13,5 +13,7 @@
     discord
     # Cursor editor
     code-cursor
+    # Helium browser
+    helium
   ];
 }

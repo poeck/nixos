@@ -17,6 +17,5 @@
     ./keyd.nix
     ./password.nix
     ./printing.nix
-    ./browser.nix
   ];
 }
