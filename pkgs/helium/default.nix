@@ -94,7 +94,7 @@ Name=Helium
 GenericName=Web Browser
 Terminal=false
 Icon=$out/bin/product_logo_256.png
-Exec=$out/bin/helium
+Exec=$out/bin/helium %U
 Type=Application
 Categories=Network;WebBrowser;
 INI

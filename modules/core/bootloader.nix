@@ -52,7 +52,11 @@
       # Load AMD driver to show plymouth quicker (?)
       kernelModules = [ "amdgpu" ];
       # Experimental feature that makes initrd use
-      # systemd for PID 1to start plymouth earlier
+      # systemd for PID to start plymouth earlier
+      #
+      # This is required to
+      # 1. Enter the luks passphrase in plymouth instead of tty
+      # 2. Unlock the gnome keyring via the luks passphrase
       systemd.enable = true;
     };
 

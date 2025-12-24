@@ -12,6 +12,7 @@ let
     terminal = [ "alacritty.desktop" ];
     archive = [ "org.gnome.FileRoller.desktop" ];
     discord = [ "webcord.desktop" ];
+    browser = [ "helium.desktop" ];
   };
 
   mimeMap = {
@@ -68,6 +69,13 @@ let
       "application/*tar"
     ];
     discord = [ "x-scheme-handler/discord" ];
+    browser = [
+      "text/html"
+      "x-scheme-handler/http" 
+      "x-scheme-handler/https"
+      "x-scheme-handler/about"
+      "x-scheme-handler/unknown"
+    ];
   };
 
   associations =
@@ -85,9 +93,4 @@ in
   xdg.mimeApps.enable = true;
   xdg.mimeApps.associations.added = associations;
   xdg.mimeApps.defaultApplications = associations;
-
-  home.sessionVariables = {
-    # prevent wine from creating file associations
-    WINEDLLOVERRIDES = "winemenubuilder.exe=d";
-  };
 }

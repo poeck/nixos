@@ -1,12 +1,14 @@
 { config, ... }:
 {
-  # Symlink amd and nvidia gpus
   services.udev.extraRules = ''
-    # Rule for AMD Card (Vendor ID 0x1002)
+    # Symlink the AMD Card (Vendor ID 0x1002)
     SUBSYSTEM=="drm", KERNEL=="card*", ATTRS{vendor}=="0x1002", SYMLINK+="dri/amd-gpu"
 
-    # Rule for Nvidia Card (Vendor ID 0x10de)
+    # Symlink the Nvidia Card (Vendor ID 0x10de)
     SUBSYSTEM=="drm", KERNEL=="card*", ATTRS{vendor}=="0x10de", SYMLINK+="dri/nvidia-gpu"
+
+    # Prevent small docking station from waking up during suspend
+    ACTION=="add" SUBSYSTEM=="pci" ATTR{vendor}=="0x1987" ATTR{device}=="0x5013" ATTR{power/wakeup}="disabled"
   '';
 
   hardware = {
