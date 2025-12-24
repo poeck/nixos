@@ -14,8 +14,6 @@
     # Notification center
     "swaync"
     "nm-applet"
-    # Battery notifications
-    "poweralertd"
     # Wallpaper
     "swaybg -i ${ ../../../wallpaper.jpg }"
     # Auto mount external drives

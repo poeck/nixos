@@ -10,7 +10,6 @@
     openssl
     pamixer
     playerctl
-    poweralertd
     udiskie
     unzip
     wget

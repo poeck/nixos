@@ -1,6 +1,6 @@
 { pkgs, inputs, ... }:
 {
-  imports = [ inputs.minegrub.nixosModules.default ];
+  imports = [ inputs.minegrub.nixosModules.default inputs.mineplymouth.nixosModules.default ];
 
   boot = {
     loader = {
@@ -25,6 +25,35 @@
       timeout = 30;
       # Allow writing boot entries
       efi.canTouchEfiVariables = true;
+    };
+
+    # Show GUI while booting
+    plymouth = {
+      enable = true;
+      theme = "mc";
+      extraConfig = "ShowDelay=0";
+      themePackages = [
+        inputs.mineplymouth.packages.${pkgs.system}.default
+      ];
+    };
+
+    kernelParams = [ 
+      # Don't show any logs at boot
+      "quiet"
+      # Only show errors
+      "loglevel=3"
+    ];
+
+    # Supress kernel logs at boot
+    consoleLogLevel = 0;
+
+    initrd = {
+      verbose = false;
+      # Load AMD driver to show plymouth quicker (?)
+      kernelModules = [ "amdgpu" ];
+      # Experimental feature that makes initrd use
+      # systemd for PID 1to start plymouth earlier
+      systemd.enable = true;
     };
 
     # Use the latest kernel

@@ -7,6 +7,7 @@
 
     vicinae.url = "github:vicinaehq/vicinae";
     minegrub.url = "github:Lxtharia/minegrub-theme";
+    mineplymouth.url = "github:nikp123/minecraft-plymouth-theme";
 
     home-manager = {
       url = "github:nix-community/home-manager";

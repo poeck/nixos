@@ -1,5 +1,8 @@
 { username, ... }:
 {
+  # Fix keyboard layout in tty
+  console.useXkbConfig = true;
+
   services = {
     xserver = {
       enable = true;
