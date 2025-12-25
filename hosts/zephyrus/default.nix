@@ -12,7 +12,15 @@
     brightnessctl
   ];
 
+  powerManagement.enable = true;
+
+  # Automatically tune
   powerManagement.powertop.enable = true;
+
+  # Hibernate after 30m of sleep
+  systemd.sleep.extraConfig = ''
+    HibernateDelaySec=30m
+  '';
 
   services = {
     power-profiles-daemon.enable = false; # Disable gnome's power profile daemon
@@ -43,8 +51,8 @@
         PLATFORM_PROFILE_ON_AC = "performance";
         PLATFORM_PROFILE_ON_BAT = "balanced";
         # Start charging at 80% and stop at 90%
-        START_CHARGE_THRESH_BAT0 = 80;
-        STOP_CHARGE_THRESH_BAT0 = 90;
+        START_CHARGE_THRESH_BAT1 = 80;
+        STOP_CHARGE_THRESH_BAT1 = 90;
       };
     };
   };

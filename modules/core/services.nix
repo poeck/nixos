@@ -21,9 +21,14 @@
       ];
     };
 
-    logind.settings.Login = {
-      # Don’t shutdown when power button is short-pressed
-      HandlePowerKey = "ignore";
+    logind = {
+      settings = {
+        Login = {
+          HandleLidSwitch = "suspend-then-hibernate";
+          HandlePowerKey = "poweroff";
+          HandlePowerKeyLongPress = "poweroff";
+        };
+      };
     };
 
     # Linux essential for managing storage devices
