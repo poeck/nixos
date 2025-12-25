@@ -17,5 +17,6 @@
     ./keyd.nix
     ./password.nix
     ./printing.nix
+    ./stylix.nix
   ];
 }

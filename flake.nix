@@ -2,7 +2,6 @@
   description = "FrostPhoenix's nixos configuration";
 
   inputs = {
-    # Nix
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
     home-manager = {
@@ -10,8 +9,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Third party
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     vicinae.url = "github:vicinaehq/vicinae";
+    nixvim.url  = "github:nix-community/nixvim";
     minegrub.url = "github:Lxtharia/minegrub-theme";
     mineplymouth.url = "github:nikp123/minecraft-plymouth-theme";
     hyprdynamicmonitors.url = "github:fiffeek/hyprdynamicmonitors";
@@ -27,7 +31,9 @@
       nixosConfigurations = {
         zephyrus = nixpkgs.lib.nixosSystem {
           inherit system;
-          modules = [ ./hosts/zephyrus ];
+          modules = [
+            ./hosts/zephyrus
+          ];
           specialArgs = {
             host = "zephyrus";
             inherit self inputs username;

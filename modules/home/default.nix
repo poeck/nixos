@@ -20,8 +20,8 @@
     ./vicinae.nix # launcher
     ./waybar # status bar
     ./xdg.nix # xdg config
+    ./alacritty.nix # terminal
     ./zsh # shell
-    ./alacritty # terminal
     ./tmux # terminal splits
   ];
 }
