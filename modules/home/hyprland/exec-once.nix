@@ -26,6 +26,8 @@
     # Launcher
     "vicinae server --replace"
     # Password manager
-    "1password --silent %U"
+    "1password --silent"
+    # Best backup tool
+    "blinkdisk --hidden"
   ];
 }

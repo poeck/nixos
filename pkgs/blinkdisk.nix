@@ -1,40 +1,45 @@
-{
-  stdenv,
-  lib,
-  appimageTools,
-  fetchurl,
-  makeDesktopItem,
-  copyDesktopItems,
-}:
+{ pkgs, ... }:
+
 let
   pname = "blinkdisk";
-  version = "v0.6.1";
+  version = "0.6.1";
 
-  architectures = {
-    "x86_64-linux" = {
-      arch = "x86_64";
-      hash = "sha256-OZoGYmVcFcDRHHzUsO9TYKp622LBL7cqDrthjwf4SuA=";
-    };
+  src = pkgs.fetchurl {
+    url = "https://github.com/blinkdisk/blinkdisk/releases/download/v${version}/BlinkDisk-Linux-x86_64.AppImage";
+    hash = "sha256-OZoGYmVcFcDRHHzUsO9TYKp622LBL7cqDrthjwf4SuA=";
   };
 
-  src =
-    let
-      inherit (architectures.${stdenv.hostPlatform.system}) arch hash;
-    in
-    fetchurl {
-      url = "https://github.com/blinkdisk/blinkdisk/releases/download/${version}/BlinkDisk-Linux-${arch}.AppImage";
-      inherit hash;
-    };
+  appimageContents = pkgs.appimageTools.extract {
+    inherit pname version src;
+  };
 in
-appimageTools.wrapType2 {
+pkgs.appimageTools.wrapType2 {
   inherit pname version src;
-  nativeBuildInputs = [ copyDesktopItems ];
-  desktopItems = [
-    (makeDesktopItem {
 
+  pkgs = pkgs;
+
+  extraInstallCommands = ''
+    install -m 444 -D ${appimageContents}/${pname}.desktop \
+      -t $out/share/applications
+
+    substituteInPlace $out/share/applications/${pname}.desktop \
+      --replace 'Exec=AppRun' 'Exec=${pname}'
+
+    source "${pkgs.makeWrapper}/nix-support/setup-hook"
+    wrapProgram $out/bin/${pname} \
+      --add-flags "--enable-features=UseOzonePlatform" \
+      --add-flags "--ozone-platform=wayland"
+
+    cp -r ${appimageContents}/usr/share/icons $out/share
+  '';
+
+  extraPkgs = pkgs: with pkgs; [
+    unzip
+    autoPatchelfHook
+    asar
+
+    (buildPackages.wrapGAppsHook3.override {
+      inherit (buildPackages) makeWrapper;
     })
   ];
-  meta = {
-    platforms = lib.attrNames architectures;
-  };
 }
