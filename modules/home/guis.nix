@@ -18,11 +18,4 @@
     # Best backup app
     blinkdisk
   ];
-
-  home.file = {
-    ".config/electron-flags.conf" = {
-      # Force electron apps to use wayland
-      text = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
-    };
-  };
 }

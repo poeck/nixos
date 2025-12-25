@@ -2,43 +2,13 @@
 {
   programs.neovim = {
     enable = true;
-    extraConfig = ''
-      source $HOME/.config/nvim/plugins.vim
-      source $HOME/.config/nvim/options.vim
-      source $HOME/.config/nvim/mappings.vim
-      source $HOME/.config/nvim/vars.vim
-      source $HOME/.config/nvim/functions.vim
-      source $HOME/.config/nvim/other.vim
-    '';
+    viAlias = true;
+    vimAlias = true;
   };
 
   home.file = {
-    ".config/nvim/plugins.vim" = {
-      source = config.lib.file.mkOutOfStoreSymlink ./config/plugins.vim;
-    };
-    ".config/nvim/options.vim" = {
-      source = config.lib.file.mkOutOfStoreSymlink ./config/options.vim;
-    };
-    ".config/nvim/mappings.vim" = {
-      source = config.lib.file.mkOutOfStoreSymlink ./config/mappings.vim;
-    };
-    ".config/nvim/vars.vim" = {
-      source = config.lib.file.mkOutOfStoreSymlink ./config/vars.vim;
-    };
-    ".config/nvim/functions.vim" = {
-      source = config.lib.file.mkOutOfStoreSymlink ./config/functions.vim;
-    };
-    ".config/nvim/other.vim" = {
-      source = config.lib.file.mkOutOfStoreSymlink ./config/other.vim;
-    };
-    ".config/nvim/vscode.vim" = {
-      source = config.lib.file.mkOutOfStoreSymlink ./config/vscode.vim;
-    };
-    ".config/nvim/coc-settings.json" = {
-      source = config.lib.file.mkOutOfStoreSymlink ./config/coc-settings.json;
-    };
-    ".config/nvim/lua" = {
-      source = config.lib.file.mkOutOfStoreSymlink ./config/lua;
+    ".config/nvim" = {
+      source = config.lib.file.mkOutOfStoreSymlink ./config;
     };
   };
 

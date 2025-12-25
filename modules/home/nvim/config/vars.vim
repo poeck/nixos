@@ -11,6 +11,9 @@ let g:user_emmet_expandabbr_key='<S-F4>'
 
 let g:system_copy_silent = 1
 
+" let g:gruvbox_material_background='soft'
+" let g:gruvbox_material_foreground='mix'
+
 let g:user_emmet_settings = {
     \    'html' : {
     \        'indentation' : '  '

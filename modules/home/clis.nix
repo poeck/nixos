@@ -18,6 +18,5 @@
     btop
     fastfetch
     nodejs_24
-    pnpm
   ];
 }

@@ -26,6 +26,8 @@
       gaps_in = 7;
       gaps_out = 7;
       border_size = 2;
+      "col.active_border" = "rgba(ffffffaa) rgba(ffffffaa) 45deg";
+      "col.inactive_border" = "rgba(595959aa)";
       no_border_on_floating = false;
       resize_on_border = false;
     };
@@ -76,6 +78,7 @@
         offset = "0 2";
         range = 20;
         render_power = 3;
+        color = "rgba(00000055)";
       };
     };
 

@@ -3,6 +3,7 @@
 "------------------
 
 filetype plugin indent on
+colorscheme gruvbox-material
 
 au BufNewFile,BufRead *.ejs set filetype=html
 
