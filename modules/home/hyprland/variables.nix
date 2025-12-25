@@ -25,6 +25,8 @@
     CLUTTER_BACKEND = "wayland";
     GTK_THEME = "Adwaita:dark";
     GRIMBLAST_HIDE_CURSOR = 0;
+    # Fixes issues with wrangler
+    SSL_CERT_FILE="/etc/ssl/certs/ca-certificates.crt";
   };
 
   wayland.windowManager.hyprland= {

@@ -33,7 +33,7 @@
       theme = "mc";
       extraConfig = "ShowDelay=0";
       themePackages = [
-        inputs.mineplymouth.packages.${pkgs.system}.default
+        inputs.mineplymouth.packages.${pkgs.stdenv.hostPlatform.system}.default
       ];
     };
 

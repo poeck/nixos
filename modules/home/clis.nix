@@ -13,10 +13,13 @@
     udiskie
     unzip
     wget
+    gnumake 
     wl-clipboard 
     xdg-utils
     btop
     fastfetch
     nodejs_24
+    pnpm
+    go
   ];
 }

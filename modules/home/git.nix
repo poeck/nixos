@@ -13,9 +13,8 @@
       merge.conflictstyle = "diff3";
       diff.colorMoved = "default";
       color.ui = true;
-    };
 
-    extraConfig = {
+      # GPG signing section
       gpg = {
         format = "ssh";
       };

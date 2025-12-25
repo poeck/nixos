@@ -19,7 +19,7 @@
     swaybg
   ] ++ [
     # Advanced monitor management
-    inputs.hyprdynamicmonitors.packages.${pkgs.system}.default
+    inputs.hyprdynamicmonitors.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
   
   wayland.windowManager.hyprland = {

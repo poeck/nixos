@@ -17,5 +17,7 @@
     ./keyd.nix
     ./password.nix
     ./printing.nix
+    ./podman.nix
+    ./ld.nix
   ];
 }

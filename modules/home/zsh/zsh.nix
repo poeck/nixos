@@ -103,6 +103,11 @@
       DISABLE_MAGIC_FUNCTIONS=true
       export "MICRO_TRUECOLOR=1"
 
+      # Bind Ctrl + Left Arrow to move back one word
+      bindkey "^[[1;5D" backward-word
+      # Bind Ctrl + Right Arrow to move forward one word
+      bindkey "^[[1;5G" forward-word
+
       # Disable mouse support in zsh to let tmux handle scrolling
       # This prevents mouse scroll events from being interpreted as arrow keys
       # When running inside tmux, ensure mouse events are handled by tmux, not zsh
