@@ -2,17 +2,19 @@
   description = "FrostPhoenix's nixos configuration";
 
   inputs = {
+    # Nix
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
-
-    vicinae.url = "github:vicinaehq/vicinae";
-    minegrub.url = "github:Lxtharia/minegrub-theme";
-    mineplymouth.url = "github:nikp123/minecraft-plymouth-theme";
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Third party
+    vicinae.url = "github:vicinaehq/vicinae";
+    minegrub.url = "github:Lxtharia/minegrub-theme";
+    mineplymouth.url = "github:nikp123/minecraft-plymouth-theme";
+    hyprdynamicmonitors.url = "github:fiffeek/hyprdynamicmonitors";
   };
 
   outputs =

@@ -15,5 +15,7 @@
     code-cursor
     # Helium browser
     helium
+    # Best backup app
+    blinkdisk
   ];
 }

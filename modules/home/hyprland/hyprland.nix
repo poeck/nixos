@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   home.packages = with pkgs; [
     # Wayland itself
@@ -17,6 +17,9 @@
     glib
     # Wallpaper
     swaybg
+  ] ++ [
+    # Advanced monitor management
+    inputs.hyprdynamicmonitors.packages.${pkgs.system}.default
   ];
   
   wayland.windowManager.hyprland = {

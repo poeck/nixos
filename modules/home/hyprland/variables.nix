@@ -35,6 +35,9 @@
       env = ELECTRON_OZONE_PLATFORM_HINT,auto
       # Fix for programs like steam 
       env = QT_QPA_PLATFORM,wayland
+
+      # Load monitors from hyprdynamicmonitors
+      source = ~/.config/hypr/monitors.conf
     '';
   };
 }

@@ -1,0 +1,14 @@
+[profiles.default]
+config_file = "./profiles/default.go.tmpl"
+config_file_type = "template"
+
+[profiles.default.conditions]
+
+[[profiles.default.conditions.required_monitors]]
+name = "eDP-1"
+description = "Sharp Corporation LQ160R1JW02"
+monitor_tag = "internal"
+
+[fallback_profile]
+config_file = "./profiles/fallback.conf"
+config_file_type = "static"

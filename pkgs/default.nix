@@ -4,5 +4,6 @@
   ...
 }:
 {
-  helium = pkgs.callPackage ./helium { };
+  blinkdisk = pkgs.callPackage ./blinkdisk.nix { };
+  helium = pkgs.callPackage ./helium.nix { };
 }
