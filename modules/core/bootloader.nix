@@ -42,6 +42,8 @@
       "quiet"
       # Only show errors
       "loglevel=3"
+      # Allow plymouth to use simpledrm
+      "plymouth.use-simpledrm"
     ];
 
     # Supress kernel logs at boot
@@ -49,8 +51,6 @@
 
     initrd = {
       verbose = false;
-      # Load AMD driver to show plymouth quicker (?)
-      kernelModules = [ "amdgpu" ];
       # Experimental feature that makes initrd use
       # systemd for PID to start plymouth earlier
       #
