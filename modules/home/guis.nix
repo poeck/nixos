@@ -15,6 +15,8 @@
     code-cursor
     # Best backup app
     blinkdisk
+    # Email client
+    geary
   ];
 
   home.file = {
