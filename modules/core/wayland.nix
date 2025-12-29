@@ -19,4 +19,14 @@
       xdg-desktop-portal-hyprland
     ];
   };
+
+  fonts.fontconfig = {
+    enable = true;
+    antialias = true;
+    cache32Bit = true;
+    hinting = {
+      enable = true;
+      autohint = true;
+    };
+  };
 }

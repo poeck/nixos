@@ -9,18 +9,4 @@
     enable = true;
     polkitPolicyOwners = [ "${username}" ];
   };
-
-  # Allow helium browser to connect
-  environment.etc = {
-    "1password/custom_allowed_browsers" = {
-      text = ''
-        .helium-wrapped
-      '';
-      mode = "0755";
-
-      # Equivalent to chown 0:0 (root:root)
-      user = "root";
-      group = "root";
-    };
-  };
 }

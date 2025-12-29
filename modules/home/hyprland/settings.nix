@@ -5,7 +5,7 @@
       kb_layout = "de";
       numlock_by_default = true;
       repeat_delay = 300;
-      follow_mouse = 3;
+      follow_mouse = 2;
       accel_profile = "flat";
       sensitivity = -0.2;
       touchpad = {

@@ -12,16 +12,17 @@
     ./git.nix # version control
     ./gnome.nix # gnome apps
     ./gtk.nix # gtk theme
-    ./hyprland # window manager
     ./nemo.nix # file manager
-    ./nvim # neovim editor
     ./ssh.nix # ssh config
     ./notifications # notification center
     ./vicinae.nix # launcher
-    ./waybar # status bar
     ./xdg.nix # xdg config
+    ./hyprland # window manager
+    ./waybar # status bar
+    ./nvim # neovim editor
     ./zsh # shell
     ./alacritty # terminal
     ./tmux # terminal splits
+    ./chromium.nix # chromium
   ];
 }
