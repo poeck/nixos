@@ -13,8 +13,8 @@
     udiskie
     unzip
     wget
-    gnumake 
-    wl-clipboard 
+    gnumake
+    wl-clipboard
     xdg-utils
     btop
     fastfetch

@@ -60,18 +60,13 @@
   boot = {
     # Required by tlp (?)
     kernelModules = [ "acpi_call" ];
-    extraModulePackages =
-      with config.boot.kernelPackages;
-      [
-        # Required by tlp (?)
-        acpi_call
-      ];
+    extraModulePackages = with config.boot.kernelPackages; [
+      # Required by tlp (?)
+      acpi_call
+    ];
   };
 
-
   services = {
-    supergfxd.enable = true;
-
     asusd = {
       enable = true;
       enableUserService = true;

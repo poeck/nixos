@@ -4,7 +4,7 @@
     window#waybar {
       background: transparent;
     }
-    
+
     * {
       color: white;
       border-radius: 10px;
@@ -13,7 +13,7 @@
       font-family: "Agave Nerd Font";
       font-size: 16px;
     }
-    
+
     #clock,
     #battery,
     #cpu,
@@ -29,7 +29,7 @@
       background: rgba(0, 0, 0, 0.15);
       transition: all 300ms cubic-bezier(0.38, 1.21, 0.22, 1);
     }
-    
+
     #clock:hover,
     #battery:hover,
     #cpu:hover,
@@ -42,27 +42,27 @@
       border: 1px rgba(255, 255, 255, 0.7) solid;
       border-radius: 20px;
     }
-    
+
     #custom-shutdown:hover {
       border: 1px rgba(255, 255, 255, 0.5) solid;
       color: #d80000;
     }
-    
+
     #battery.critical,
     #memory.critical,
     #cpu.critical {
       color: #d80000;
     }
-    
+
     #battery.warning {
       color: orange;
     }
-    
+
     #tray menu {
       background: rgba(0, 0, 0, 0.8);
       padding: 10px;
     }
-    
+
     #tray menu menuitem {
       padding: 3px;
     }

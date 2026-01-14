@@ -26,20 +26,29 @@
     GTK_THEME = "Adwaita:dark";
     GRIMBLAST_HIDE_CURSOR = 0;
     # Fixes issues with wrangler
-    SSL_CERT_FILE="/etc/ssl/certs/ca-certificates.crt";
+    SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt";
+    LD_LIBRARY_PATH = "/run/opengl-driver/lib";
   };
 
-  wayland.windowManager.hyprland= {
+  wayland.windowManager.hyprland = {
     extraConfig = ''
-      # Run hyprland on the amd gpu 
+      # Run hyprland on the amd gpu
       env = AQ_DRM_DEVICES, /dev/dri/amd-gpu
       # Fix for electron apps
       env = ELECTRON_OZONE_PLATFORM_HINT,auto
-      # Fix for programs like steam 
+      # Fix for programs like steam
       env = QT_QPA_PLATFORM,wayland
 
       # Load monitors from hyprdynamicmonitors
       source = ~/.config/hypr/monitors.conf
+
+      plugin {
+          csgo-vulkan-fix {
+              fix_mouse = true
+
+              vkfix-app = cs2, 1920, 1200
+          }
+      }
     '';
   };
 }

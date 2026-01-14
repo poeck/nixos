@@ -7,7 +7,7 @@
     ./xserver.nix
     ./network.nix
     ./nh.nix
-    ./pipewire.nix
+    ./audio.nix
     ./program.nix
     ./security.nix
     ./services.nix
@@ -19,5 +19,7 @@
     ./printing.nix
     ./podman.nix
     ./ld.nix
+    ./steam.nix
+    ./appimage.nix
   ];
 }

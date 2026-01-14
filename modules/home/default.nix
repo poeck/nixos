@@ -5,8 +5,8 @@
     ./scripts/scripts.nix
 
     # Groups
-    ./clis.nix # clis 
-    ./guis.nix # clis 
+    ./clis.nix # clis
+    ./guis.nix # clis
 
     ./fzf.nix # fuzzy finder
     ./git.nix # version control
@@ -24,5 +24,6 @@
     ./alacritty # terminal
     ./tmux # terminal splits
     ./chromium.nix # chromium
+    ./zed.nix # text editor
   ];
 }

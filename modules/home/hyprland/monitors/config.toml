@@ -5,7 +5,6 @@ config_file_type = "template"
 [profiles.default.conditions]
 
 [[profiles.default.conditions.required_monitors]]
-name = "eDP-1"
 description = "Sharp Corporation LQ160R1JW02"
 monitor_tag = "internal"
 

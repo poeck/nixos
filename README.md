@@ -19,13 +19,20 @@ swapDevices = [
 ];
 ```
 
-3. Copy the hardware configuration to `/etc/nixos/hardware-configuration.nix`
+3. Increae luks password tries
+
+```nix
+# Replace "your-luks-id" with the id of your luks device
+boot.initrd.luks.devices."your-luks-id".crypttabExtraOpts = [ "tries=10" ];
+```
+
+4. Copy the hardware configuration to `/etc/nixos/hardware-configuration.nix`
 
 ```bash
 cp /etc/nixos/hardware-configuration.nix ./hosts/zephyrus/
 ```
 
-4. Switch to the new configuration
+5. Switch to the new configuration
 
 ```bash
 sudo nixos-rebuild boot --flake .#zephyrus

@@ -2,11 +2,11 @@
 
 let
   pname = "blinkdisk";
-  version = "0.6.1";
+  version = "1.0.0";
 
   src = pkgs.fetchurl {
     url = "https://github.com/blinkdisk/blinkdisk/releases/download/v${version}/BlinkDisk-Linux-x86_64.AppImage";
-    hash = "sha256-OZoGYmVcFcDRHHzUsO9TYKp622LBL7cqDrthjwf4SuA=";
+    hash = "sha256-DlvAD9B2YKys6OmlsG3aTPlk70qwOvE9dYfAuFFb86w=";
   };
 
   appimageContents = pkgs.appimageTools.extract {
@@ -33,13 +33,14 @@ pkgs.appimageTools.wrapType2 {
     cp -r ${appimageContents}/usr/share/icons $out/share
   '';
 
-  extraPkgs = pkgs: with pkgs; [
-    unzip
-    autoPatchelfHook
-    asar
+  extraPkgs =
+    pkgs: with pkgs; [
+      unzip
+      autoPatchelfHook
+      asar
 
-    (buildPackages.wrapGAppsHook3.override {
-      inherit (buildPackages) makeWrapper;
-    })
-  ];
+      (buildPackages.wrapGAppsHook3.override {
+        inherit (buildPackages) makeWrapper;
+      })
+    ];
 }

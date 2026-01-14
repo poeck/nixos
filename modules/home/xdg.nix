@@ -71,7 +71,7 @@ let
     discord = [ "x-scheme-handler/discord" ];
     browser = [
       "text/html"
-      "x-scheme-handler/http" 
+      "x-scheme-handler/http"
       "x-scheme-handler/https"
       "x-scheme-handler/about"
       "x-scheme-handler/unknown"
@@ -81,11 +81,7 @@ let
   associations =
     with lists;
     listToAttrs (
-      flatten (
-        mapAttrsToList (
-          key: map (type: attrsets.nameValuePair type defaultApps."${key}")
-        ) mimeMap
-      )
+      flatten (mapAttrsToList (key: map (type: attrsets.nameValuePair type defaultApps."${key}")) mimeMap)
     );
 in
 {

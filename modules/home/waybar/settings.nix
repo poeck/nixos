@@ -1,4 +1,4 @@
-{ host, ... }:
+{ ... }:
 {
   programs.waybar.settings.mainBar = {
     layer = "top";
@@ -9,7 +9,10 @@
     margin-bottom = 0;
     margin-left = 8;
 
-    modules-left = [ "tray" "mpris" ];
+    modules-left = [
+      "tray"
+      "mpris"
+    ];
     modules-center = [ "clock" ];
     modules-right = [
       "cpu_text"
@@ -85,7 +88,10 @@
       status-icons = {
         paused = "⏸";
       };
-      dynamic-order = [ "title" "artist" ];
+      dynamic-order = [
+        "title"
+        "artist"
+      ];
       dynamic-len = 30;
     };
   };

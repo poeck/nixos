@@ -1,6 +1,9 @@
 { pkgs, inputs, ... }:
 {
-  imports = [ inputs.minegrub.nixosModules.default inputs.mineplymouth.nixosModules.default ];
+  imports = [
+    inputs.minegrub.nixosModules.default
+    inputs.mineplymouth.nixosModules.default
+  ];
 
   boot = {
     loader = {
@@ -37,7 +40,7 @@
       ];
     };
 
-    kernelParams = [ 
+    kernelParams = [
       # Don't show any logs at boot
       "quiet"
       # Only show errors

@@ -1,4 +1,4 @@
-{ host, ... }:
+{ ... }:
 {
   services.hypridle = {
     enable = true;
@@ -17,7 +17,7 @@
         }
         {
           timeout = 360;
-          on-timeout= "hyprctl dispatch dpms off";
+          on-timeout = "hyprctl dispatch dpms off";
           on-resume = "hyprctl dispatch dpms on";
         }
         {

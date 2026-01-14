@@ -3,7 +3,7 @@
   wayland.windowManager.hyprland.settings.exec-once = [
     # Fix for https://wiki.hypr.land/FAQ/#some-of-my-apps-take-a-really-long-time-to-open
     "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-    # Allows programs to request elevated privileges 
+    # Allows programs to request elevated privileges
     "systemctl --user start hyprpolkitagent"
 
     # Auto suspend and lock
@@ -15,7 +15,7 @@
     "swaync"
     "nm-applet"
     # Wallpaper
-    "swaybg -i ${ ../../../wallpaper.jpg }"
+    "swaybg -i ${../../../wallpaper.jpg}"
     # Auto mount external drives
     "udiskie --automount --notify --smart-tray &"
     # Cursor

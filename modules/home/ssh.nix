@@ -5,7 +5,7 @@
     enableDefaultConfig = false;
     matchBlocks = {
       "*" = {
-        identityAgent = "~/.1password/agent.sock"; 
+        identityAgent = "~/.1password/agent.sock";
       };
     };
   };

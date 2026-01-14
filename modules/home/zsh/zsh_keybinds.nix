@@ -1,7 +1,6 @@
 { ... }:
 {
   programs.zsh = {
-    initContent = ''
-    '';
+    initContent = '''';
   };
 }
