@@ -7,6 +7,9 @@
     networkmanager = {
       enable = true;
       dns = "none";
+      plugins = with pkgs; [
+        networkmanager-openvpn
+      ];
     };
     nameservers = [
       # Cloudflare
@@ -19,6 +22,10 @@
     # These options are unnecessary when managing DNS ourselves
     useDHCP = false;
     dhcpcd.enable = false;
+    extraHosts =
+    ''
+      10.20.50.4 otark-db.mysql.database.azure.com
+    '';
   };
 
   # GUI & tray for wifi

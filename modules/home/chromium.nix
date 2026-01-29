@@ -9,7 +9,6 @@
         "--ignore-gpu-blocklist"
         "--enable-zero-copy"
         "--enable-features=TouchpadOverscrollHistoryNavigation"
-        "--enable-speech-dispatcher"
       ];
     };
     extensions =

@@ -16,7 +16,7 @@
             rightalt = "layer(rightalt)";
 
             # Remap <> button to escape
-            "102nd" = "esc";
+            "102nd" = "S-f1";
 
             # Unmapped / special
             "`" = "S-f12";

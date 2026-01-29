@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   home.packages = with pkgs; [
     ripgrep
@@ -21,5 +21,6 @@
     nodejs_24
     pnpm
     go
+    opencode
   ];
 }

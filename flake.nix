@@ -10,6 +10,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Third party
     vicinae.url = "github:vicinaehq/vicinae";
     minegrub.url = "github:Lxtharia/minegrub-theme";
