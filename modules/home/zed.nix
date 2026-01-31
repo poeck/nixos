@@ -55,30 +55,12 @@
       languages = {
         "TSX" = {
           formatter = [
-            {
-              external = {
-                command = "prettier";
-                arguments = [
-                  "--stdin-filepath"
-                  "{buffer_path}"
-                ];
-              };
-            }
             { code_action = "source.fixAll.eslint"; }
             { code_action = "source.organizeImports"; }
           ];
         };
         "JavaScript" = {
           formatter = [
-            {
-              external = {
-                command = "prettier";
-                arguments = [
-                  "--stdin-filepath"
-                  "{buffer_path}"
-                ];
-              };
-            }
             { code_action = "source.fixAll.eslint"; }
             { code_action = "source.organizeImports"; }
           ];
