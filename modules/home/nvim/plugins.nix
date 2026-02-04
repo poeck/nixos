@@ -52,9 +52,9 @@
         enable = true;
         settings = {
           keymaps = {
-            accept_suggestion = "<C-j>";
-            clear_suggestion = "<C-]>";
-            accept_word = "<C-]>";
+            accept_suggestion = "<S-F12>";
+            clear_suggestion = "<C-S-F12>";
+            accept_word = "<A-S-F12>";
           };
           log_level = "off";
         };

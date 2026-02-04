@@ -22,5 +22,6 @@
     pnpm
     go
     opencode
+    claude-code
   ];
 }

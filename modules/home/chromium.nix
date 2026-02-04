@@ -49,8 +49,8 @@
         (createChromiumExtension {
           # AuthFill
           id = "doanledhbgobnfeicgdchpilkjkbjddg";
-          sha256 = "sha256:0ssb6ksvqng3px5rgma718v0zwnjb5xgckxvamdzp5kd34g3x9sk";
-          version = "1.0.0";
+          sha256 = "sha256:0p10p42k28rq53qrhqlsd1ysghzpzkpg1bfd7gh2jabiavvyiv4g";
+          version = "1.1.0";
         })
       ];
   };

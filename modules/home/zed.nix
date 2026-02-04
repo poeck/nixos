@@ -15,6 +15,7 @@
       "emmet"
       "prisma"
       "wakatime"
+      "astro"
     ];
     userSettings = {
       vim_mode = true;

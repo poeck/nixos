@@ -3,47 +3,54 @@
   wayland.windowManager.hyprland.settings = {
     windowrule = [
       # Make file dialogs float
-      "float,class:^(file_progress)$"
-      "float,class:^(confirm)$"
-      "float,class:^(dialog)$"
-      "float,class:^(download)$"
-      "float,class:^(notification)$"
-      "float,class:^(error)$"
-      "float,class:^(confirmreset)$"
-      "float,title:^(Open File)$"
-      "float,title:^(File Upload)$"
-      "float,title:^(branchdialog)$"
-      "float,title:^(Confirm to replace files)$"
-      "float,title:^(File Operation Progress)$"
+      "float on, match:class ^(file_progress)$"
+      "float on, match:class ^(confirm)$"
+      "float on, match:class ^(dialog)$"
+      "float on, match:class ^(download)$"
+      "float on, match:class ^(notification)$"
+      "float on, match:class ^(error)$"
+      "float on, match:class ^(confirmreset)$"
+      "float on, match:title ^(Open File)$"
+      "float on, match:title ^(File Upload)$"
+      "float on, match:title ^(branchdialog)$"
+      "float on, match:title ^(Confirm to replace files)$"
+      "float on, match:title ^(File Operation Progress)$"
 
       # Screenshare picker
-      "opacity 0.0 override,class:^(xwaylandvideobridge)$"
-      "noanim,class:^(xwaylandvideobridge)$"
-      "noinitialfocus,class:^(xwaylandvideobridge)$"
-      "maxsize 1 1,class:^(xwaylandvideobridge)$"
-      "noblur,class:^(xwaylandvideobridge)$"
+      "opacity 0.0 override, match:class ^(xwaylandvideobridge)$"
+      "no_anim on, match:class ^(xwaylandvideobridge)$"
+      "no_initial_focus on, match:class ^(xwaylandvideobridge)$"
+      "max_size 1 1, match:class ^(xwaylandvideobridge)$"
+      "no_blur on, match:class ^(xwaylandvideobridge)$"
 
       # Remove context menu transparency in chromium based apps
-      "opaque,class:^()$,title:^()$"
-      "noshadow,class:^()$,title:^()$"
-      "noblur,class:^()$,title:^()$"
+      "opaque on, no_shadow on, no_blur on, match:class ^()$, match:title ^()$"
+
+      # Custom window rules
+      # Gather
+      "workspace special:gather, match:class (Gather)"
+      # YouTube Music
+      "workspace special:music, match:initial_title (YouTube Music)"
+
+      "workspace 9 silent, match:class ^(cs2)$"
+      "immediate on, match:class ^(cs2)$"
+      "fullscreen on, match:class ^(cs2)$"
+
+      "border_size 0, match:float 0, match:workspace f[1]"
+      "rounding 0, match:float 0, match:workspace f[1]"
     ];
 
     layerrule = [
       # Vicinae launcher
-      "blur,vicinae"
-      "ignorealpha 0, vicinae"
-      "noanim, vicinae"
-      "dimaround, vicinae"
+      "blur on, ignore_alpha 0, no_anim on, dim_around on, match:namespace vicinae"
 
       # Add dim to notification center
-      "dimaround, swaync-control-center"
+      "dim_around on, match:namespace swaync-control-center"
     ];
 
     workspace = [
       # Disable gaps in fullscreen
-      "f[0],rounding:false,bordersize:0,gapsout:0"
-      "f[1],rounding:false,bordersize:0,gapsout:0"
+      "f[1], gapsout:0, gapsin:0"
     ];
   };
 }
