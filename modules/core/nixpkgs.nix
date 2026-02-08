@@ -11,6 +11,7 @@
         })
       )
       inputs.nur.overlays.default
+      inputs.claude-code.overlays.default
     ];
   };
 }

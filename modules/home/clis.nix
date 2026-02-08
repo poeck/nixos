@@ -23,5 +23,6 @@
     go
     opencode
     claude-code
+    wtp
   ];
 }

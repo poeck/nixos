@@ -205,8 +205,6 @@
       emmet.enable = true;
 
       system-copy.enable = true;
-
-      markview.enable = true;
     };
 
     extraPlugins = with pkgs.vimPlugins; [
