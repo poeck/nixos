@@ -17,6 +17,8 @@
     blinkdisk
     # Email client
     geary
+    # Speech-to-text
+    inputs.handy.packages.${pkgs.system}.default
   ];
 
   home.file = {

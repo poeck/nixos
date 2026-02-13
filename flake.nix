@@ -21,6 +21,7 @@
     mineplymouth.url = "github:nikp123/minecraft-plymouth-theme";
     hyprdynamicmonitors.url = "github:fiffeek/hyprdynamicmonitors";
     claude-code.url = "github:sadjow/claude-code-nix";
+    handy.url = "github:cjpais/Handy";
   };
 
   outputs =

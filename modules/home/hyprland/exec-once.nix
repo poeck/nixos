@@ -27,6 +27,8 @@
     "vicinae server --replace"
     # Password manager
     "1password --silent"
+    # Speech-to-text
+    "handy"
     # Best backup tool
     "blinkdisk --hidden"
   ];

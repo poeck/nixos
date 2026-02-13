@@ -24,7 +24,6 @@
     opencode
     claude-code
     wtp
-    (whisper-cpp.override { cudaSupport = true; })
     wtype
   ];
 }
