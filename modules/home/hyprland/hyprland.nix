@@ -34,10 +34,6 @@
     package = null;
     portalPackage = null;
 
-    plugins = with pkgs.hyprlandPlugins; [
-      csgo-vulkan-fix
-    ];
-
     xwayland = {
       enable = true;
     };

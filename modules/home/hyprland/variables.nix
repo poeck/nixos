@@ -27,7 +27,6 @@
     GRIMBLAST_HIDE_CURSOR = 0;
     # Fixes issues with wrangler
     SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt";
-    LD_LIBRARY_PATH = "/run/opengl-driver/lib";
   };
 
   wayland.windowManager.hyprland = {
@@ -41,14 +40,6 @@
 
       # Load monitors from hyprdynamicmonitors
       source = ~/.config/hypr/monitors.conf
-
-      plugin {
-          csgo-vulkan-fix {
-              fix_mouse = true
-
-              vkfix-app = cs2, 1920, 1200
-          }
-      }
     '';
   };
 }

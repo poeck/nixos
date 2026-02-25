@@ -44,9 +44,9 @@
       "$mainMod SHIFT, 0, movetoworkspace, 10"
       "CTRL SHIFT, Space, exec, 1password --quick-access"
 
-      "$mainMod, I, focusmonitor, 2"
-      "$mainMod, U, focusmonitor, 1"
-      "$mainMod, O, focusmonitor, 0"
+      "$mainMod, U, focusmonitor, desc:Shenzhen KTC Technology Group PMO G241-FFK"
+      "$mainMod, I, focusmonitor, desc:Philips Consumer Electronics Company PHL 246E9Q 0x000036F7"
+      "$mainMod, O, focusmonitor, desc:Sharp Corporation LQ160R1JW02"
 
       # Example special workspace (scratchpad)
       "$mainMod, m, togglespecialworkspace, magic"

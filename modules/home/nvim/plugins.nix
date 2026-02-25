@@ -122,6 +122,7 @@
           typescript
           tsx
           scss
+          astro
         ];
       };
 
@@ -205,6 +206,8 @@
       emmet.enable = true;
 
       system-copy.enable = true;
+
+      astro.enable = true;
     };
 
     extraPlugins = with pkgs.vimPlugins; [
@@ -232,6 +235,7 @@
       nixd
       vscode-langservers-extracted
       eslint
+      astro-language-server
     ];
   };
 }

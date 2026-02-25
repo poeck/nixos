@@ -31,6 +31,7 @@
       "col.active_border" = "rgba(ffffffaa) rgba(ffffffaa) 45deg";
       "col.inactive_border" = "rgba(595959aa)";
       resize_on_border = false;
+      allow_tearing = true;
     };
 
     misc = {

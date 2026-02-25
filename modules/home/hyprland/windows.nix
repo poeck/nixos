@@ -34,7 +34,8 @@
 
       "workspace 9 silent, match:class ^(cs2)$"
       "immediate on, match:class ^(cs2)$"
-      "fullscreen on, match:class ^(cs2)$"
+      "border_size 0, match:class ^(cs2)$"
+      "rounding 0, match:class ^(cs2)$"
 
       "border_size 0, match:float 0, match:workspace f[1]"
       "rounding 0, match:float 0, match:workspace f[1]"
@@ -51,6 +52,7 @@
     workspace = [
       # Disable gaps in fullscreen
       "f[1], gapsout:0, gapsin:0"
+      "9, monitor:desc:Philips Consumer Electronics Company PHL 246E9Q 0x000036F7"
     ];
   };
 }

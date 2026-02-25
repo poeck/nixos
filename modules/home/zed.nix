@@ -47,7 +47,7 @@
         edit_prediction_provider = "supermaven";
       };
       vim = {
-        use_system_clipboard = "always";
+        use_system_clipboard = "never";
         # Smart case for f and t binds
         use_smartcase_find = true;
         # Normal = relative, insert = absolute
@@ -56,14 +56,28 @@
       languages = {
         "TSX" = {
           formatter = [
-            { code_action = "source.fixAll.eslint"; }
-            { code_action = "source.organizeImports"; }
+            {
+              external = {
+                command = "prettier";
+                arguments = [
+                  "--stdin-filepath"
+                  "{buffer_path}"
+                ];
+              };
+            }
           ];
         };
         "JavaScript" = {
           formatter = [
-            { code_action = "source.fixAll.eslint"; }
-            { code_action = "source.organizeImports"; }
+            {
+              external = {
+                command = "prettier";
+                arguments = [
+                  "--stdin-filepath"
+                  "{buffer_path}"
+                ];
+              };
+            }
           ];
         };
       };
