@@ -1,6 +1,7 @@
 { ... }:
 {
   imports = [
+    ./password/op.nix
     ./nixpkgs.nix
     ./bootloader.nix
     ./hardware.nix
@@ -15,7 +16,6 @@
     ./user.nix
     ./wayland.nix
     ./keyd.nix
-    ./password.nix
     ./printing.nix
     ./podman.nix
     ./ld.nix
