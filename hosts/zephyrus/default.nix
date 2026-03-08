@@ -14,9 +14,6 @@
 
   powerManagement.enable = true;
 
-  # Automatically tune
-  powerManagement.powertop.enable = true;
-
   # Hibernate after 30m of sleep
   systemd.sleep.extraConfig = ''
     HibernateDelaySec=30m
@@ -53,6 +50,11 @@
         # Start charging at 80% and stop at 90%
         START_CHARGE_THRESH_BAT1 = 80;
         STOP_CHARGE_THRESH_BAT1 = 90;
+        # Disable USB autosuspend to prevent mouse wake-up lag
+        USB_AUTOSUSPEND = 0;
+        # Disable wifi power saving to avoid latency/drops
+        WIFI_PWR_ON_AC = "off";
+        WIFI_PWR_ON_BAT = "off";
       };
     };
   };

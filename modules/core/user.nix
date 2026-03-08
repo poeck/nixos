@@ -29,6 +29,7 @@
       "networkmanager"
       "wheel"
       "podman"
+      "gamemode"
     ];
     shell = pkgs.zsh;
   };

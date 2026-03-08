@@ -19,6 +19,10 @@
     geary
     # Speech-to-text
     inputs.handy.packages.${pkgs.system}.default
+    # OpenCode Desktop App
+    opencode-desktop
+
+    keeper
   ];
 
   home.file = {

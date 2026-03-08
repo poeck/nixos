@@ -225,7 +225,6 @@
         };
       })
       snacks-nvim
-      opencode-nvim
       friendly-snippets
     ];
 
