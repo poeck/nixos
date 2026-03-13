@@ -18,11 +18,11 @@
     # Email client
     geary
     # Speech-to-text
-    inputs.handy.packages.${pkgs.system}.default
+    inputs.handy.packages.${pkgs.stdenv.hostPlatform.system}.default
     # OpenCode Desktop App
     opencode-desktop
-
-    keeper
+    # Notion alternative
+    affine
   ];
 
   home.file = {

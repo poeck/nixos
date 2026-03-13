@@ -15,9 +15,9 @@
   powerManagement.enable = true;
 
   # Hibernate after 30m of sleep
-  systemd.sleep.extraConfig = ''
-    HibernateDelaySec=30m
-  '';
+  systemd.sleep.settings.Sleep = {
+    "HibernateDelaySec" = "30m";
+  };
 
   services = {
     power-profiles-daemon.enable = false; # Disable gnome's power profile daemon

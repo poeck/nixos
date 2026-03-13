@@ -16,13 +16,14 @@
       "prisma"
       "wakatime"
       "astro"
+      "Monokai Pro (CE)"
     ];
     userSettings = {
       vim_mode = true;
       base_keymap = "VSCode";
       theme = {
         mode = "system";
-        dark = "Gruvbox Dark";
+        dark = "Monokai Pro (CE)";
         light = "Gruvbox Light";
       };
       git = {

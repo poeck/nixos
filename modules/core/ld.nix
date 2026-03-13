@@ -22,16 +22,16 @@
       systemd
       libusb1
       libxkbcommon
-      xorg.libX11
-      xorg.libXcomposite
-      xorg.libXdamage
-      xorg.libXext
-      xorg.libXfixes
-      xorg.libXrandr
-      xorg.libXrender
-      xorg.libXtst
-      xorg.libXi
-      xorg.libxcb
+      libX11
+      libXcomposite
+      libXdamage
+      libXext
+      libXfixes
+      libXrandr
+      libXrender
+      libXtst
+      libXi
+      libxcb
       mesa
     ]);
 }
