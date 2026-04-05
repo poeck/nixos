@@ -30,6 +30,7 @@
       "wheel"
       "podman"
       "gamemode"
+      "nordvpn"
     ];
     shell = pkgs.zsh;
   };

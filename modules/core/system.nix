@@ -26,8 +26,10 @@
   environment.systemPackages = with pkgs; [
     wget
     git
+    # These 3 are reuqired for Claude sandbox
     bubblewrap
     socat
+    sandbox
   ];
 
   time.timeZone = "Europe/Vienna";

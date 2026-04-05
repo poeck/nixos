@@ -23,6 +23,12 @@
     opencode-desktop
     # Notion alternative
     affine
+    # Torrents
+    qbittorrent-enhanced
+    # Legendary media player
+    vlc
+    # 2FA OTP Codes
+    proton-authenticator
   ];
 
   home.file = {

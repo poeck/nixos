@@ -52,6 +52,12 @@
           sha256 = "sha256:0p10p42k28rq53qrhqlsd1ysghzpzkpg1bfd7gh2jabiavvyiv4g";
           version = "1.1.0";
         })
+        (createChromiumExtension {
+          # NordVPN
+          id = "fjoaledfpmneenckfbpdfhkmimnjocfa";
+          sha256 = "sha256:12kzfqp7amxw69amlawnqkrc9299kd8fl457hxfi0rksn596krij";
+          version = "5.3.2";
+        })
       ];
   };
 }

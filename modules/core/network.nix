@@ -1,5 +1,6 @@
 { pkgs, host, ... }:
 {
+  services.tailscale.enable = true;
 
   services.resolved = {
     enable = true;
@@ -30,6 +31,7 @@
       enable = true;
       dns = "systemd-resolved";
       wifi.powersave = false;
+      plugins = [ pkgs.networkmanager-openvpn ];
       settings.connectivity = {
         enabled = true;
         uri = "http://nmcheck.gnome.org/check_network_status.txt";
@@ -54,7 +56,7 @@
   environment.systemPackages = with pkgs; [
     # GUI & tray for wifi
     networkmanagerapplet
-    # Dig requests
+# Dig requests
     dig
   ];
 }

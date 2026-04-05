@@ -25,5 +25,6 @@
     ./tmux # terminal splits
     ./chromium.nix # chromium
     ./zed.nix # text editor
+    ./claude-code.nix # claude code
   ];
 }
