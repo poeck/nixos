@@ -25,6 +25,7 @@
   gtk = {
     enable = true;
     colorScheme = "dark";
+    gtk4.theme = null;
     font = {
       name = "Cantarell Regular";
       size = 11;

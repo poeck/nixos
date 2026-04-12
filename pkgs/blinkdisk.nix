@@ -2,11 +2,11 @@
 
 let
   pname = "blinkdisk";
-  version = "1.6.0";
+  version = "1.7.0";
 
   src = pkgs.fetchurl {
     url = "https://github.com/blinkdisk/blinkdisk/releases/download/v${version}/BlinkDisk-Linux-x86_64.AppImage";
-    hash = "sha256-55oVzYJmLRKVMTkPXPSkbLlIRIrpsf4nh7BmZZByokI=";
+    hash = "sha256-vpVZ+KQADeu8ZZ451EBnnOXSpjGPDad9+UC3gzXTz/k=";
   };
 
   appimageContents = pkgs.appimageTools.extract {
