@@ -1,4 +1,9 @@
-{ pkgs, username, ... }:
+{
+  pkgs,
+  username,
+  lib,
+  ...
+}:
 let
   sandboxRuntimePkg = pkgs.sandbox;
   seccompPath = "${sandboxRuntimePkg}/lib/node_modules/@anthropic-ai/sandbox-runtime/vendor/seccomp/x64";

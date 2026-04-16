@@ -26,7 +26,7 @@
       # Use the nvidia open source kernel
       open = true;
       #  Enable the nvidia-settings app
-      nvidiaSettings = true;
+      nvidiaSettings = false;
       # Which driver version to use
       package = config.boot.kernelPackages.nvidiaPackages.stable;
       # https://nixos.wiki/wiki/Nvidia

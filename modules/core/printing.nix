@@ -7,9 +7,6 @@
       pkgs.gutenprint
       # Some brother printers
       pkgs.brlaser
-      # More brother printers
-      pkgs.brgenml1lpr
-      pkgs.brgenml1cupswrapper
     ];
   };
 

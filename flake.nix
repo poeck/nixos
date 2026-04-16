@@ -21,6 +21,10 @@
     hyprdynamicmonitors.url = "github:fiffeek/hyprdynamicmonitors";
     claude-code.url = "github:sadjow/claude-code-nix";
     handy.url = "github:cjpais/Handy";
+    nixpak = {
+      url = "github:nixpak/nixpak";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

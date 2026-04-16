@@ -1,4 +1,4 @@
-{ username, ... }:
+{ username, lib, ... }:
 {
   # Fix keyboard layout in tty
   console.useXkbConfig = true;

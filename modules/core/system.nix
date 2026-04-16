@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   nix = {
     settings = {
@@ -34,6 +34,20 @@
 
   time.timeZone = "Europe/Vienna";
   i18n.defaultLocale = "en_US.UTF-8";
-  nixpkgs.config.allowUnfree = true;
   system.stateVersion = "24.05";
+
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (lib.getName pkg) [
+      "nvidia-x11"
+      "proton-authenticator"
+      "claude-code"
+      "ungoogled-chromium"
+      "ungoogled-chromium-unwrapped"
+      "widevine-cdm"
+      "1password"
+      "1password-cli"
+      "steam"
+      "steam-unwrapped"
+    ];
 }

@@ -1,9 +1,6 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    # Common fonts
-    corefonts
-    vista-fonts
     # Symbols
     nerd-fonts.symbols-only
     # Terminal font
