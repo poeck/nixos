@@ -10,7 +10,18 @@
     acpi
     # CLI for dimming the screen
     brightnessctl
+
+    jellyfin
+    jellyfin-web
+    jellyfin-ffmpeg
+    jellyfin-desktop
   ];
+
+  services.jellyfin = {
+    enable = true;
+    openFirewall = true;
+    user = "paul";
+  };
 
   powerManagement.enable = true;
 
