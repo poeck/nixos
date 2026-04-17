@@ -25,5 +25,6 @@
     ./chromium.nix # chromium
     ./zed.nix # text editor
     ./claude-code.nix # claude code
+    ./vicinae.nix # app launcher
   ];
 }

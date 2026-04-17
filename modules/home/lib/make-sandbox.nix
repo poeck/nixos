@@ -91,11 +91,18 @@ mkNixPak {
               "${pkgs.writeText "asound.conf" ''
                 <${pkgs.pipewire}/share/alsa/alsa.conf.d/50-pipewire.conf>
                 <${pkgs.pipewire}/share/alsa/alsa.conf.d/99-pipewire-default.conf>
+                <${pkgs.alsa-plugins}/share/alsa/alsa.conf.d/50-pulseaudio.conf>
+                <${pkgs.alsa-plugins}/share/alsa/alsa.conf.d/50-jack.conf>
+                <${pkgs.alsa-plugins}/share/alsa/alsa.conf.d/50-oss.conf>
               ''}"
               "/etc/asound.conf"
             ]
           ];
-          env.ALSA_PLUGIN_DIR = "${pkgs.pipewire}/lib/alsa-lib";
+          env.ALSA_PLUGIN_DIR = "${pkgs.runCommand "sandbox-alsa-plugins" {} ''
+            mkdir -p $out
+            ln -s ${pkgs.pipewire}/lib/alsa-lib/* $out/
+            ln -s ${pkgs.alsa-plugins}/lib/alsa-lib/* $out/
+          ''}";
         };
       };
 

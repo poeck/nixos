@@ -66,7 +66,7 @@
       "$mainMod, Space, exec, killall -SIGUSR1 .waybar-wrapped"
 
       # Dictation
-      "SUPER, D, exec, pkill -USR2 -n handy"
+      ",Insert, exec, pkill -USR2 -n handy"
     ];
 
     bindel = [

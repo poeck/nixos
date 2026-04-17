@@ -68,11 +68,5 @@ in
         };
       };
     }).config.env
-    (makeSandbox {
-      package = pkgs.vicinae;
-      permissions = [
-        "gui"
-      ];
-    }).config.env
   ];
 }
