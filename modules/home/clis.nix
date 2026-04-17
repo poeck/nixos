@@ -1,18 +1,16 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 {
   home.packages = with pkgs; [
     ripgrep
     ffmpeg
     file
     jq
-    killall
     libnotify
     openssl
     pamixer
     playerctl
     udiskie
     unzip
-    wget
     gnumake
     wl-clipboard
     xdg-utils
@@ -21,9 +19,6 @@
     nodejs_24
     pnpm
     go
-    opencode
     claude-code
-    wtp
-    wtype
   ];
 }

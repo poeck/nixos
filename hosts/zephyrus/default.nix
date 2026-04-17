@@ -1,4 +1,9 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  username,
+  ...
+}:
 {
   imports = [
     ./hardware-configuration.nix
@@ -20,7 +25,7 @@
   services.jellyfin = {
     enable = true;
     openFirewall = true;
-    user = "paul";
+    user = username;
   };
 
   powerManagement.enable = true;
