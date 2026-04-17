@@ -16,10 +16,10 @@
     ./ssh.nix # ssh config
     ./notifications # notification center
     ./xdg.nix # xdg config
+    ./zsh.nix # shell
     ./hyprland # window manager
     ./waybar # status bar
     ./nvim # neovim editor
-    ./zsh # shell
     ./alacritty # terminal
     ./tmux # terminal splits
     ./chromium.nix # chromium
