@@ -15,7 +15,6 @@
     ./nemo.nix # file manager
     ./ssh.nix # ssh config
     ./notifications # notification center
-    ./vicinae.nix # launcher
     ./xdg.nix # xdg config
     ./hyprland # window manager
     ./waybar # status bar

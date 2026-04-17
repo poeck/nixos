@@ -1,71 +1,78 @@
 { pkgs, inputs, ... }:
 let
-  mkNixPak = inputs.nixpak.lib.nixpak {
-    inherit (pkgs) lib;
-    inherit pkgs;
-  };
-
-  sandboxed-affine = mkNixPak {
-    config =
-      { sloth, ... }:
-      {
-        app.package = pkgs.affine;
-        flatpak.appId = "pro.affine.app";
-
-        gpu.enable = true;
-        fonts.enable = true;
-        locale.enable = true;
-        etc.sslCertificates.enable = true;
-
-        dbus.enable = true;
-        dbus.policies = {
-          "org.freedesktop.Notifications" = "talk";
-          "org.freedesktop.portal.*" = "talk";
-          "org.a11y.Bus" = "talk";
-          "ca.desrt.dconf" = "talk";
-        };
-
-        bubblewrap = {
-          network = true;
-
-          sockets.wayland = true;
-          sockets.pipewire = true;
-
-          bind.rw = [
-            [
-              (sloth.concat' sloth.homeDir "/.local/state/nixpak/affine/config")
-              sloth.xdgConfigHome
-            ]
-            [
-              (sloth.concat' sloth.homeDir "/.local/state/nixpak/affine/cache")
-              sloth.xdgCacheHome
-            ]
-            [
-              (sloth.concat' sloth.homeDir "/.local/state/nixpak/affine/data")
-              sloth.xdgDataHome
-            ]
-          ];
-        };
-      };
-  };
+  makeSandbox = import ./lib/make-sandbox.nix { inherit pkgs inputs; };
+  makeElectronSandbox = import ./lib/make-electron-sandbox.nix { inherit pkgs inputs; };
+  makeTauriSandbox = import ./lib/make-tauri-sandbox.nix { inherit pkgs inputs; };
 in
 {
   home.packages = with pkgs; [
-    pavucontrol
     blinkdisk
-    geary
-    inputs.handy.packages.${pkgs.stdenv.hostPlatform.system}.default
-    sandboxed-affine.config.env
-    proton-authenticator
+    (makeTauriSandbox {
+      name = "handy";
+      package = pkgs.symlinkJoin {
+        name = "handy-with-typing";
+        paths = [
+          inputs.handy.packages.${pkgs.stdenv.hostPlatform.system}.default
+          pkgs.wtype
+          pkgs.dotool
+        ];
+      };
+      permissions = [
+        "network" # required to download models
+        "audio"
+      ];
+      extraConfig = _: {
+        bubblewrap.bind.dev = [ "/dev/uinput" ];
+      };
+    })
+    (makeElectronSandbox {
+      package = pkgs.affine;
+      permissions = [
+        "network"
+      ];
+    })
+    (makeTauriSandbox {
+      package = pkgs.proton-authenticator;
+      permissions = [
+        "network"
+        "keyring"
+      ];
+    })
+    (makeSandbox {
+      package = pkgs.geary;
+      permissions = [
+        "gui"
+        "network"
+        "keyring"
+        "notifications"
+      ];
+      extraConfig = _: {
+        dbus.policies = {
+          "org.gnome.Geary" = "own";
+          "org.gnome.OnlineAccounts" = "talk";
+          "org.gnome.evolution.dataserver.Sources5" = "talk";
+          "org.gnome.evolution.dataserver.AddressBook10" = "talk";
+          "org.gnome.evolution.dataserver.Calendar8" = "talk";
+        };
+      };
+    }).config.env
+    (makeSandbox {
+      package = pkgs.pavucontrol;
+      permissions = [
+        "gui"
+        "audio"
+      ];
+      extraConfig = _: {
+        dbus.policies = {
+          "org.pulseaudio.pavucontrol" = "own";
+        };
+      };
+    }).config.env
+    (makeSandbox {
+      package = pkgs.vicinae;
+      permissions = [
+        "gui"
+      ];
+    }).config.env
   ];
-
-  home.file = {
-    ".config/electron-flags.conf" = {
-      # Force electron apps to use wayland
-      text = ''
-        --enable-features=UseOzonePlatform
-        --ozone-platform=wayland
-      '';
-    };
-  };
 }
