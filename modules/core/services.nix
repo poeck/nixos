@@ -35,6 +35,11 @@
     udisks2.enable = true;
   };
 
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
+
   # Fix gnome keyring
   # https://discourse.nixos.org/t/login-keyring-did-not-get-unlocked-hyprland/40869/8
   environment.variables.XDG_RUNTIME_DIR = "/run/user/$UID";

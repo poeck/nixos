@@ -12,7 +12,7 @@
     ./git.nix # version control
     ./gnome.nix # gnome apps
     ./gtk.nix # gtk theme
-    ./nemo.nix # file manager
+    ./nautilus.nix # file manager
     ./ssh.nix # ssh config
     ./notifications # notification center
     ./xdg.nix # xdg config
