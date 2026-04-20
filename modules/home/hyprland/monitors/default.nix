@@ -1,4 +1,10 @@
-{ config, inputs, pkgs, username, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  username,
+  ...
+}:
 {
   imports = [ inputs.hyprdynamicmonitors.homeManagerModules.default ];
 
@@ -9,7 +15,7 @@
 
   home.file = {
     ".config/hyprdynamicmonitors/profiles/" = {
-      source = config.lib.file.mkOutOfStoreSymlink ./profiles;
+      source = ./profiles;
     };
   };
 }
