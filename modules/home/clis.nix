@@ -20,5 +20,6 @@
     pnpm
     go
     claude-code
+    codex
   ];
 }
