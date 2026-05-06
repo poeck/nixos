@@ -17,6 +17,7 @@
       "wakatime"
       "astro"
       "Monokai Pro (CE)"
+      "biome"
     ];
     userSettings = {
       vim_mode = true;
@@ -45,7 +46,7 @@
       # Close editors when file is deleted from disk
       close_on_file_delete = true;
       features = {
-        edit_prediction_provider = "supermaven";
+        edit_prediction_provider = "zed";
       };
       vim = {
         use_system_clipboard = "never";

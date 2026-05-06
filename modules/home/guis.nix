@@ -46,15 +46,23 @@ in
         "keyring"
         "notifications"
       ];
-      extraConfig = _: {
-        dbus.policies = {
-          "org.gnome.Geary" = "own";
-          "org.gnome.OnlineAccounts" = "talk";
-          "org.gnome.evolution.dataserver.Sources5" = "talk";
-          "org.gnome.evolution.dataserver.AddressBook10" = "talk";
-          "org.gnome.evolution.dataserver.Calendar8" = "talk";
+      extraConfig =
+        { sloth, ... }:
+        {
+          dbus.policies = {
+            "org.gnome.Geary" = "own";
+            "org.gnome.OnlineAccounts" = "talk";
+            "org.gnome.evolution.dataserver.Sources5" = "talk";
+            "org.gnome.evolution.dataserver.AddressBook10" = "talk";
+            "org.gnome.evolution.dataserver.Calendar8" = "talk";
+          };
+          bubblewrap.bind.rw = [
+            [
+              sloth.xdgDownloadDir
+              sloth.xdgDownloadDir
+            ]
+          ];
         };
-      };
     }).config.env
     (makeSandbox {
       package = pkgs.pavucontrol;

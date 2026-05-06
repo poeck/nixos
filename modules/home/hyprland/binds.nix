@@ -63,10 +63,11 @@
       "SHIFT, Print, exec, screenshot --save"
 
       # Toggle waybar
-      "$mainMod, Space, exec, killall -SIGUSR1 .waybar-wrapped"
+      "$mainMod, Space, exec, kill -s SIGUSR1 $(pidof waybar)"
 
       # Dictation
-      ",Insert, exec, pkill -USR2 -n handy"
+      ",Insert, exec, handy --toggle-transcription"
+      "SHIFT, Insert, exec, handy --toggle-post-process"
     ];
 
     bindel = [

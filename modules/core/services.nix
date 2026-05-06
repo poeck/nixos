@@ -9,7 +9,6 @@
     gnome = {
       # File indexing?
       tinysparql.enable = true;
-      gnome-keyring.enable = true;
     };
 
     # Needed for GNOME services outside of GNOME Desktop
@@ -39,8 +38,4 @@
     enable = true;
     enableSSHSupport = true;
   };
-
-  # Fix gnome keyring
-  # https://discourse.nixos.org/t/login-keyring-did-not-get-unlocked-hyprland/40869/8
-  environment.variables.XDG_RUNTIME_DIR = "/run/user/$UID";
 }
