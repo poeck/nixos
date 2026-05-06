@@ -12,6 +12,7 @@
     ./git.nix # version control
     ./gnome.nix # gnome apps
     ./gtk.nix # gtk theme
+    ./oo7.nix # secret service
     ./nautilus.nix # file manager
     ./ssh.nix # ssh config
     ./notifications # notification center
@@ -19,7 +20,6 @@
     ./zsh.nix # shell
     ./hyprland # window manager
     ./waybar # status bar
-    ./nvim # neovim editor
     ./alacritty # terminal
     ./tmux # terminal splits
     ./chromium.nix # chromium

@@ -26,6 +26,20 @@ mkNixPak {
       # bubblewrap's --bind-try silently skips missing sources and nothing
       # persists.
       stateDir = sub: sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/${name}/${sub}");
+      persistentBinds = [
+        [
+          (stateDir "config")
+          sloth.xdgConfigHome
+        ]
+        [
+          (stateDir "cache")
+          sloth.xdgCacheHome
+        ]
+        [
+          (stateDir "data")
+          sloth.xdgDataHome
+        ]
+      ];
 
       guiConfig = lib.optionalAttrs (lib.elem "gui" permissions) {
         # Bind /dev/dri and the Mesa/driver userspace so GPU acceleration works.
@@ -52,6 +66,19 @@ mkNixPak {
 
         # Wayland display socket — required for the app to draw anything.
         bubblewrap.sockets.wayland = true;
+        # Some GTK/GNOME apps call getpwuid(3) to derive display defaults such
+        # as the account owner's name. Without passwd/group data, Geary's
+        # account editor receives NULL values and crashes while adding accounts.
+        bubblewrap.bind.ro = [
+          [
+            "/etc/passwd"
+            "/etc/passwd"
+          ]
+          [
+            "/etc/group"
+            "/etc/group"
+          ]
+        ];
 
         # GTK walks $XDG_DATA_DIRS/icons for themes and $XDG_DATA_DIRS/mime for
         # content-type detection. Without these:
@@ -120,26 +147,25 @@ mkNixPak {
 
           # Per-app persistent storage. Left side = host path (isolated per app),
           # right side = the xdg dir the app sees inside the sandbox.
-          bind.rw = [
-            [
-              (stateDir "config")
-              sloth.xdgConfigHome
-            ]
-            [
-              (stateDir "cache")
-              sloth.xdgCacheHome
-            ]
-            [
-              (stateDir "data")
-              sloth.xdgDataHome
-            ]
-          ];
+          bind.rw = persistentBinds;
         };
       };
+      overlayConfig = lib.foldl' lib.recursiveUpdate { } [
+        guiConfig
+        audioConfig
+        (extraConfig args)
+      ];
     in
-    lib.foldl' lib.recursiveUpdate baseConfig [
-      guiConfig
-      audioConfig
-      (extraConfig args)
-    ];
+    (lib.recursiveUpdate baseConfig overlayConfig)
+    // {
+      bubblewrap =
+        (lib.recursiveUpdate baseConfig.bubblewrap (overlayConfig.bubblewrap or { }))
+        // {
+          bind =
+            (lib.recursiveUpdate baseConfig.bubblewrap.bind ((overlayConfig.bubblewrap or { }).bind or { }))
+            // {
+              rw = persistentBinds ++ ((overlayConfig.bubblewrap.bind.rw or [ ]));
+            };
+        };
+    };
 }
