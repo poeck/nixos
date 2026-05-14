@@ -17,7 +17,7 @@
       "wakatime"
       "astro"
       "Monokai Pro (CE)"
-      "biome"
+      # "biome"
     ];
     userSettings = {
       vim_mode = true;
