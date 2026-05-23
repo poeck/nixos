@@ -11,8 +11,7 @@
           inherit (prev) system;
         })
       )
-      inputs.claude-code.overlays.default
-      inputs.codex-cli.overlays.default
+      inputs.llm-agents.overlays.default
     ];
   };
 }

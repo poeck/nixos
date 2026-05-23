@@ -17,7 +17,7 @@
       "wakatime"
       "astro"
       "Monokai Pro (CE)"
-      # "biome"
+      "biome"
     ];
     userSettings = {
       vim_mode = true;
@@ -55,32 +55,109 @@
         # Normal = relative, insert = absolute
         toggle_relative_line_numbers = true;
       };
+      lsp = {
+        biome = {
+          settings = {
+            require_config_file = true;
+          };
+        };
+      };
       languages = {
-        "TSX" = {
-          formatter = [
-            {
-              external = {
-                command = "prettier";
-                arguments = [
-                  "--stdin-filepath"
-                  "{buffer_path}"
-                ];
-              };
-            }
-          ];
+        "Astro" = {
+          formatter = {
+            language_server = {
+              name = "biome";
+            };
+          };
+        };
+        "CSS" = {
+          formatter = {
+            language_server = {
+              name = "biome";
+            };
+          };
+        };
+        "GraphQL" = {
+          formatter = {
+            language_server = {
+              name = "biome";
+            };
+          };
+        };
+        "HTML" = {
+          formatter = {
+            language_server = {
+              name = "biome";
+            };
+          };
+        };
+        "JSON" = {
+          formatter = {
+            language_server = {
+              name = "biome";
+            };
+          };
+        };
+        "JSONC" = {
+          formatter = {
+            language_server = {
+              name = "biome";
+            };
+          };
+        };
+        "JSX" = {
+          formatter = {
+            language_server = {
+              name = "biome";
+            };
+          };
         };
         "JavaScript" = {
-          formatter = [
-            {
-              external = {
-                command = "prettier";
-                arguments = [
-                  "--stdin-filepath"
-                  "{buffer_path}"
-                ];
-              };
-            }
-          ];
+          formatter = {
+            language_server = {
+              name = "biome";
+            };
+          };
+          code_actions_on_format = {
+            "source.fixAll.biome" = true;
+            "source.organizeImports.biome" = true;
+          };
+        };
+        "Svelte" = {
+          formatter = {
+            language_server = {
+              name = "biome";
+            };
+          };
+        };
+        "TSX" = {
+          formatter = {
+            language_server = {
+              name = "biome";
+            };
+          };
+          code_actions_on_format = {
+            "source.fixAll.biome" = true;
+            "source.organizeImports.biome" = true;
+          };
+        };
+        "TypeScript" = {
+          formatter = {
+            language_server = {
+              name = "biome";
+            };
+          };
+          code_actions_on_format = {
+            "source.fixAll.biome" = true;
+            "source.organizeImports.biome" = true;
+          };
+        };
+        "Vue.js" = {
+          formatter = {
+            language_server = {
+              name = "biome";
+            };
+          };
         };
       };
     };
