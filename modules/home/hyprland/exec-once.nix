@@ -8,8 +8,8 @@
 
     # Auto suspend and lock
     "hypridle"
-    # Waybar
-    "waybar"
+    # Status bar / shell
+    "noctalia-shell"
     # GUI & tray for wifi
     # Notification center
     "swaync"

@@ -10,7 +10,6 @@
       "$mainMod, C, killactive,"
       "$mainMod, V, togglefloating,"
       "$mainMod, R, exec, vicinae toggle"
-      "$mainMod, S, togglesplit, # dwindle"
       "$mainMod, F, fullscreen, 1"
 
       # Move focus with mainMod + arrow keys
@@ -62,8 +61,8 @@
       ",Print, exec, screenshot --copy"
       "SHIFT, Print, exec, screenshot --save"
 
-      # Toggle waybar
-      "$mainMod, Space, exec, kill -s SIGUSR1 $(pidof waybar)"
+      # Toggle noctalia bar
+      "$mainMod, Space, exec, noctalia-shell ipc call bar toggle"
 
       # Dictation
       ",Insert, exec, handy --toggle-transcription"

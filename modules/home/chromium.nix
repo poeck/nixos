@@ -53,10 +53,10 @@
           version = "1.1.0";
         })
         (createChromiumExtension {
-          # NordVPN
-          id = "fjoaledfpmneenckfbpdfhkmimnjocfa";
-          sha256 = "sha256:12kzfqp7amxw69amlawnqkrc9299kd8fl457hxfi0rksn596krij";
-          version = "5.3.2";
+          # Tampermonkey
+          id = "dhdgffkkebhmkfjojejmpbldmpobfkfo";
+          sha256 = "sha256:1m8mmiyrfbs5bcfbjwhx4lwl8gdcx43kvx43yr6irq9rqj1c1bmw";
+          version = "5.5.0";
         })
       ];
   };

@@ -47,6 +47,11 @@
 
       # Add dim to notification center
       "dim_around on, match:namespace swaync-control-center"
+
+      # Noctalia bar/panels blur
+      "blur on, match:namespace noctalia-background-.*"
+      "blur_popups on, match:namespace noctalia-background-.*"
+      "ignore_alpha 0.5, match:namespace noctalia-background-.*"
     ];
 
     workspace = [

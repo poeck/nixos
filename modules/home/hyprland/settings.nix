@@ -50,7 +50,6 @@
       special_scale_factor = 1.0;
       split_width_multiplier = 1.0;
       use_active_for_splits = true;
-      pseudotile = "yes";
       preserve_split = "yes";
     };
 
@@ -76,7 +75,6 @@
       shadow = {
         enabled = true;
 
-        ignore_window = true;
         offset = "0 2";
         range = 20;
         render_power = 3;

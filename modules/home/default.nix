@@ -19,7 +19,7 @@
     ./xdg.nix # xdg config
     ./zsh.nix # shell
     ./hyprland # window manager
-    ./waybar # status bar
+    ./noctalia # status bar / shell
     ./alacritty # terminal
     ./tmux # terminal splits
     ./chromium.nix # chromium
