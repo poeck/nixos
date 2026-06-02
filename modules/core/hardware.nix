@@ -9,6 +9,13 @@
 
     # Prevent small docking station from waking up during suspend
     ACTION=="add" SUBSYSTEM=="pci" ATTR{vendor}=="0x1987" ATTR{device}=="0x5013" ATTR{power/wakeup}="disabled"
+
+    # EdgeTX/Radiomaster radio in USB Joystick (HID) mode
+    KERNEL=="hidraw*", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="4f54", TAG+="uaccess"
+
+    # Betaflight: STM32 / AT32 flight controllers in DFU bootloader mode
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE="0664", GROUP="dialout"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="2e3c", ATTRS{idProduct}=="df11", MODE="0664", GROUP="dialout"
   '';
 
   hardware = {
