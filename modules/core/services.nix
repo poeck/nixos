@@ -32,6 +32,8 @@
 
     # Linux essential for managing storage devices
     udisks2.enable = true;
+    # Smart-card service used by WebAuthn/security-key integrations.
+    pcscd.enable = true;
   };
 
   programs.gnupg.agent = {

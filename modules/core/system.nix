@@ -46,6 +46,7 @@
       "ungoogled-chromium"
       "ungoogled-chromium-unwrapped"
       "widevine-cdm"
+      "keeper-password-manager"
       "1password"
       "1password-cli"
       "steam"

@@ -7,6 +7,7 @@ in
 {
   home.packages = with pkgs; [
     blinkdisk
+    keeper-password-manager
     (makeTauriSandbox {
       name = "handy";
       package = pkgs.symlinkJoin {
