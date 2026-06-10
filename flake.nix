@@ -26,6 +26,7 @@
     mineplymouth.url = "github:nikp123/minecraft-plymouth-theme";
     hyprdynamicmonitors.url = "github:fiffeek/hyprdynamicmonitors";
     llm-agents.url = "github:numtide/llm-agents.nix";
+    claude-desktop.url = "github:aaddrick/claude-desktop-debian";
     codex-desktop-linux = {
       url = "github:ilysenko/codex-desktop-linux";
       inputs.nixpkgs.follows = "nixpkgs";

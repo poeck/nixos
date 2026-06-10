@@ -7,6 +7,7 @@ in
 {
   home.packages = with pkgs; [
     blinkdisk
+    claude-desktop
     keeper-password-manager
     pear-desktop
     (makeTauriSandbox {

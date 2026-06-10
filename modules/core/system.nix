@@ -42,6 +42,7 @@
     builtins.elem (lib.getName pkg) [
       "nvidia-x11"
       "proton-authenticator"
+      "claude-desktop"
       "claude-code"
       "ungoogled-chromium"
       "ungoogled-chromium-unwrapped"

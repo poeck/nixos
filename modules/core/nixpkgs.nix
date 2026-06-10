@@ -12,6 +12,7 @@
         })
       )
       inputs.llm-agents.overlays.default
+      inputs.claude-desktop.overlays.default
     ];
   };
 }
