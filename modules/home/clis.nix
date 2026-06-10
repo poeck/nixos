@@ -19,6 +19,7 @@
     nodejs_24
     pnpm
     go
+    gh
     llm-agents.claude-code
     llm-agents.codex
   ];

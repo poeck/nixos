@@ -99,6 +99,9 @@
     '';
 
     initContent = ''
+      # NixOS setuid programs, such as sudo, live in /run/wrappers/bin.
+      path=(/run/wrappers/bin ''${path:#/run/wrappers/bin})
+
       DISABLE_AUTO_UPDATE=true
       DISABLE_MAGIC_FUNCTIONS=true
       export "MICRO_TRUECOLOR=1"

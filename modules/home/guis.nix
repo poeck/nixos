@@ -8,6 +8,7 @@ in
   home.packages = with pkgs; [
     blinkdisk
     keeper-password-manager
+    pear-desktop
     (makeTauriSandbox {
       name = "handy";
       package = pkgs.symlinkJoin {

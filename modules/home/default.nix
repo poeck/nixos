@@ -25,6 +25,8 @@
     ./chromium.nix # chromium
     ./zed.nix # text editor
     ./claude-code.nix # claude code
+    ./codex-desktop.nix # codex desktop app
     ./vicinae.nix # app launcher
+    ./laptop-control.nix # local network power controls
   ];
 }

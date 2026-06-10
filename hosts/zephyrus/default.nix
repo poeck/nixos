@@ -30,6 +30,8 @@
 
   powerManagement.enable = true;
 
+  networking.firewall.allowedTCPPorts = [ 8765 ];
+
   # Hibernate after 30m of sleep
   systemd.sleep.settings.Sleep = {
     "HibernateDelaySec" = "30m";
