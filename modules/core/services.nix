@@ -7,6 +7,7 @@
     fstrim.enable = true;
 
     gnome = {
+      at-spi2-core.enable = true;
       # File indexing?
       tinysparql.enable = true;
     };
