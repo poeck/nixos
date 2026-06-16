@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  noctaliaPackage = config.programs.noctalia-shell.package;
+  noctaliaPackage = config.programs.noctalia.package;
   laptopControlServer = pkgs.writeText "laptop-control-server.js" ''
     #!${pkgs.nodejs}/bin/node
     const fs = require("node:fs");

@@ -15,7 +15,7 @@ in
       package = pkgs.symlinkJoin {
         name = "handy-with-typing";
         paths = [
-          inputs.handy.packages.${pkgs.stdenv.hostPlatform.system}.default
+          pkgs.handy
           pkgs.wtype
           pkgs.dotool
         ];
