@@ -13,6 +13,13 @@
     polkitPolicyOwners = [ "${username}" ];
   };
 
+  # Zen is not in 1Password's default browser allowlist, so the extension cannot
+  # reach the desktop app until the real executable basename is allowed.
+  environment.etc."1password/custom_allowed_browsers" = {
+    text = "zen";
+    mode = "0755";
+  };
+
   # Backup script
   environment.etc."backup-op.sh" = {
     source = ./backup.sh;

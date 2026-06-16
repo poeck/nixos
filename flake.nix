@@ -22,6 +22,17 @@
     };
 
     # Third party
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    zen-browser = {
+      # Community-maintained flake. Pinned so updates happen explicitly via
+      # `nix flake update zen-browser`.
+      url = "github:0xc000022070/zen-browser-flake/fc9b27eb5585548282004fac3f0d34fcf2f06467";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
     minegrub.url = "github:Lxtharia/minegrub-theme";
     mineplymouth.url = "github:nikp123/minecraft-plymouth-theme";
     hyprdynamicmonitors.url = "github:fiffeek/hyprdynamicmonitors";

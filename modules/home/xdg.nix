@@ -12,7 +12,7 @@ let
     terminal = [ "alacritty.desktop" ];
     archive = [ "org.gnome.FileRoller.desktop" ];
     discord = [ "webcord.desktop" ];
-    browser = [ "chromium-browser.desktop" ];
+    browser = [ "zen-beta.desktop" ];
   };
 
   mimeMap = {

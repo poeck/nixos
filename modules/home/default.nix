@@ -23,6 +23,7 @@
     ./alacritty # terminal
     ./tmux # terminal splits
     ./chromium.nix # chromium
+    ./zen.nix # zen browser
     ./zed.nix # text editor
     ./claude-code.nix # claude code
     ./codex-desktop.nix # codex desktop app

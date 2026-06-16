@@ -50,6 +50,7 @@
       "keeper-password-manager"
       "1password"
       "1password-cli"
+      "onepassword-password-manager"
       "steam"
       "steam-unwrapped"
     ];

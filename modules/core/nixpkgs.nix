@@ -11,6 +11,7 @@
           inherit (prev) system;
         })
       )
+      inputs.firefox-addons.overlays.default
       inputs.llm-agents.overlays.default
       inputs.claude-desktop.overlays.default
     ];
