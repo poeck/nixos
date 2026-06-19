@@ -58,6 +58,12 @@
           sha256 = "sha256:1m8mmiyrfbs5bcfbjwhx4lwl8gdcx43kvx43yr6irq9rqj1c1bmw";
           version = "5.5.0";
         })
+        (createChromiumExtension {
+          # Codex
+          id = "hehggadaopoacecdllhhajmbjkdcmajg";
+          sha256 = "sha256:0psly1vf0msfqyj4dc77bpfr2n9hw6vpcqmm6fgfwiqfdz1dbs2l";
+          version = "1.1.5";
+        })
       ];
   };
 }
