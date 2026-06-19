@@ -62,7 +62,7 @@
       "SHIFT, Print, exec, screenshot --save"
 
       # Toggle noctalia bar
-      "$mainMod, Space, exec, noctalia-shell ipc call bar toggle"
+      "$mainMod, Space, exec, noctalia msg bar-toggle"
 
       # Dictation
       ",Insert, exec, handy --toggle-transcription"

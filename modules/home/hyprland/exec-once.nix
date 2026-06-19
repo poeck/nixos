@@ -9,7 +9,7 @@
     # Auto suspend and lock
     "hypridle"
     # Status bar / shell
-    "noctalia-shell"
+    "noctalia"
     # GUI & tray for wifi
     # Notification center
     "swaync"

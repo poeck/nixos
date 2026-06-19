@@ -16,7 +16,7 @@ let
       "laptop-control",
     );
     const stateFile = path.join(stateDir, "state.json");
-    const noctaliaShell = "${noctaliaPackage}/bin/noctalia-shell";
+    const noctalia = "${noctaliaPackage}/bin/noctalia";
     const systemctl = "${pkgs.systemd}/bin/systemctl";
 
     function escapeHtml(value) {
@@ -51,8 +51,8 @@ let
       });
     }
 
-    function runNoctaliaIpc(target, method) {
-      return runCommand(noctaliaShell, ["ipc", "call", target, method]);
+    function runNoctaliaMsg(command) {
+      return runCommand(noctalia, ["msg", command]);
     }
 
     function loadState() {
@@ -238,7 +238,7 @@ let
 
         if (request.url === "/keep-awake") {
           const enabled = form.get("enabled") === "1";
-          await runNoctaliaIpc("idleInhibitor", enabled ? "enable" : "disable");
+          await runNoctaliaMsg(enabled ? "caffeine-enable" : "caffeine-disable");
           saveState({ keepAwake: enabled });
           redirect(response, enabled ? "Keep awake enabled" : "Keep awake disabled");
         } else if (request.url === "/suspend") {
