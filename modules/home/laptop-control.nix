@@ -10,7 +10,7 @@ let
     const { spawn } = require("node:child_process");
 
     const host = process.env.LAPTOP_CONTROL_HOST || "0.0.0.0";
-    const port = Number(process.env.LAPTOP_CONTROL_PORT || "8765");
+    const port = Number(process.env.LAPTOP_CONTROL_PORT || "9876");
     const stateDir = path.join(
       process.env.XDG_STATE_HOME || path.join(os.homedir(), ".local/state"),
       "laptop-control",
@@ -273,7 +273,7 @@ in
       Restart = "on-failure";
       Environment = [
         "LAPTOP_CONTROL_HOST=0.0.0.0"
-        "LAPTOP_CONTROL_PORT=8765"
+        "LAPTOP_CONTROL_PORT=9876"
       ];
     };
 

@@ -12,6 +12,7 @@
     ./git.nix # version control
     ./gnome.nix # gnome apps
     ./gtk.nix # gtk theme
+    ./easyeffects.nix # audio effects
     ./oo7.nix # secret service
     ./nautilus.nix # file manager
     ./ssh.nix # ssh config

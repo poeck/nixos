@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   config,
   username,
@@ -37,9 +38,18 @@
     "HibernateDelaySec" = "30m";
   };
 
+  systemd.services.asus-shutdown.serviceConfig = {
+    SendSIGKILL = lib.mkForce true;
+    TimeoutStopSec = lib.mkForce "10s";
+  };
+
   services = {
     power-profiles-daemon.enable = false; # Disable gnome's power profile daemon
     system76-scheduler.settings.cfsProfiles.enable = true; # Better scheduling for CPU cycles
+
+    asusd = {
+      enable = true;
+    };
 
     upower = {
       enable = true;
@@ -84,11 +94,5 @@
       # Required by tlp (?)
       acpi_call
     ];
-  };
-
-  services = {
-    asusd = {
-      enable = true;
-    };
   };
 }

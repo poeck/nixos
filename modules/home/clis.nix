@@ -16,6 +16,9 @@
     xdg-utils
     btop
     fastfetch
+    (python3.withPackages (python-pkgs: with python-pkgs; [
+      pip
+    ]))
     nodejs_24
     pnpm
     go

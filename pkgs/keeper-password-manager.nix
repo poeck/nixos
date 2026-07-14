@@ -41,11 +41,11 @@
 
 stdenv.mkDerivation rec {
   pname = "keeper-password-manager";
-  version = "18.0.2";
+  version = "18.4.1";
 
   src = fetchurl {
-    url = "https://download.keepersecurity.com/desktop_electron/Linux/repo/deb/keeperpasswordmanager_${version}_amd64.deb";
-    hash = "sha256-MWVGy4QMvz6wc34diXt1G80fZGzQTZvj5MWdQM6ZXqY=";
+    url = "https://www.keepersecurity.com/desktop_electron/Linux/repo/deb/keeperpasswordmanager_${version}_amd64.deb";
+    hash = "sha256-PAVK1eUwzk70D+hbLp+utSjL222XNYOD2udOGYU5amI=";
   };
 
   nativeBuildInputs = [
