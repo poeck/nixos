@@ -36,6 +36,10 @@
     minegrub.url = "github:Lxtharia/minegrub-theme";
     mineplymouth.url = "github:nikp123/minecraft-plymouth-theme";
     hyprdynamicmonitors.url = "github:fiffeek/hyprdynamicmonitors";
+    gather-linux = {
+      url = "github:simonkoeck/gather-linux";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     llm-agents.url = "github:numtide/llm-agents.nix";
     claude-desktop.url = "github:aaddrick/claude-desktop-debian";
     codex-desktop-linux = {

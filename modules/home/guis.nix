@@ -8,6 +8,7 @@ in
   home.packages = with pkgs; [
     blinkdisk
     claude-desktop
+    inputs.gather-linux.packages.${pkgs.stdenv.hostPlatform.system}.default
     keeper-password-manager
     pear-desktop
     (makeTauriSandbox {
