@@ -11,6 +11,7 @@ in
     inputs.gather-linux.packages.${pkgs.stdenv.hostPlatform.system}.default
     keeper-password-manager
     pear-desktop
+    slack
     (makeTauriSandbox {
       name = "handy";
       package = pkgs.symlinkJoin {

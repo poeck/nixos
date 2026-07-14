@@ -85,9 +85,24 @@ let
     "browser.toolbars.bookmarks.visibility" = "never";
   };
 
-  customAddons = pkgs.callPackage ./firefox-addons.nix {
-    inherit lib;
-    inherit (inputs.firefox-addons.lib."x86_64-linux") buildFirefoxXpiAddon;
+  authfill = inputs.firefox-addons.lib."x86_64-linux".buildFirefoxXpiAddon {
+    pname = "authfill";
+    version = "1.2.0";
+    addonId = "extension@authfill.com";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4683108/authfill-1.2.0.xpi";
+    sha256 = "47e9af2f7de140942587d45f427e0950c8fea79995b83d575958a2fae63bc662";
+    mozPermissions = [
+      "storage"
+      "tabs"
+      "notifications"
+      "clipboardWrite"
+    ];
+    meta = with lib; {
+      homepage = "https://authfill.com";
+      description = "Verify your email with one click";
+      license = licenses.gpl3Only;
+      platforms = platforms.all;
+    };
   };
 
 in
@@ -191,7 +206,7 @@ in
           youtube-shorts-block
           cookie-editor
         ]
-        ++ (with customAddons; [ authfill ]);
+        ++ [ authfill ];
     };
 
     profiles.otark =

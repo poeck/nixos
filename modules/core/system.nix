@@ -40,6 +40,7 @@
   nixpkgs.config.allowUnfreePredicate =
     pkg:
     builtins.elem (lib.getName pkg) [
+      "slack"
       "nvidia-x11"
       "proton-authenticator"
       "claude-desktop"
