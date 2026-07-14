@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  lib,
   ...
 }:
 let
@@ -40,10 +41,6 @@ let
     }
     // extra;
 
-  bookmarkBarAlways = {
-    "browser.toolbars.bookmarks.visibility" = "always";
-  };
-
   sharedMods = [
     "e122b5d9-d385-4bf8-9971-e137809097d0" # No Top Sites
     "4ab93b88-151c-451b-a1b7-a1e0e28fa7f8" # No Sidebar Scrollbar
@@ -65,48 +62,34 @@ let
     }
   ];
 
-  sharedSearch = {
-    force = true;
-    default = "google";
-    engines = {
-      "Nix Packages" = {
-        urls = [
-          { template = "https://search.nixos.org/packages?channel=unstable&query={searchTerms}"; }
-        ];
-        icon = "https://nixos.org/favicon.png";
-        updateInterval = 24 * 60 * 60 * 1000;
-        definedAliases = [
-          "@np"
-          "np"
-        ];
-      };
-      "NPM" = {
-        urls = [
-          { template = "https://www.npmjs.com/search?q={searchTerms}"; }
-        ];
-        icon = "https://static-production.npmjs.com/58a19602036db1daee0d7863c94673a4.png";
-        updateInterval = 24 * 60 * 60 * 1000;
-        definedAliases = [
-          "@npm"
-          "npm"
-        ];
-      };
-      "GitHub" = {
-        urls = [
-          { template = "https://github.com/search?q={searchTerms}&type=repositories"; }
-        ];
-        icon = "https://github.githubassets.com/favicons/favicon.svg";
-        updateInterval = 24 * 60 * 60 * 1000;
-        definedAliases = [
-          "@gh"
-          "gh"
-        ];
-      };
+  zenFolderIcon = "chrome://browser/skin/zen-icons/selectable/folder.svg";
 
-      "bing".metaData.hidden = true;
-      "ebay".metaData.hidden = true;
-    };
+  mkSpaceTheme = r: g: b: {
+    type = "gradient";
+    colors = [
+      {
+        red = r;
+        green = g;
+        blue = b;
+        algorithm = "floating";
+        type = "explicit-lightness";
+        lightness = 50;
+      }
+    ];
+    # Keep it a subtle tint — high opacity floods the whole chrome with the color.
+    opacity = 0.2;
+    texture = 0.3;
   };
+
+  bookmarkBarNever = {
+    "browser.toolbars.bookmarks.visibility" = "never";
+  };
+
+  customAddons = pkgs.callPackage ./firefox-addons.nix {
+    inherit lib;
+    inherit (inputs.firefox-addons.lib."x86_64-linux") buildFirefoxXpiAddon;
+  };
+
 in
 {
   imports = [ inputs.zen-browser.homeModules.beta ];
@@ -168,9 +151,7 @@ in
       id = 0;
       name = "Personal";
       isDefault = true;
-      settings = mkSettings "#2563eb" bookmarkBarAlways;
-
-      search = sharedSearch;
+      settings = mkSettings "#2563eb" bookmarkBarNever;
 
       mods = sharedMods;
       keyboardShortcutsVersion = sharedKeyboardShortcutsVersion;
@@ -201,24 +182,177 @@ in
         ];
       };
 
-      extensions.packages = with pkgs.firefox-addons; [
-        ublock-origin
-        onepassword-password-manager
-        sponsorblock
-        youtube-shorts-block
-      ];
+      extensions.packages =
+        with pkgs.firefox-addons;
+        [
+          ublock-origin
+          onepassword-password-manager
+          sponsorblock
+          youtube-shorts-block
+          cookie-editor
+        ]
+        ++ (with customAddons; [ authfill ]);
     };
+
+    profiles.otark =
+      let
+        # Three themed spaces (workspaces) for the Otark work context. IDs are
+      # stable UUIDs (Nix can't generate randomness) — never change them, or Zen
+      # treats it as a different space and loses the association.
+      spaces = {
+        "Dev" = {
+          id = "b1ddf3c2-4e26-4861-8cf6-0b2591ef1467";
+          position = 1000;
+          icon = "💻";
+          theme = mkSpaceTheme 46 125 70; # green
+        };
+        "Deployed" = {
+          id = "04e80501-c79b-4133-a1cb-c36371b3c57f";
+          position = 2000;
+          icon = "🚀";
+          theme = mkSpaceTheme 46 125 70; # green
+        };
+        "Ops" = {
+          id = "1eb5eb41-267b-4b98-9f80-901b1cabf98a";
+          position = 3000;
+          icon = "📊";
+          theme = mkSpaceTheme 46 125 70; # green
+        };
+      };
+
+      # Container for production admin: isolates www.otark.team's cookies/session
+      # from staging & dev admin, so a prod login can't bleed across environments
+      # (and "am I in prod?" is unambiguous — the tab gets a red container stripe).
+      containers = {
+        "Prod Admin" = {
+          id = 10; # userContextId — kept above Firefox's 1–4 default containers
+          color = "red";
+          icon = "fence";
+        };
+      };
+
+      # Folder helper: a pin group bound to a space.
+      mkFolder = id: workspace: position: {
+        inherit id position workspace;
+        isGroup = true;
+        isFolderCollapsed = false;
+        editedTitle = true;
+        folderIcon = zenFolderIcon;
+      };
+      # Leaf pin helper: a tab pinned inside a folder within a space.
+      mkPin = id: workspace: parent: position: url: {
+        inherit
+          id
+          url
+          position
+          workspace
+          ;
+        folderParentId = parent;
+      };
+
+      pins = {
+        # ── Dev space ── local app + admin, source, tickets ────────────────
+        "Dev / Local" = mkFolder "c3b58cdc-840f-415d-b8c8-0fb8240f9613" spaces."Dev".id 100;
+        "App (local)" =
+          mkPin "d7e84c78-e1d5-4a37-b899-8b87354afcc1" spaces."Dev".id pins."Dev / Local".id 101
+            "http://localhost:3000";
+        "Admin (local)" =
+          mkPin "90b8ec21-30f1-49d1-9e66-6b35b120048d" spaces."Dev".id pins."Dev / Local".id 102
+            "http://localhost:3001";
+        "Dev / Code & Tickets" = mkFolder "4b31a33b-d5e6-4ca7-8aa4-c4af29cdc4dc" spaces."Dev".id 110;
+        "GitLab" =
+          mkPin "76acc067-7661-4498-9b19-8e4c4c00f3ca" spaces."Dev".id pins."Dev / Code & Tickets".id 111
+            "https://gitlab.otark.team";
+        "Linear" =
+          mkPin "f5a33897-716e-4909-9abf-90c64d3890e3" spaces."Dev".id pins."Dev / Code & Tickets".id 112
+            "https://linear.app";
+
+        # ── Deployed space ── app + admin across environments ──────────────
+        "Deployed / App" = mkFolder "fd6eaf62-1283-410f-84da-f950c83cdc79" spaces."Deployed".id 200;
+        "App — Dev" =
+          mkPin "6e640f4b-2172-4310-976e-02d7074c4324" spaces."Deployed".id pins."Deployed / App".id 201
+            "https://app.otark.com";
+        "App — Staging" =
+          mkPin "41901113-0e64-4ed7-aa79-28f812448fce" spaces."Deployed".id pins."Deployed / App".id 202
+            "https://app.otark.dev";
+        "Deployed / Admin" = mkFolder "90d431da-06ae-4140-a907-12fad12cf8d1" spaces."Deployed".id 210;
+        "Admin — Staging" =
+          mkPin "3283687f-a285-4c8c-879e-2643c53585c6" spaces."Deployed".id pins."Deployed / Admin".id 211
+            "https://staging.otark.team";
+        "Admin — Production" =
+          mkPin "6964d71e-56f5-4088-b804-26e3913737d2" spaces."Deployed".id pins."Deployed / Admin".id 212
+            "https://www.otark.team"
+          // {
+            container = containers."Prod Admin".id;
+          }; # isolated prod session
+
+        # ── Ops space ── observability + secrets ───────────────────────────
+        "Grafana" = {
+          id = "5c52e863-698f-4627-8c79-cdd68ff18d5e";
+          url = "https://grafana.otark.team";
+          workspace = spaces."Ops".id;
+          position = 301;
+        };
+        "Vault" = {
+          id = "b786f08e-7fa3-431e-b01c-13c82133b92d";
+          url = "https://vault.ops.otark.team";
+          workspace = spaces."Ops".id;
+          position = 302;
+        };
+        "Workflows" = {
+          id = "560308e3-a45f-45fe-b151-7b17367bdc4e";
+          url = "https://workflows.otark.team";
+          workspace = spaces."Ops".id;
+          position = 303;
+        };
+      };
+      in
+      {
+        id = 1;
+      name = "Otark";
+      settings = mkSettings "#2e7d46" bookmarkBarNever; # green
+
+      spacesForce = true;
+      pinsForce = true;
+      pinsForceAction = "remove";
+      inherit spaces pins containers;
+
+      mods = sharedMods;
+      keyboardShortcutsVersion = sharedKeyboardShortcutsVersion;
+      keyboardShortcuts = sharedKeyboardShortcuts;
+
+      extensions = {
+        packages = with pkgs.firefox-addons; [
+          ublock-origin
+          onepassword-password-manager
+        ];
+      };
+      };
   };
 
-  xdg.desktopEntries.zen-personal = {
-    name = "Zen (Personal)";
-    genericName = "Web Browser";
-    exec = "zen-beta -P Personal %U";
-    icon = "zen-browser";
-    terminal = false;
-    categories = [
-      "Network"
-      "WebBrowser"
-    ];
+  xdg.desktopEntries = {
+    zen-personal = {
+      name = "Zen (Personal)";
+      genericName = "Web Browser";
+      exec = "zen-beta -P Personal %U";
+      icon = "zen-browser";
+      terminal = false;
+      categories = [
+        "Network"
+        "WebBrowser"
+      ];
+    };
+
+    zen-otark = {
+      name = "Zen (Otark)";
+      genericName = "Web Browser";
+      exec = "zen-beta -P Otark %U";
+      icon = "zen-browser";
+      terminal = false;
+      categories = [
+        "Network"
+        "WebBrowser"
+      ];
+    };
   };
 }
