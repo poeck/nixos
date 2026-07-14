@@ -43,20 +43,20 @@
     '';
   };
 
-  # services.openvpn.servers = {
-  #   otark = {
-  #     # Use 'config' to point to your existing .ovpn file
-  #     config = "config /root/vpn/otark.ovpn";
+  services.openvpn.servers = {
+    otark = {
+      # Use 'config' to point to your existing .ovpn file
+      config = "config /root/vpn/otark.ovpn";
 
-  #     autoStart = false;
-  #     updateResolvConf = false;
-  #   };
-  # };
+      autoStart = false;
+      updateResolvConf = false;
+    };
+  };
 
   environment.systemPackages = with pkgs; [
     # GUI & tray for wifi
     networkmanagerapplet
-# Dig requests
+    # Dig requests
     dig
   ];
 }
