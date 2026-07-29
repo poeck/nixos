@@ -40,6 +40,8 @@
   nixpkgs.config.allowUnfreePredicate =
     pkg:
     builtins.elem (lib.getName pkg) [
+      "acli"
+      "acli-unwrapped"
       "slack"
       "nvidia-x11"
       "proton-authenticator"

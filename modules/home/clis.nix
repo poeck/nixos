@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
+    acli
     ripgrep
     ffmpeg
     file

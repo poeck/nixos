@@ -64,6 +64,12 @@
           sha256 = "sha256:0psly1vf0msfqyj4dc77bpfr2n9hw6vpcqmm6fgfwiqfdz1dbs2l";
           version = "1.1.5";
         })
+        (createChromiumExtension {
+          # Loom
+          id = "liecbddmkiiihnedobmlmillhodjkdmb";
+          sha256 = "sha256:1b201p0a8fif9g0wj06i4scj15b89i02wigxfwwk7xb4wrh9p9vf";
+          version = "5.5.200";
+        })
       ];
   };
 }

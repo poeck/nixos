@@ -31,6 +31,7 @@
       "podman"
       "gamemode"
       "nordvpn"
+      "dialout"
     ];
     shell = pkgs.zsh;
   };

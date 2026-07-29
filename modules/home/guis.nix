@@ -12,6 +12,7 @@ in
     keeper-password-manager
     pear-desktop
     slack
+    expresslrs-configurator
     (makeTauriSandbox {
       name = "handy";
       package = pkgs.symlinkJoin {
