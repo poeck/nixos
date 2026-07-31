@@ -38,20 +38,21 @@
         interval = 300;
       };
     };
-    extraHosts = ''
-      10.20.50.4 otark-db.mysql.database.azure.com
-    '';
   };
 
-  services.openvpn.servers = {
-    otark = {
-      # Use 'config' to point to your existing .ovpn file
-      config = "config /root/vpn/otark.ovpn";
-
-      autoStart = false;
-      updateResolvConf = false;
-    };
+  # Keep the WireGuard credentials in a root-only runtime file rather than in
+  # this repository (or the world-readable Nix store). Bring the tunnel up with
+  # `sudo systemctl start wg-quick-otark`.
+  networking.wg-quick.interfaces.otark = {
+    autostart = false;
+    configFile = "/root/vpn/otark-wireguard.conf";
   };
+
+  # systemd-resolved normally reserves `.local` for mDNS. Route Otark's
+  # private zone explicitly to the DNS server configured by wg-quick.
+  systemd.services.wg-quick-otark.postStart = ''
+    ${pkgs.systemd}/bin/resolvectl domain otark '~.' '~otark.local'
+  '';
 
   environment.systemPackages = with pkgs; [
     # GUI & tray for wifi

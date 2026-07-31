@@ -125,6 +125,9 @@ in
       SearchBar = "unified";
 
       Certificates = { };
+      Certificates.Install = [
+        "${inputs.otark-ca}/otark-root-ca.crt"
+      ];
 
       EnableTrackingProtection = {
         Value = true;
