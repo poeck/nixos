@@ -46,7 +46,6 @@ let
     "4ab93b88-151c-451b-a1b7-a1e0e28fa7f8" # No Sidebar Scrollbar
   ];
 
-  sharedKeyboardShortcutsVersion = 19;
   sharedKeyboardShortcuts = [
     {
       id = "zen-compact-mode-toggle";
@@ -172,7 +171,7 @@ in
       settings = mkSettings "#2563eb" bookmarkBarNever;
 
       mods = sharedMods;
-      keyboardShortcutsVersion = sharedKeyboardShortcutsVersion;
+      keyboardShortcutsVersion = 20;
       keyboardShortcuts = sharedKeyboardShortcuts;
 
       bookmarks = {
@@ -336,7 +335,7 @@ in
       inherit spaces pins containers;
 
       mods = sharedMods;
-      keyboardShortcutsVersion = sharedKeyboardShortcutsVersion;
+      keyboardShortcutsVersion = 19;
       keyboardShortcuts = sharedKeyboardShortcuts;
 
       extensions = {

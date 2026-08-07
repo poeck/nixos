@@ -26,8 +26,6 @@
         -- Clipboard.
         "wl-clip-persist --clipboard both &",
         "wl-paste --watch cliphist store &",
-        -- Launcher.
-        "vicinae server --replace",
         -- Password manager.
         "1password --silent",
         -- Speech-to-text.
