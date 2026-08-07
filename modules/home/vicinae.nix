@@ -46,6 +46,7 @@ in
     (makeSandbox {
       package = vicinaeWrapped;
       name = "vicinae";
+      binPath = "bin/vicinae";
       permissions = [
         "gui"
       ];

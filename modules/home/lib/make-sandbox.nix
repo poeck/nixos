@@ -8,6 +8,7 @@ in
 {
   package,
   name ? package.pname,
+  binPath ? null,
   appId ? "com.nixpak.${name}",
   permissions ? [ ],
   extraConfig ? _: { },
@@ -134,7 +135,12 @@ mkNixPak {
       };
 
       baseConfig = {
-        app.package = package;
+        app = {
+          inherit package;
+        }
+        // lib.optionalAttrs (binPath != null) {
+          inherit binPath;
+        };
         flatpak.appId = appId;
 
         # Pass through LANG/LC_* and the corresponding locale-archive.

@@ -15,6 +15,7 @@ in
     expresslrs-configurator
     (makeTauriSandbox {
       name = "handy";
+      binPath = "bin/handy";
       package = pkgs.symlinkJoin {
         name = "handy-with-typing";
         paths = [
@@ -33,6 +34,7 @@ in
     })
     (makeElectronSandbox {
       package = pkgs.affine;
+      binPath = "bin/affine";
       permissions = [
         "network"
       ];
@@ -46,6 +48,7 @@ in
     })
     (makeSandbox {
       package = pkgs.geary;
+      binPath = "bin/geary";
       permissions = [
         "gui"
         "network"
