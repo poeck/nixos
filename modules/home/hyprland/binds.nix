@@ -23,6 +23,7 @@
     end
 
     hl.bind("CTRL + SHIFT + Space", hl.dsp.exec_cmd("1password --quick-access"))
+    hl.bind("CTRL + SHIFT + V", hl.dsp.global("desktop:09DF1130D093A0B050120BEBC399EAD2"))
 
     hl.bind(mainMod .. " + U", hl.dsp.focus({ monitor = "desc:Sharp Corporation LQ160R1JW02" }))
     hl.bind(mainMod .. " + I", hl.dsp.focus({ monitor = "desc:Philips Consumer Electronics Company PHL 246E9Q 0x000036F7" }))

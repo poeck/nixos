@@ -3,8 +3,10 @@
   xdg.configFile."hypr/hypr_exec_once.lua".text = ''
     hl.on("hyprland.start", function()
       local commands = {
-        -- Fix https://wiki.hypr.land/FAQ/#some-of-my-apps-take-a-really-long-time-to-open
-        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP",
+        -- Import the compositor environment and start Home Manager's
+        -- Hyprland session target. The legacy Home Manager config injected
+        -- this automatically, so Lua configs need to retain it explicitly.
+        "dbus-update-activation-environment --systemd --all && systemctl --user stop hyprland-session.target && systemctl --user start hyprland-session.target",
         -- Allow programs to request elevated privileges.
         "systemctl --user start hyprpolkitagent",
 
