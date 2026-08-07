@@ -10,9 +10,36 @@ let
       config_file="''${1:-$HOME/.config/hypr/monitors.conf}"
       [[ -r "$config_file" ]] || exit 0
 
+      trim() {
+        local value="$1"
+        value="''${value#"''${value%%[![:space:]]*}"}"
+        value="''${value%"''${value##*[![:space:]]}"}"
+        printf '%s' "$value"
+      }
+
+      lua_string() {
+        local value="$1"
+        value="''${value//\\/\\\\}"
+        value="''${value//\"/\\\"}"
+        printf '%s' "$value"
+      }
+
       while IFS= read -r monitor; do
         if [[ -n "$monitor" ]]; then
-          hyprctl keyword monitor "$monitor"
+          IFS=',' read -r output mode position scale _transform_key transform _vrr_key vrr _bitdepth_key bitdepth _ <<< "$monitor"
+
+          output="$(lua_string "$(trim "$output")")"
+          mode="$(lua_string "$(trim "$mode")")"
+          position="$(lua_string "$(trim "$position")")"
+          scale="$(trim "$scale")"
+
+          lua="hl.monitor({ output = \"$output\", mode = \"$mode\", position = \"$position\", scale = $scale"
+          [[ -n "$transform" ]] && lua+=", transform = $(trim "$transform")"
+          [[ -n "$vrr" ]] && lua+=", vrr = $(trim "$vrr")"
+          [[ -n "$bitdepth" ]] && lua+=", bitdepth = $(trim "$bitdepth")"
+          lua+=" })"
+
+          hyprctl eval "$lua"
         fi
       done < <(sed -n 's/^[[:space:]]*monitor[[:space:]]*=[[:space:]]*//p' "$config_file")
     '';
