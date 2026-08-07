@@ -28,17 +28,12 @@
     SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt";
   };
 
-  wayland.windowManager.hyprland = {
-    extraConfig = ''
-      # Run hyprland on the amd gpu
-      env = AQ_DRM_DEVICES, /dev/dri/amd-gpu
-      # Fix for electron apps
-      env = ELECTRON_OZONE_PLATFORM_HINT,auto
-      # Fix for programs like steam
-      env = QT_QPA_PLATFORM,wayland
-
-      # Load monitors from hyprdynamicmonitors
-      source = ~/.config/hypr/monitors.conf
-    '';
-  };
+  xdg.configFile."hypr/hypr_variables.lua".text = ''
+    -- Run Hyprland on the AMD GPU.
+    hl.env("AQ_DRM_DEVICES", "/dev/dri/amd-gpu")
+    -- Fix Electron apps.
+    hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
+    -- Fix programs such as Steam.
+    hl.env("QT_QPA_PLATFORM", "wayland")
+  '';
 }

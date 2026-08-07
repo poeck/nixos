@@ -1,66 +1,91 @@
 { ... }:
 {
-  wayland.windowManager.hyprland.settings = {
-    windowrule = [
-      # Make file dialogs float
-      "float on, match:class ^(file_progress)$"
-      "float on, match:class ^(confirm)$"
-      "float on, match:class ^(dialog)$"
-      "float on, match:class ^(download)$"
-      "float on, match:class ^(notification)$"
-      "float on, match:class ^(error)$"
-      "float on, match:class ^(confirmreset)$"
-      "float on, match:title ^(Open File)$"
-      "float on, match:title ^(File Upload)$"
-      "float on, match:title ^(branchdialog)$"
-      "float on, match:title ^(Confirm to replace files)$"
-      "float on, match:title ^(File Operation Progress)$"
+  xdg.configFile."hypr/hypr_windows.lua".text = ''
+    -- Make file dialogs float.
+    local floatingDialogs = {
+      { class = "^(file_progress)$" },
+      { class = "^(confirm)$" },
+      { class = "^(dialog)$" },
+      { class = "^(download)$" },
+      { class = "^(notification)$" },
+      { class = "^(error)$" },
+      { class = "^(confirmreset)$" },
+      { title = "^(Open File)$" },
+      { title = "^(File Upload)$" },
+      { title = "^(branchdialog)$" },
+      { title = "^(Confirm to replace files)$" },
+      { title = "^(File Operation Progress)$" },
+    }
 
-      # Screenshare picker
-      "opacity 0.0 override, match:class ^(xwaylandvideobridge)$"
-      "no_anim on, match:class ^(xwaylandvideobridge)$"
-      "no_initial_focus on, match:class ^(xwaylandvideobridge)$"
-      "max_size 1 1, match:class ^(xwaylandvideobridge)$"
-      "no_blur on, match:class ^(xwaylandvideobridge)$"
+    for _, match in ipairs(floatingDialogs) do
+      hl.window_rule({ match = match, float = true })
+    end
 
-      # Remove context menu transparency in chromium based apps
-      "opaque on, no_shadow on, no_blur on, match:class ^()$, match:title ^()$"
+    -- Screenshare picker.
+    local screensharePicker = { class = "^(xwaylandvideobridge)$" }
+    hl.window_rule({ match = screensharePicker, opacity = "0.0 override" })
+    hl.window_rule({ match = screensharePicker, no_anim = true })
+    hl.window_rule({ match = screensharePicker, no_initial_focus = true })
+    hl.window_rule({ match = screensharePicker, max_size = { 1, 1 } })
+    hl.window_rule({ match = screensharePicker, no_blur = true })
 
-      # Keep the Codex avatar overlay transparent and undecorated
-      "no_blur on, no_shadow on, border_size 0, match:class ^(codex-desktop)$, match:initial_title ^(Codex)$"
+    -- Remove context-menu transparency in Chromium-based apps.
+    hl.window_rule({
+      match = { class = "^$", title = "^$" },
+      opaque = true,
+      no_shadow = true,
+      no_blur = true,
+    })
 
-      # Custom window rules
-      # Gather
-      "workspace special:gather, match:class (Gather)"
-      # YouTube Music
-      "workspace special:music, match:initial_title (YouTube Music)"
+    -- Keep the Codex avatar overlay transparent and undecorated.
+    hl.window_rule({
+      match = {
+        class = "^(codex-desktop)$",
+        initial_title = "^(Codex)$",
+      },
+      no_blur = true,
+      no_shadow = true,
+      border_size = 0,
+    })
 
-      "workspace 9 silent, match:class ^(cs2)$"
-      "immediate on, match:class ^(cs2)$"
-      "border_size 0, match:class ^(cs2)$"
-      "rounding 0, match:class ^(cs2)$"
+    -- Custom window rules.
+    hl.window_rule({ match = { class = "(Gather)" }, workspace = "special:gather" })
+    hl.window_rule({ match = { initial_title = "(YouTube Music)" }, workspace = "special:music" })
 
-      "border_size 0, match:float 0, match:workspace f[1]"
-      "rounding 0, match:float 0, match:workspace f[1]"
-    ];
+    local counterStrike = { class = "^(cs2)$" }
+    hl.window_rule({ match = counterStrike, workspace = "9 silent" })
+    hl.window_rule({ match = counterStrike, immediate = true })
+    hl.window_rule({ match = counterStrike, border_size = 0 })
+    hl.window_rule({ match = counterStrike, rounding = 0 })
 
-    layerrule = [
-      # Vicinae launcher
-      "blur on, ignore_alpha 0, no_anim on, dim_around on, match:namespace vicinae"
+    local tiledFullscreen = { float = false, workspace = "f[1]" }
+    hl.window_rule({ match = tiledFullscreen, border_size = 0 })
+    hl.window_rule({ match = tiledFullscreen, rounding = 0 })
 
-      # Add dim to notification center
-      "dim_around on, match:namespace swaync-control-center"
+    -- Layer rules.
+    hl.layer_rule({
+      match = { namespace = "vicinae" },
+      blur = true,
+      ignore_alpha = 0,
+      no_anim = true,
+      dim_around = true,
+    })
+    hl.layer_rule({
+      match = { namespace = "swaync-control-center" },
+      dim_around = true,
+    })
+    hl.layer_rule({
+      match = { namespace = "noctalia-background-.*" },
+      blur = true,
+      blur_popups = true,
+      ignore_alpha = 0.5,
+    })
 
-      # Noctalia bar/panels blur
-      "blur on, match:namespace noctalia-background-.*"
-      "blur_popups on, match:namespace noctalia-background-.*"
-      "ignore_alpha 0.5, match:namespace noctalia-background-.*"
-    ];
-
-    workspace = [
-      # Disable gaps in fullscreen
-      "f[1], gapsout:0, gapsin:0"
-      "9, monitor:desc:Philips Consumer Electronics Company PHL 246E9Q 0x000036F7"
-    ];
-  };
+    -- Workspace rules.
+    hl.workspace_rule({ workspace = "f[1]", gaps_out = 0, gaps_in = 0 })
+    hl.workspace_rule({
+      workspace = "9",
+      monitor = "desc:Philips Consumer Electronics Company PHL 246E9Q 0x000036F7",
+    })
+  '';
 }
