@@ -46,6 +46,10 @@
       url = "github:ilysenko/codex-desktop-linux";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    otark-ca = {
+      url = "path:/home/paul/nixos/local/otark-ca";
+      flake = false;
+    };
     nixpak = {
       url = "github:nixpak/nixpak";
       inputs.nixpkgs.follows = "nixpkgs";

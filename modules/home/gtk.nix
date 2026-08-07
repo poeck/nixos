@@ -28,16 +28,8 @@
       size = 11;
     };
     theme = {
-      name = "Colloid-Green-Dark-Gruvbox";
-      package = pkgs.colloid-gtk-theme.override {
-        colorVariants = [ "dark" ];
-        themeVariants = [ "green" ];
-        tweaks = [
-          "gruvbox"
-          "rimless"
-          "float"
-        ];
-      };
+      name = "gruvbox-dark";
+      package = pkgs.gruvbox-dark-gtk;
     };
     cursorTheme = {
       name = "Bibata-Modern-Ice";
