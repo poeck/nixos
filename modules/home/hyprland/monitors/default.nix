@@ -3,12 +3,17 @@ let
   applyMonitorConfig = pkgs.writeShellApplication {
     name = "apply-hypr-monitor-config";
     runtimeInputs = [
+      pkgs.coreutils
       pkgs.hyprland
       pkgs.gnused
     ];
     text = ''
       config_file="''${1:-$HOME/.config/hypr/monitors.conf}"
+      generated_file="''${2:-$HOME/.config/hypr/generated_monitors.lua}"
       [[ -r "$config_file" ]] || exit 0
+
+      generated_tmp="$(mktemp)"
+      trap 'rm -f "$generated_tmp"' EXIT
 
       trim() {
         local value="$1"
@@ -39,9 +44,12 @@ let
           [[ -n "$bitdepth" ]] && lua+=", bitdepth = $(trim "$bitdepth")"
           lua+=" })"
 
+          printf '%s\n' "$lua" >> "$generated_tmp"
           hyprctl eval "$lua"
         fi
       done < <(sed -n 's/^[[:space:]]*monitor[[:space:]]*=[[:space:]]*//p' "$config_file")
+
+      install -Dm600 "$generated_tmp" "$generated_file"
     '';
   };
 in
@@ -59,16 +67,24 @@ in
     '';
   };
 
-  # HyprDynamicMonitors still generates legacy monitor lines. This fallback
-  # starts every connected display safely; the service then applies the selected
-  # profile through apply-hypr-monitor-config.
+  # HyprDynamicMonitors still generates legacy monitor lines. The helper above
+  # translates and saves the selected profile as Lua, so every Hyprland reload
+  # reapplies that profile instead of racing it with a scale-1 fallback.
   xdg.configFile."hypr/hypr_monitors.lua".text = ''
-    hl.monitor({
-      output = "",
-      mode = "preferred",
-      position = "auto",
-      scale = 1,
-    })
+    local configHome = os.getenv("XDG_CONFIG_HOME")
+    if configHome == nil or configHome == "" then
+      configHome = os.getenv("HOME") .. "/.config"
+    end
+
+    local loaded = pcall(dofile, configHome .. "/hypr/generated_monitors.lua")
+    if not loaded then
+      hl.monitor({
+        output = "",
+        mode = "preferred",
+        position = "auto",
+        scale = 1,
+      })
+    end
   '';
 
   home.file = {

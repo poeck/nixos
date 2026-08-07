@@ -5,6 +5,10 @@
     enable = true;
   };
 
+  # Keyboard input fallback for Linux Computer Use on Hyprland, whose portal
+  # backend does not implement org.freedesktop.portal.RemoteDesktop.
+  programs.ydotool.enable = true;
+
   xdg.portal = {
     enable = true;
     xdgOpenUsePortal = true;

@@ -32,6 +32,7 @@
       "gamemode"
       "nordvpn"
       "dialout"
+      "ydotool"
     ];
     shell = pkgs.zsh;
   };

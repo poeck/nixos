@@ -4,10 +4,9 @@
 
   programs.codexDesktopLinux = {
     enable = true;
+    computerUseUi.enable = true;
 
     linuxFeatures = [
-      "appshots"
-      "pet-overlay"
       "remote-control-ui"
       "remote-mobile-control"
     ];
