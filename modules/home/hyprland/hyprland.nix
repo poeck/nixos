@@ -44,4 +44,12 @@
       variables = [ "--all" ];
     };
   };
+
+  # Use an embedded pointer by default for portal screencasts. Browsers such as
+  # Google Meet then include it even when they do not request a cursor mode.
+  xdg.configFile."hypr/xdph.conf".text = ''
+    screencopy {
+      cursor_mode = 2
+    }
+  '';
 }

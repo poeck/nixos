@@ -20,6 +20,9 @@
       sensitivity = 0;
     };
 
+    # Render the pointer in the compositor output so screen-sharing can capture it.
+    cursor.no_hardware_cursors = true;
+
     "$mainMod" = "SUPER";
 
     general = {

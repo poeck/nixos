@@ -26,6 +26,9 @@
       # Remove context menu transparency in chromium based apps
       "opaque on, no_shadow on, no_blur on, match:class ^()$, match:title ^()$"
 
+      # Keep the Codex avatar overlay transparent and undecorated
+      "no_blur on, no_shadow on, border_size 0, match:class ^(codex-desktop)$, match:initial_title ^(Codex)$"
+
       # Custom window rules
       # Gather
       "workspace special:gather, match:class (Gather)"
