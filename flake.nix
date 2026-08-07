@@ -29,7 +29,7 @@
     zen-browser = {
       # Community-maintained flake. Pinned so updates happen explicitly via
       # `nix flake update zen-browser`.
-      url = "github:0xc000022070/zen-browser-flake/fc9b27eb5585548282004fac3f0d34fcf2f06467";
+      url = "github:0xc000022070/zen-browser-flake/67202a6dc9ad712796fe31ef7797084d1fb8dbfe";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
