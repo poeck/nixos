@@ -332,10 +332,11 @@ in
       spacesForce = true;
       pinsForce = true;
       pinsForceAction = "remove";
+      containersForce = true;
       inherit spaces pins containers;
 
       mods = sharedMods;
-      keyboardShortcutsVersion = 19;
+      keyboardShortcutsVersion = 20;
       keyboardShortcuts = sharedKeyboardShortcuts;
 
       extensions = {

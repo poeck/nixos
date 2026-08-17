@@ -47,6 +47,7 @@
       "proton-authenticator"
       "claude-desktop"
       "claude-code"
+      "chatgpt-desktop-app"
       "ungoogled-chromium"
       "ungoogled-chromium-unwrapped"
       "widevine-cdm"

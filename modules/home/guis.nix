@@ -5,6 +5,33 @@ let
   makeTauriSandbox = import ./lib/make-tauri-sandbox.nix { inherit pkgs inputs; };
 in
 {
+  # The bundled Electron launcher can fall back to XWayland, which makes the
+  # UI blurry on fractionally scaled displays. A user desktop entry with the
+  # same ID takes precedence over the system entry and forces native Wayland.
+  xdg.desktopEntries.chatgpt = {
+    name = "ChatGPT";
+    comment = "ChatGPT by OpenAI";
+    genericName = "AI assistant";
+    exec = "chatgpt --ozone-platform=wayland %U";
+    icon = "chatgpt";
+    terminal = false;
+    categories = [
+      "Utility"
+      "Development"
+    ];
+    mimeType = [
+      "x-scheme-handler/codex"
+      "text/csv"
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+      "text/tab-separated-values"
+      "application/vnd.ms-excel"
+      "application/vnd.ms-excel.sheet.macroEnabled.12"
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    ];
+    startupNotify = true;
+  };
+
   home.packages = with pkgs; [
     blinkdisk
     claude-desktop
@@ -29,7 +56,13 @@ in
         "audio"
       ];
       extraConfig = _: {
-        bubblewrap.bind.dev = [ "/dev/uinput" ];
+        bubblewrap.bind = {
+          # Handy initializes Enigo through XWayland before its direct-input
+          # path can hand text to wtype. Without this socket, Enigo remains
+          # uninitialized and Handy aborts every paste operation.
+          ro = [ "/tmp/.X11-unix" ];
+          dev = [ "/dev/uinput" ];
+        };
       };
     })
     (makeElectronSandbox {

@@ -42,8 +42,8 @@
     };
     llm-agents.url = "github:numtide/llm-agents.nix";
     claude-desktop.url = "github:aaddrick/claude-desktop-debian";
-    codex-desktop-linux = {
-      url = "github:ilysenko/codex-desktop-linux";
+    chatgpt-desktop-app = {
+      url = "github:poeck/chatgpt-desktop-app-nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     otark-ca = {

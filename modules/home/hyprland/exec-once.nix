@@ -29,7 +29,7 @@
         -- Password manager.
         "1password --silent",
         -- Speech-to-text.
-        "handy",
+        "handy --start-hidden",
         -- Best backup tool.
         "blinkdisk --hidden",
       }
