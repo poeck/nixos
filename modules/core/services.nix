@@ -16,7 +16,7 @@
     dbus = {
       enable = true;
       packages = with pkgs; [
-        gcr
+        gcr_3
         gnome-settings-daemon
       ];
     };

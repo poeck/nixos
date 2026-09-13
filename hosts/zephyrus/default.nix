@@ -75,9 +75,6 @@
         CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power";
         PLATFORM_PROFILE_ON_AC = "performance";
         PLATFORM_PROFILE_ON_BAT = "balanced";
-        # Start charging at 80% and stop at 90%
-        START_CHARGE_THRESH_BAT1 = 80;
-        STOP_CHARGE_THRESH_BAT1 = 90;
         # Disable USB autosuspend to prevent mouse wake-up lag
         USB_AUTOSUSPEND = 0;
         # Disable wifi power saving to avoid latency/drops

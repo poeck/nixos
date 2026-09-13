@@ -50,7 +50,6 @@
 
     -- Custom window rules.
     hl.window_rule({ match = { class = "(Gather)" }, workspace = "special:gather" })
-    hl.window_rule({ match = { initial_title = "(YouTube Music)" }, workspace = "special:music" })
 
     local counterStrike = { class = "^(cs2)$" }
     hl.window_rule({ match = counterStrike, workspace = "9 silent" })

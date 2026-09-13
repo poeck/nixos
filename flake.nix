@@ -27,9 +27,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     zen-browser = {
-      # Community-maintained flake. Pinned so updates happen explicitly via
+      # Community-maintained flake. To update, change this revision and run
       # `nix flake update zen-browser`.
-      url = "github:0xc000022070/zen-browser-flake/67202a6dc9ad712796fe31ef7797084d1fb8dbfe";
+      url = "github:0xc000022070/zen-browser-flake/018726119b87c9fb906857af802d3cbfbc10a46d";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };

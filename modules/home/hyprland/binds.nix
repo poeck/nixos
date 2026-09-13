@@ -31,6 +31,8 @@
     -- Special workspace (scratchpad).
     hl.bind(mainMod .. " + m", hl.dsp.workspace.toggle_special("magic"))
     hl.bind(mainMod .. " + SHIFT + m", hl.dsp.window.move({ workspace = "special:magic" }))
+    hl.bind(mainMod .. " + n", hl.dsp.workspace.toggle_special("gather"))
+    hl.bind(mainMod .. " + SHIFT + n", hl.dsp.window.move({ workspace = "special:gather" }))
 
     hl.bind(mainMod .. " + n", hl.dsp.exec_cmd("swaync-client -t"))
 

@@ -1,5 +1,15 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
+  home.sessionVariables = {
+    NPM_CONFIG_PREFIX = "${config.home.homeDirectory}/.npm-global";
+    PNPM_HOME = "${config.xdg.dataHome}/pnpm";
+  };
+
+  home.sessionPath = [
+    "${config.home.sessionVariables.NPM_CONFIG_PREFIX}/bin"
+    "${config.home.sessionVariables.PNPM_HOME}/bin"
+  ];
+
   home.packages = with pkgs; [
     acli
     ripgrep
