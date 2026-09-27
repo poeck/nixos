@@ -34,8 +34,6 @@
     hl.bind(mainMod .. " + n", hl.dsp.workspace.toggle_special("gather"))
     hl.bind(mainMod .. " + SHIFT + n", hl.dsp.window.move({ workspace = "special:gather" }))
 
-    hl.bind(mainMod .. " + n", hl.dsp.exec_cmd("swaync-client -t"))
-
     -- Scroll through existing workspaces.
     hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
     hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
@@ -67,5 +65,8 @@
     -- Mouse bindings.
     hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
     hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+
+    -- T3 Code
+    hl.bind(mainMod .. " + s", hl.dsp.global("com.t3tools.T3Code:capture-window"))
   '';
 }

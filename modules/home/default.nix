@@ -16,7 +16,6 @@
     ./oo7.nix # secret service
     ./nautilus.nix # file manager
     ./ssh.nix # ssh config
-    ./notifications # notification center
     ./xdg.nix # xdg config
     ./zsh.nix # shell
     ./hyprland # window manager

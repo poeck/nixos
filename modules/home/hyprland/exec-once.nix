@@ -14,8 +14,7 @@
         "hypridle",
         -- Status bar / shell.
         "noctalia",
-        -- Notification center and Wi-Fi tray.
-        "swaync",
+        -- Wi-Fi tray.
         "nm-applet",
         -- Wallpaper.
         "swaybg -i ${../../../wallpaper.jpg}",

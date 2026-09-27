@@ -25,6 +25,8 @@
       inputs.hyprdynamicmonitors.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
 
+  services.hyprpolkitagent.enable = true;
+
   wayland.windowManager.hyprland = {
     enable = true;
     configType = "lua";

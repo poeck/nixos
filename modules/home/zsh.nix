@@ -106,6 +106,11 @@
       DISABLE_MAGIC_FUNCTIONS=true
       export "MICRO_TRUECOLOR=1"
 
+      # Load the Sentry token at runtime so it stays out of the Nix store.
+      if [[ -r "$HOME/.config/secrets/sentry-token" ]]; then
+        export SENTRY_AUTH_TOKEN="$(cat "$HOME/.config/secrets/sentry-token")"
+      fi
+
       # Bind Ctrl + Left Arrow to move back one word
       bindkey "^[[1;5D" backward-word
       # Bind Ctrl + Right Arrow to move forward one word

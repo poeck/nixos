@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 {
+  # Route media keys to the most recently active MPRIS player.
+  services.playerctld.enable = true;
+
   home.sessionVariables = {
     NPM_CONFIG_PREFIX = "${config.home.homeDirectory}/.npm-global";
     PNPM_HOME = "${config.xdg.dataHome}/pnpm";

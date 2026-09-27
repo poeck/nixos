@@ -37,10 +37,14 @@
     mineplymouth.url = "github:nikp123/minecraft-plymouth-theme";
     hyprdynamicmonitors.url = "github:fiffeek/hyprdynamicmonitors";
     gather-linux = {
-      url = "github:simonkoeck/gather-linux";
+      url = "github:poeck/gatherway";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     llm-agents.url = "github:numtide/llm-agents.nix";
+    t3code = {
+      url = "github:poeck/t3code-nix-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     claude-desktop.url = "github:aaddrick/claude-desktop-debian";
     chatgpt-desktop-app = {
       url = "github:poeck/chatgpt-desktop-app-nix-flake";

@@ -70,10 +70,6 @@
       dim_around = true,
     })
     hl.layer_rule({
-      match = { namespace = "swaync-control-center" },
-      dim_around = true,
-    })
-    hl.layer_rule({
       match = { namespace = "noctalia-background-.*" },
       blur = true,
       blur_popups = true,

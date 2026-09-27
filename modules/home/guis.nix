@@ -36,34 +36,19 @@ in
     blinkdisk
     claude-desktop
     inputs.gather-linux.packages.${pkgs.stdenv.hostPlatform.system}.default
+    # Change nightly to stable to follow stable releases.
+    inputs.t3code.packages.${pkgs.stdenv.hostPlatform.system}.nightly
     keeper-password-manager
     pear-desktop
     slack
     expresslrs-configurator
-    (makeTauriSandbox {
+    (pkgs.symlinkJoin {
       name = "handy";
-      binPath = "bin/handy";
-      package = pkgs.symlinkJoin {
-        name = "handy-with-typing";
-        paths = [
-          pkgs.handy
-          pkgs.wtype
-          pkgs.dotool
-        ];
-      };
-      permissions = [
-        "network" # required to download models
-        "audio"
+      paths = [
+        pkgs.handy
+        pkgs.wtype
+        pkgs.dotool
       ];
-      extraConfig = _: {
-        bubblewrap.bind = {
-          # Handy initializes Enigo through XWayland before its direct-input
-          # path can hand text to wtype. Without this socket, Enigo remains
-          # uninitialized and Handy aborts every paste operation.
-          ro = [ "/tmp/.X11-unix" ];
-          dev = [ "/dev/uinput" ];
-        };
-      };
     })
     (makeElectronSandbox {
       package = pkgs.affine;
