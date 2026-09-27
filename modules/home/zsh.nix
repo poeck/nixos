@@ -1,10 +1,77 @@
 { pkgs, ... }:
+let
+  sudoAskpass = pkgs.writeShellScript "sudo-askpass" ''
+    printf -v context 'Action: %s\nRun as: %s\nDirectory: %s\n\n%s' \
+      "''${SUDO_ASKPASS_ACTION:-Sudo request}" \
+      "''${SUDO_ASKPASS_TARGET:-root}" \
+      "''${SUDO_ASKPASS_DIRECTORY:-unknown}" \
+      "''${1:-Enter your sudo password}"
+
+    exec ${pkgs.zenity}/bin/zenity --entry --hide-text \
+      --title="Authentication Required" \
+      --width=480 \
+      --text="$context"
+  '';
+
+  graphicalSudo = pkgs.writeShellScriptBin "sudo" ''
+    if [ -n "''${WAYLAND_DISPLAY:-}''${DISPLAY:-}" ]; then
+      sudo_args=( "$@" )
+      target=root
+      action="Sudo request"
+
+      # Display only the program name; command arguments can contain secrets.
+      while (( $# )); do
+        case "$1" in
+          --) shift; break ;;
+          -u|--user)
+            if (( $# < 2 )); then break; fi
+            target=$2
+            shift 2 ;;
+          --user=*) target=''${1#*=}; shift ;;
+          -u?*) target=''${1#-u}; shift ;;
+          -g|--group|-C|--close-from|-D|--chdir|-p|--prompt|-R|--chroot|-r|--role|-t|--type)
+            if (( $# < 2 )); then break; fi
+            shift 2 ;;
+          --*=*) shift ;;
+          -v|--validate) action="Validate sudo credentials"; shift ;;
+          -e|--edit) action="Edit files with sudo"; shift ;;
+          -s|--shell|-i|--login) action="Open a shell"; shift ;;
+          -A|-B|-b|-E|-H|-K|-k|-n|-P|-S) shift ;;
+          -*) break ;;
+          *) break ;;
+        esac
+      done
+
+      if [ "$action" = "Sudo request" ] && (( $# )); then
+        printf -v action 'Run %q' "$1"
+      fi
+
+      printf -v target_label '%q' "$target"
+      printf -v directory_label '%q' "$PWD"
+
+      export SUDO_ASKPASS=${sudoAskpass}
+      export SUDO_ASKPASS_ACTION="$action"
+      export SUDO_ASKPASS_TARGET="$target_label"
+      export SUDO_ASKPASS_DIRECTORY="$directory_label"
+      exec /run/wrappers/bin/sudo -A "''${sudo_args[@]}"
+    fi
+
+    exec /run/wrappers/bin/sudo "$@"
+  '';
+in
 {
+  home.packages = [ graphicalSudo ];
+
   programs.zsh = {
     enable = true;
     # enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
+
+    # .zshenv also runs for non-interactive shells used by coding agents.
+    envExtra = ''
+      path=( ${graphicalSudo}/bin ''${path:#${graphicalSudo}/bin} )
+    '';
 
     plugins = [
       {
@@ -101,6 +168,7 @@
     initContent = ''
       # NixOS setuid programs, such as sudo, live in /run/wrappers/bin.
       path=(/run/wrappers/bin ''${path:#/run/wrappers/bin})
+      path=( ${graphicalSudo}/bin ''${path:#${graphicalSudo}/bin} )
 
       DISABLE_AUTO_UPDATE=true
       DISABLE_MAGIC_FUNCTIONS=true

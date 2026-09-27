@@ -5,6 +5,7 @@
     rtkit.enable = true;
     # Just the sudo command (?)
     sudo.enable = true;
+    soteria.enable = true;
 
     # Trust Otark's private PKI for internal HTTPS services.
     pki.certificateFiles = [

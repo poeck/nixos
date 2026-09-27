@@ -7,9 +7,6 @@
         -- Hyprland session target. The legacy Home Manager config injected
         -- this automatically, so Lua configs need to retain it explicitly.
         "dbus-update-activation-environment --systemd --all && systemctl --user stop hyprland-session.target && systemctl --user start hyprland-session.target",
-        -- Allow programs to request elevated privileges.
-        "systemctl --user start hyprpolkitagent",
-
         -- Auto suspend and lock.
         "hypridle",
         -- Status bar / shell.
