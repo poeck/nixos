@@ -31,6 +31,17 @@ in
     startupNotify = true;
   };
 
+  # Hyprland is not auto-detected as a Secret Service desktop by Electron.
+  # Select the running oo7 keyring so T3 Code can encrypt saved connections.
+  xdg.desktopEntries.t3code-nightly = {
+    name = "T3 Code Nightly";
+    comment = "Control coding agents";
+    exec = "t3code-nightly --password-store=gnome-libsecret %U";
+    icon = "t3code-nightly";
+    terminal = false;
+    categories = [ "Development" ];
+  };
+
   home.packages = with pkgs; [
     blinkdisk
     claude-desktop
