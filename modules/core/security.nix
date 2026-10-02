@@ -1,4 +1,7 @@
-{ inputs, ... }:
+{ lib, ... }:
+let
+  otarkRootCA = ../../certificates/otark-root-ca.crt;
+in
 {
   security = {
     # RealtimeKit, required for screensharing
@@ -7,9 +10,8 @@
     sudo.enable = true;
     soteria.enable = true;
 
-    # Trust Otark's private PKI for internal HTTPS services.
-    pki.certificateFiles = [
-      "${inputs.otark-ca}/otark-root-ca.crt"
-    ];
+    # A fresh clone works without Otark's private PKI. When supplied, the public
+    # root certificate is included in the normal system trust bundle.
+    pki.certificateFiles = lib.optional (builtins.pathExists otarkRootCA) otarkRootCA;
   };
 }

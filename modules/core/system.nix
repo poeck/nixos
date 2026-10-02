@@ -35,7 +35,7 @@
 
   time.timeZone = "Europe/Vienna";
   i18n.defaultLocale = "en_US.UTF-8";
-  system.stateVersion = "24.05";
+  system.stateVersion = lib.mkDefault "24.05";
 
   nixpkgs.config.allowUnfreePredicate =
     pkg:

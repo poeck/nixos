@@ -11,6 +11,9 @@
     ./../../modules/core
   ];
 
+  # This SSD was freshly installed with NixOS 25.11.
+  system.stateVersion = "25.11";
+
   environment.systemPackages = with pkgs; [
     # CLI for battery status
     acpi

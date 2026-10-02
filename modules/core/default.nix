@@ -6,6 +6,7 @@
     ./bootloader.nix
     ./hardware.nix
     ./xserver.nix
+    ./autologin.nix
     ./network.nix
     ./nh.nix
     ./audio.nix

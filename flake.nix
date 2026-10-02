@@ -50,10 +50,6 @@
       url = "github:poeck/chatgpt-desktop-app-nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    otark-ca = {
-      url = "path:/home/paul/nixos/local/otark-ca";
-      flake = false;
-    };
     nixpak = {
       url = "github:nixpak/nixpak";
       inputs.nixpkgs.follows = "nixpkgs";

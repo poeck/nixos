@@ -1,4 +1,4 @@
-{ username, ... }:
+{ ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -13,15 +13,4 @@
   services.system76-scheduler.settings.cfsProfiles.enable = true;
 
   networking.firewall.allowedTCPPorts = [ 8765 ];
-
-  # Log in on tty1 and start Hyprland directly, without a display manager.
-  services.getty = {
-    autologinUser = username;
-    autologinOnce = true;
-  };
-  home-manager.users.${username}.programs.zsh.profileExtra = ''
-    if [[ -z "$DISPLAY" && -z "$WAYLAND_DISPLAY" && "$(tty)" == "/dev/tty1" ]]; then
-      exec /run/current-system/sw/bin/Hyprland
-    fi
-  '';
 }

@@ -5,6 +5,8 @@
   ...
 }:
 let
+  otarkRootCA = ../../certificates/otark-root-ca.crt;
+
   commonSettings = {
     "browser.urlbar.suggest.quicksuggest.sponsored" = false;
     "browser.urlbar.suggest.quicksuggest.nononsense" = true;
@@ -123,10 +125,7 @@ in
       DontCheckDefaultBrowser = true;
       SearchBar = "unified";
 
-      Certificates = { };
-      Certificates.Install = [
-        "${inputs.otark-ca}/otark-root-ca.crt"
-      ];
+      Certificates.Install = lib.optional (builtins.pathExists otarkRootCA) "${otarkRootCA}";
 
       EnableTrackingProtection = {
         Value = true;

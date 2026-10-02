@@ -41,11 +41,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790408503,
-        "narHash": "sha256-F/V9urG358THTV0Z0c7DFO3uMmm+q9hFqFeXhOCMu+U=",
+        "lastModified": 1790930216,
+        "narHash": "sha256-4+gEgqvyY6p+tmS6FrVmn1ooc3wt6oQvSDCIORsjbas=",
         "owner": "poeck",
         "repo": "chatgpt-desktop-app-nix-flake",
-        "rev": "e3c06a67e095aa93c3aca9cbab37694dbc7c4728",
+        "rev": "7c2a6abd994494e25e6f3a71bd17cea19c2728df",
         "type": "github"
       },
       "original": {
@@ -565,19 +565,6 @@
         "type": "github"
       }
     },
-    "otark-ca": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1785325391,
-        "narHash": "sha256-oLDNzjQNpPOa1IpM2ltfRSl6vIGR4ukxAXjuVdlSCjE=",
-        "path": "/home/paul/nixos/local/otark-ca",
-        "type": "path"
-      },
-      "original": {
-        "path": "/home/paul/nixos/local/otark-ca",
-        "type": "path"
-      }
-    },
     "root": {
       "inputs": {
         "chatgpt-desktop-app": "chatgpt-desktop-app",
@@ -593,7 +580,6 @@
         "nixpkgs": "nixpkgs_6",
         "nixvim": "nixvim",
         "noctalia": "noctalia",
-        "otark-ca": "otark-ca",
         "t3code": "t3code",
         "zen-browser": "zen-browser"
       }

@@ -1,4 +1,4 @@
-{ username, host, lib, ... }:
+{ host, lib, ... }:
 {
   # Fix keyboard layout in tty
   console.useXkbConfig = true;
@@ -11,11 +11,6 @@
         "nvidia"
       ];
       xkb.layout = "de";
-    };
-
-    displayManager.autoLogin = lib.mkIf (host == "zephyrus") {
-      enable = true;
-      user = "${username}";
     };
 
     libinput = {
