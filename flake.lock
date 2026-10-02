@@ -565,76 +565,6 @@
         "type": "github"
       }
     },
-<<<<<<< HEAD
-    "noctalia": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1790523212,
-        "narHash": "sha256-Z8SuI0YgAZaF0sumKPBF85PxPtTjpo8jvtphbgoITv8=",
-        "owner": "noctalia-dev",
-        "repo": "noctalia-shell",
-        "rev": "08c30392b1350b4f3d3fb77e23732560559f1638",
-        "type": "github"
-      },
-      "original": {
-        "owner": "noctalia-dev",
-        "repo": "noctalia-shell",
-        "type": "github"
-      }
-    },
-||||||| parent of 2a33947 (fix(sandboxing): resolve app build and sandbox issues)
-    "noctalia": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1790523212,
-        "narHash": "sha256-Z8SuI0YgAZaF0sumKPBF85PxPtTjpo8jvtphbgoITv8=",
-        "owner": "noctalia-dev",
-        "repo": "noctalia-shell",
-        "rev": "08c30392b1350b4f3d3fb77e23732560559f1638",
-        "type": "github"
-      },
-      "original": {
-        "owner": "noctalia-dev",
-        "repo": "noctalia-shell",
-        "type": "github"
-      }
-    },
-    "otark-ca": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1785325391,
-        "narHash": "sha256-oLDNzjQNpPOa1IpM2ltfRSl6vIGR4ukxAXjuVdlSCjE=",
-        "path": "/home/paul/nixos/local/otark-ca",
-        "type": "path"
-      },
-      "original": {
-        "path": "/home/paul/nixos/local/otark-ca",
-        "type": "path"
-      }
-    },
-=======
-    "otark-ca": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1785325391,
-        "narHash": "sha256-oLDNzjQNpPOa1IpM2ltfRSl6vIGR4ukxAXjuVdlSCjE=",
-        "path": "/home/paul/nixos/local/otark-ca",
-        "type": "path"
-      },
-      "original": {
-        "path": "/home/paul/nixos/local/otark-ca",
-        "type": "path"
-      }
-    },
->>>>>>> 2a33947 (fix(sandboxing): resolve app build and sandbox issues)
     "root": {
       "inputs": {
         "chatgpt-desktop-app": "chatgpt-desktop-app",
@@ -650,14 +580,6 @@
         "nixpak": "nixpak",
         "nixpkgs": "nixpkgs_6",
         "nixvim": "nixvim",
-<<<<<<< HEAD
-        "noctalia": "noctalia",
-||||||| parent of 2a33947 (fix(sandboxing): resolve app build and sandbox issues)
-        "noctalia": "noctalia",
-        "otark-ca": "otark-ca",
-=======
-        "otark-ca": "otark-ca",
->>>>>>> 2a33947 (fix(sandboxing): resolve app build and sandbox issues)
         "t3code": "t3code",
         "zen-browser": "zen-browser"
       }
