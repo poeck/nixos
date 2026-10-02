@@ -1,4 +1,4 @@
-{ ... }:
+{ host, lib, ... }:
 {
   xdg.configFile."hypr/hypr_binds.lua".text = ''
     local mainMod = "SUPER"
@@ -24,7 +24,9 @@
 
     hl.bind("CTRL + SHIFT + Space", hl.dsp.exec_cmd("1password --quick-access"))
 
-    hl.bind(mainMod .. " + U", hl.dsp.focus({ monitor = "desc:Sharp Corporation LQ160R1JW02" }))
+    ${lib.optionalString (host == "zephyrus") ''
+      hl.bind(mainMod .. " + U", hl.dsp.focus({ monitor = "desc:Sharp Corporation LQ160R1JW02" }))
+    ''}
     hl.bind(mainMod .. " + I", hl.dsp.focus({ monitor = "desc:Philips Consumer Electronics Company PHL 246E9Q 0x000036F7" }))
     hl.bind(mainMod .. " + O", hl.dsp.focus({ monitor = "desc:Shenzhen KTC Technology Group PMO G241-FFK" }))
 

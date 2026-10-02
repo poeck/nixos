@@ -1,4 +1,4 @@
-{ ... }:
+{ host, ... }:
 {
   services.hypridle = {
     enable = true;
@@ -22,7 +22,11 @@
         }
         {
           timeout = 1020;
-          on-timeout = "systemctl suspend-then-hibernate";
+          on-timeout =
+            if host == "zephyrus" then
+              "systemctl suspend-then-hibernate"
+            else
+              "systemctl suspend";
         }
       ];
     };

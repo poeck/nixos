@@ -1,5 +1,11 @@
-{ inputs, pkgs, ... }:
+{ inputs, pkgs, host, ... }:
 let
+  # Keep Atlas from loading the saved profile containing the laptop panel.
+  generatedMonitorFile =
+    if host == "atlas" then
+      "generated_monitors_atlas.lua"
+    else
+      "generated_monitors.lua";
   applyMonitorConfig = pkgs.writeShellApplication {
     name = "apply-hypr-monitor-config";
     runtimeInputs = [
@@ -9,7 +15,7 @@ let
     ];
     text = ''
       config_file="''${1:-$HOME/.config/hypr/monitors.conf}"
-      generated_file="''${2:-$HOME/.config/hypr/generated_monitors.lua}"
+      generated_file="''${2:-$HOME/.config/hypr/${generatedMonitorFile}}"
       [[ -r "$config_file" ]] || exit 0
 
       generated_tmp="$(mktemp)"
@@ -63,7 +69,7 @@ in
       [general]
       post_apply_exec = "${applyMonitorConfig}/bin/apply-hypr-monitor-config"
 
-      ${builtins.readFile ./config.toml}
+      ${builtins.readFile (if host == "atlas" then ./atlas.toml else ./config.toml)}
     '';
   };
 
@@ -76,7 +82,7 @@ in
       configHome = os.getenv("HOME") .. "/.config"
     end
 
-    local loaded = pcall(dofile, configHome .. "/hypr/generated_monitors.lua")
+    local loaded = pcall(dofile, configHome .. "/hypr/${generatedMonitorFile}")
     if not loaded then
       hl.monitor({
         output = "",

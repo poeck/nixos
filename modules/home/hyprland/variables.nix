@@ -1,4 +1,4 @@
-{ ... }:
+{ host, lib, ... }:
 {
   home.sessionVariables = {
     # Hint electron apps to use wayland
@@ -29,8 +29,14 @@
   };
 
   xdg.configFile."hypr/hypr_variables.lua".text = ''
-    -- Run Hyprland on the AMD GPU.
-    hl.env("AQ_DRM_DEVICES", "/dev/dri/amd-gpu")
+    ${lib.optionalString (host == "zephyrus") ''
+      -- Run the laptop's compositor on its AMD iGPU.
+      hl.env("AQ_DRM_DEVICES", "/dev/dri/amd-gpu")
+    ''}
+    ${lib.optionalString (host == "atlas") ''
+      -- Let Aquamarine discover the desktop GPU; do not pin the laptop's AMD node.
+      hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
+    ''}
     -- Fix Electron apps.
     hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
     -- Fix programs such as Steam.

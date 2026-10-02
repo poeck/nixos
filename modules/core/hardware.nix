@@ -1,6 +1,7 @@
-{ config, ... }:
+{ config, lib, host, ... }:
 {
   services.udev.extraRules = ''
+    ${lib.optionalString (host == "zephyrus") ''
     # Symlink the AMD Card (Vendor ID 0x1002)
     SUBSYSTEM=="drm", KERNEL=="card*", ATTRS{vendor}=="0x1002", SYMLINK+="dri/amd-gpu"
 
@@ -9,6 +10,7 @@
 
     # Prevent small docking station from waking up during suspend
     ACTION=="add" SUBSYSTEM=="pci" ATTR{vendor}=="0x1987" ATTR{device}=="0x5013" ATTR{power/wakeup}="disabled"
+    ''}
 
     # EdgeTX/Radiomaster radio in USB Joystick (HID) mode
     KERNEL=="hidraw*", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="4f54", TAG+="uaccess"
@@ -23,7 +25,7 @@
       # Enable's OpenGL
       enable = true;
     };
-    nvidia = {
+    nvidia = lib.mkIf (host == "zephyrus") {
       # Modesetting is required for nvidia
       modesetting.enable = true;
       # Experimental, and can cause sleep/suspend to fail.

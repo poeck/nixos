@@ -1,4 +1,4 @@
-{ username, ... }:
+{ username, host, lib, ... }:
 {
   # Fix keyboard layout in tty
   console.useXkbConfig = true;
@@ -6,14 +6,14 @@
   services = {
     xserver = {
       enable = true;
-      videoDrivers = [
+      videoDrivers = lib.mkIf (host == "zephyrus") [
         "amdgpu"
         "nvidia"
       ];
       xkb.layout = "de";
     };
 
-    displayManager.autoLogin = {
+    displayManager.autoLogin = lib.mkIf (host == "zephyrus") {
       enable = true;
       user = "${username}";
     };

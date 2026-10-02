@@ -72,6 +72,14 @@
     in
     {
       nixosConfigurations = {
+        atlas = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [ ./hosts/atlas ];
+          specialArgs = {
+            host = "atlas";
+            inherit self inputs username;
+          };
+        };
         zephyrus = nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [ ./hosts/zephyrus ];
