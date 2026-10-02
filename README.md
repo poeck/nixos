@@ -9,8 +9,10 @@ Atlas uses Intel microcode and NVIDIA directly. Zephyrus retains its AMD GPU
 selection, NVIDIA PRIME bus IDs, ASUS daemon, TLP and laptop power settings.
 
 Both automatically log in as `paul` on tty1 once per boot and start Hyprland
-from the Zsh login profile. No display/login manager is enabled. The LUKS
-password prompt remains. Other TTYs remain available for recovery.
+using `start-hyprland` from the Zsh login profile. Startup output goes to the
+systemd journal instead of the boot console. No display/login manager is
+enabled. The LUKS password prompt remains. Other TTYs remain available for
+recovery.
 
 Atlas retains Philips at `0x0` and KTC at `1920x0`, both 1920x1080 at 75 Hz,
 with the existing scale and color settings. It selects monitors by description,
@@ -113,9 +115,10 @@ Use Ctrl+Alt+F2 and log in:
 hostname
 systemctl --failed
 journalctl -b -u getty@tty1 --no-pager
+journalctl -b -t hyprland --no-pager
 journalctl -b -k --no-pager | grep -Ei 'nvidia|drm|firmware|failed'
 nvidia-smi
-Hyprland
+start-hyprland
 ```
 
 The last command starts Hyprland manually and prints its errors. Select a
