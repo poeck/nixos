@@ -50,6 +50,10 @@
       url = "github:poeck/chatgpt-desktop-app-nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    inlark = {
+      url = "github:inlark/inlark/v0.1.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixpak = {
       url = "github:nixpak/nixpak";
       inputs.nixpkgs.follows = "nixpkgs";

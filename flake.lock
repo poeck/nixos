@@ -315,6 +315,27 @@
         "type": "github"
       }
     },
+    "inlark": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1790624390,
+        "narHash": "sha256-Ph5apvSYIq+kewPJSxqwxEE7bjt/aqhuvSCfotkShcQ=",
+        "owner": "inlark",
+        "repo": "inlark",
+        "rev": "495eb7945351410e2d2b864742df4d56bc588b74",
+        "type": "github"
+      },
+      "original": {
+        "owner": "inlark",
+        "ref": "v0.1.0",
+        "repo": "inlark",
+        "type": "github"
+      }
+    },
     "llm-agents": {
       "inputs": {
         "bun2nix": "bun2nix",
@@ -324,11 +345,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1790570005,
-        "narHash": "sha256-+o/d1qwS8bHNwuiDevl+EKYGJ0IjdzroMxpmoY0JmRg=",
+        "lastModified": 1790746077,
+        "narHash": "sha256-I4O5GSbZgmvzV7dj8fZN8furV2UdEpahh4rvsZOfs/Q=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "e28ea84e78517e5d05ae0c399da00e848e207261",
+        "rev": "af40d966859ec4075ecc172dbb39e53f474dc5d9",
         "type": "github"
       },
       "original": {
@@ -461,11 +482,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1790510107,
-        "narHash": "sha256-EVMNYv7hYDDD9TGVT/hIyTYgpiXA8y3m5xIEIxuGNU0=",
+        "lastModified": 1790600678,
+        "narHash": "sha256-6k3n7X2UsZ6tAlWTz99RimiZab+17tMUrw9sRUcELiA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "3181085bfd08663b6b9e60bc7a8395c2aaa741bd",
+        "rev": "f45c6f04c2f013f004bf94e284e95d72898d9393",
         "type": "github"
       },
       "original": {
@@ -573,6 +594,7 @@
         "gather-linux": "gather-linux",
         "home-manager": "home-manager",
         "hyprdynamicmonitors": "hyprdynamicmonitors",
+        "inlark": "inlark",
         "llm-agents": "llm-agents",
         "minegrub": "minegrub",
         "mineplymouth": "mineplymouth",
@@ -668,11 +690,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790572932,
-        "narHash": "sha256-ZHAi209Jz1B0c6BoxbES7+P4hyqITr5yrzStE5ows1A=",
+        "lastModified": 1790746268,
+        "narHash": "sha256-HaO7XiaJn0EXBpDq/n8as9oYOzXVXU5kGphocyXKWGw=",
         "owner": "poeck",
         "repo": "t3code-nix-flake",
-        "rev": "a16a3482d5e5e9c4c88d0c443943aebbade37c94",
+        "rev": "bd3d25c6eaf6140019e7dad8824b682ba62bd05f",
         "type": "github"
       },
       "original": {
