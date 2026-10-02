@@ -60,11 +60,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1790562935,
-        "narHash": "sha256-96Y1b6l8Q4C9iIVXKSkRlKdls4xEH+hSZBMkGiGktE4=",
+        "lastModified": 1790888816,
+        "narHash": "sha256-ZX3oVUGZhwJbuYmat9/29H6kAGIToTeM0iz4ediOzg8=",
         "owner": "aaddrick",
         "repo": "claude-desktop-debian",
-        "rev": "8c16347eda46b4c0083df92a496d1e716a5c9cda",
+        "rev": "5007b9c968b87df7a3f641e4ff29958934eeb60c",
         "type": "github"
       },
       "original": {
@@ -81,11 +81,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1790568141,
-        "narHash": "sha256-1jwy3OlcgV7BtXs0Gde2hU4mjN7xjsCtfByWeca4aPo=",
+        "lastModified": 1790913743,
+        "narHash": "sha256-2dSW/+UbvXUSyIhsKVVNqCYu3eGKlqhPa75a8zD27bw=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "fd52f8517b676ebd7cf763177eebcb337fe666b0",
+        "rev": "50e98bb0f5c5e7fddb26c26b044f0f363f53584c",
         "type": "gitlab"
       },
       "original": {
@@ -121,11 +121,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788450739,
-        "narHash": "sha256-glZLQlzIn1fXH6PazR2iUmTo7kzzyYSshrWhLS9TqCU=",
+        "lastModified": 1790898470,
+        "narHash": "sha256-zTwuwezD0w3hpga6a6P8emidzAZFyWqlNeRBlpWOOl8=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "31729ca8cbdb4fa927b34e5f4353e6a83f39e993",
+        "rev": "024633cd702b10285db5cb19b40ad48d2399ba60",
         "type": "github"
       },
       "original": {
@@ -283,11 +283,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790365885,
-        "narHash": "sha256-iQ0ebhiVo64NktTnwft9hNxlFu4j5cvljVxyJaEVIP4=",
+        "lastModified": 1790928438,
+        "narHash": "sha256-ZuJbu8VQe/Qzy7GJdZ3Xv7adRllH1o4O7nqONtkhFbA=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "7b4c5ec4bedaf1e062bbc1bcaeddbc6bd242aa1b",
+        "rev": "833540099ef43cbeb28b1e3f3c21901961edb48e",
         "type": "github"
       },
       "original": {
@@ -322,16 +322,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1790624390,
-        "narHash": "sha256-Ph5apvSYIq+kewPJSxqwxEE7bjt/aqhuvSCfotkShcQ=",
+        "lastModified": 1790930014,
+        "narHash": "sha256-VcSCltmviBvxOID7hFWXTct6sZUJTdkTeUrfeHFiuk0=",
         "owner": "inlark",
         "repo": "inlark",
-        "rev": "495eb7945351410e2d2b864742df4d56bc588b74",
+        "rev": "4c2d888a6de638dd17b5c7c9619aafa34a03ff2d",
         "type": "github"
       },
       "original": {
         "owner": "inlark",
-        "ref": "v0.1.0",
         "repo": "inlark",
         "type": "github"
       }
@@ -345,11 +344,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1790746077,
-        "narHash": "sha256-I4O5GSbZgmvzV7dj8fZN8furV2UdEpahh4rvsZOfs/Q=",
+        "lastModified": 1790918187,
+        "narHash": "sha256-F3py52yPDHBSKKkx4CzpTMc5KxzCBT+jLUIRNOYpr4Q=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "af40d966859ec4075ecc172dbb39e53f474dc5d9",
+        "rev": "20762f12777a611184868a1a4408bc42a014adf1",
         "type": "github"
       },
       "original": {
@@ -405,11 +404,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790216550,
-        "narHash": "sha256-qZLQ6EG2+wqZzHH5KdkpmrJqidwqvP35478UH8iTEpM=",
+        "lastModified": 1790821369,
+        "narHash": "sha256-z9JfAJQ3yk7C1QTMZMl+G8fo7i5wem5PW0I95epjHlQ=",
         "owner": "nixpak",
         "repo": "nixpak",
-        "rev": "464f67e283d444bea8d3a516802a1342e79e7de8",
+        "rev": "a7a1f41e342e5f597ae47581dfc76726d03a8be7",
         "type": "github"
       },
       "original": {
@@ -530,11 +529,11 @@
     },
     "nixpkgs_6": {
       "locked": {
-        "lastModified": 1790463110,
-        "narHash": "sha256-hKlVl12B1dF0Q5vd9dY3lIJM5mFGWYSlXwSLAqHZ1+s=",
+        "lastModified": 1790822859,
+        "narHash": "sha256-69xHQhAeMAD2wDXO7T2pcOZIF9Sga2W+JkmY2a11Ops=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e158d9ed9b51c98974c5e66e1ba1c9e0255fecaa",
+        "rev": "c59305bab2065cfecc4944690d9eedbb56f3a9fa",
         "type": "github"
       },
       "original": {
@@ -553,11 +552,11 @@
         "systems": "systems_5"
       },
       "locked": {
-        "lastModified": 1790541651,
-        "narHash": "sha256-/496IQz8qNWHHLnc3Zvr0l4uxJ34igNhJhn7ZKAefFk=",
+        "lastModified": 1790928658,
+        "narHash": "sha256-EeMn6SmrBe4gnxaMyb3NZYMXG8FPF9PY0OCcbPDFFNI=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "5980a626794486abad69fca7667f9c11dfbc3bd7",
+        "rev": "1cdfef1a6eb583d65b606b04fc97687491479d62",
         "type": "github"
       },
       "original": {
@@ -566,6 +565,7 @@
         "type": "github"
       }
     },
+<<<<<<< HEAD
     "noctalia": {
       "inputs": {
         "nixpkgs": [
@@ -586,6 +586,55 @@
         "type": "github"
       }
     },
+||||||| parent of 2a33947 (fix(sandboxing): resolve app build and sandbox issues)
+    "noctalia": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1790523212,
+        "narHash": "sha256-Z8SuI0YgAZaF0sumKPBF85PxPtTjpo8jvtphbgoITv8=",
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "rev": "08c30392b1350b4f3d3fb77e23732560559f1638",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "type": "github"
+      }
+    },
+    "otark-ca": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1785325391,
+        "narHash": "sha256-oLDNzjQNpPOa1IpM2ltfRSl6vIGR4ukxAXjuVdlSCjE=",
+        "path": "/home/paul/nixos/local/otark-ca",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/paul/nixos/local/otark-ca",
+        "type": "path"
+      }
+    },
+=======
+    "otark-ca": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1785325391,
+        "narHash": "sha256-oLDNzjQNpPOa1IpM2ltfRSl6vIGR4ukxAXjuVdlSCjE=",
+        "path": "/home/paul/nixos/local/otark-ca",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/paul/nixos/local/otark-ca",
+        "type": "path"
+      }
+    },
+>>>>>>> 2a33947 (fix(sandboxing): resolve app build and sandbox issues)
     "root": {
       "inputs": {
         "chatgpt-desktop-app": "chatgpt-desktop-app",
@@ -601,7 +650,14 @@
         "nixpak": "nixpak",
         "nixpkgs": "nixpkgs_6",
         "nixvim": "nixvim",
+<<<<<<< HEAD
         "noctalia": "noctalia",
+||||||| parent of 2a33947 (fix(sandboxing): resolve app build and sandbox issues)
+        "noctalia": "noctalia",
+        "otark-ca": "otark-ca",
+=======
+        "otark-ca": "otark-ca",
+>>>>>>> 2a33947 (fix(sandboxing): resolve app build and sandbox issues)
         "t3code": "t3code",
         "zen-browser": "zen-browser"
       }
@@ -690,11 +746,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790746268,
-        "narHash": "sha256-HaO7XiaJn0EXBpDq/n8as9oYOzXVXU5kGphocyXKWGw=",
+        "lastModified": 1790934279,
+        "narHash": "sha256-2QNl5w2W2PPD59ljurnOgSHhrIffTRvNpZdLs3aQpxs=",
         "owner": "poeck",
         "repo": "t3code-nix-flake",
-        "rev": "bd3d25c6eaf6140019e7dad8824b682ba62bd05f",
+        "rev": "c733a3be70adc3b1b094f99eab6e1c9e334fd735",
         "type": "github"
       },
       "original": {

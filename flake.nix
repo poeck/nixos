@@ -1,13 +1,6 @@
 {
   description = "FrostPhoenix's nixos configuration";
 
-  nixConfig = {
-    extra-substituters = [ "https://noctalia.cachix.org" ];
-    extra-trusted-public-keys = [
-      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
-    ];
-  };
-
   inputs = {
     # Nix
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -51,15 +44,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     inlark = {
-      url = "github:inlark/inlark/v0.1.0";
+      # Follow the default branch; refresh with `nix flake update inlark`.
+      url = "github:inlark/inlark";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpak = {
       url = "github:nixpak/nixpak";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

@@ -2,7 +2,6 @@
 let
   makeSandbox = import ./lib/make-sandbox.nix { inherit pkgs inputs; };
   makeElectronSandbox = import ./lib/make-electron-sandbox.nix { inherit pkgs inputs; };
-  makeTauriSandbox = import ./lib/make-tauri-sandbox.nix { inherit pkgs inputs; };
 in
 {
   # The bundled Electron launcher can fall back to XWayland, which makes the
@@ -40,6 +39,7 @@ in
     inputs.t3code.packages.${pkgs.stdenv.hostPlatform.system}.nightly
     keeper-password-manager
     pear-desktop
+    proton-authenticator
     slack
     expresslrs-configurator
     (pkgs.symlinkJoin {
@@ -55,13 +55,6 @@ in
       binPath = "bin/affine";
       permissions = [
         "network"
-      ];
-    })
-    (makeTauriSandbox {
-      package = pkgs.proton-authenticator;
-      permissions = [
-        "network"
-        "keyring"
       ];
     })
     (makeSandbox {

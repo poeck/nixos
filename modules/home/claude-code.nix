@@ -20,6 +20,7 @@ in
       "${sandboxRuntimePkg}/lib/node_modules/@anthropic-ai/sandbox-runtime";
 
     ".claude/settings.json".text = builtins.toJSON {
+      includeCoAuthoredBy = false;
       enabledPlugins = {
         "context7@claude-plugins-official" = true;
         "greptile@claude-plugins-official" = true;
