@@ -1,15 +1,15 @@
-{ ... }:
+{ inputs, ... }:
 {
+  imports = [
+    inputs.chatgpt-desktop-app.nixosModules.default
+    inputs.inlark.nixosModules.default
+  ];
+
   programs = {
+    chatgpt-desktop-app.enable = true;
     dconf.enable = true;
+    inlark.enable = true;
     # Default shell
     zsh.enable = true;
-    # Automation tool (like xdotool for Wayland)
-    ydotool.enable = true;
-
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-    };
   };
 }

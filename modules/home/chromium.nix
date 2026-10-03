@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 {
   programs.chromium = {
     enable = true;
@@ -11,53 +11,13 @@
         "--enable-features=TouchpadOverscrollHistoryNavigation"
       ];
     };
-    extensions =
-      let
-        createChromiumExtensionFor =
-          browserVersion:
-          {
-            id,
-            sha256,
-            version,
-          }:
-          {
-            inherit id;
-            crxPath = builtins.fetchurl {
-              url = "https://clients2.google.com/service/update2/crx?response=redirect&acceptformat=crx2,crx3&prodversion=${browserVersion}&x=id%3D${id}%26installsource%3Dondemand%26uc";
-              name = "${id}.crx";
-              inherit sha256;
-            };
-            inherit version;
-          };
-        createChromiumExtension = createChromiumExtensionFor (
-          lib.versions.major pkgs.ungoogled-chromium.version
-        );
-      in
-      [
-        (createChromiumExtension {
-          # ublock origin
-          id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";
-          sha256 = "sha256:0pba857r9n2hlfc6szxicf69yqg6kqyz74cz13k4alacjrdkk2n3";
-          version = "1.68.0";
-        })
-        (createChromiumExtension {
-          # 1password
-          id = "aeblfdkhhhdcdjpifhhbdiojplfjncoa";
-          sha256 = "sha256:1ingz45cv6zvjkkrjdqs9fj4rzqj6ng0v1mc6mq6sczhj40m20kv";
-          version = "8.11.22.27";
-        })
-        (createChromiumExtension {
-          # AuthFill
-          id = "doanledhbgobnfeicgdchpilkjkbjddg";
-          sha256 = "sha256:0p10p42k28rq53qrhqlsd1ysghzpzkpg1bfd7gh2jabiavvyiv4g";
-          version = "1.1.0";
-        })
-        (createChromiumExtension {
-          # NordVPN
-          id = "fjoaledfpmneenckfbpdfhkmimnjocfa";
-          sha256 = "sha256:12kzfqp7amxw69amlawnqkrc9299kd8fl457hxfi0rksn596krij";
-          version = "5.3.2";
-        })
-      ];
+    # Fixed downloads avoid hash mismatches when the Web Store updates a package.
+    extensions = map (extension: {
+      inherit (extension) id version;
+      crxPath = "${pkgs.fetchurl {
+        inherit (extension) url sha256;
+        name = "${extension.id}.crx";
+      }}";
+    }) (builtins.fromJSON (builtins.readFile ./chromium-extensions.json));
   };
 }

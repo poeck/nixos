@@ -6,7 +6,10 @@
     ./bootloader.nix
     ./hardware.nix
     ./xserver.nix
+    ./autologin.nix
     ./network.nix
+    ./lan-mouse.nix
+    ./ssh.nix
     ./nh.nix
     ./audio.nix
     ./program.nix

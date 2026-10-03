@@ -1,4 +1,9 @@
-{ pkgs, username, ... }:
+{
+  pkgs,
+  username,
+  lib,
+  ...
+}:
 let
   sandboxRuntimePkg = pkgs.sandbox;
   seccompPath = "${sandboxRuntimePkg}/lib/node_modules/@anthropic-ai/sandbox-runtime/vendor/seccomp/x64";
@@ -15,6 +20,7 @@ in
       "${sandboxRuntimePkg}/lib/node_modules/@anthropic-ai/sandbox-runtime";
 
     ".claude/settings.json".text = builtins.toJSON {
+      includeCoAuthoredBy = false;
       enabledPlugins = {
         "context7@claude-plugins-official" = true;
         "greptile@claude-plugins-official" = true;

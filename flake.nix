@@ -15,12 +15,43 @@
     };
 
     # Third party
-    vicinae.url = "github:vicinaehq/vicinae";
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    zen-browser = {
+      # Community-maintained flake. To update, change this revision and run
+      # `nix flake update zen-browser`.
+      url = "github:0xc000022070/zen-browser-flake/018726119b87c9fb906857af802d3cbfbc10a46d";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
     minegrub.url = "github:Lxtharia/minegrub-theme";
     mineplymouth.url = "github:nikp123/minecraft-plymouth-theme";
     hyprdynamicmonitors.url = "github:fiffeek/hyprdynamicmonitors";
-    claude-code.url = "github:sadjow/claude-code-nix";
-    handy.url = "github:cjpais/Handy";
+    gather-linux = {
+      url = "github:poeck/gatherway";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    llm-agents.url = "github:numtide/llm-agents.nix";
+    t3code = {
+      url = "github:poeck/t3code-nix-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    claude-desktop.url = "github:aaddrick/claude-desktop-debian";
+    chatgpt-desktop-app = {
+      url = "github:poeck/chatgpt-desktop-app-nix-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    inlark = {
+      # Follow the default branch; refresh with `nix flake update inlark`.
+      url = "github:inlark/inlark";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixpak = {
+      url = "github:nixpak/nixpak";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -31,6 +62,14 @@
     in
     {
       nixosConfigurations = {
+        atlas = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [ ./hosts/atlas ];
+          specialArgs = {
+            host = "atlas";
+            inherit self inputs username;
+          };
+        };
         zephyrus = nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [ ./hosts/zephyrus ];

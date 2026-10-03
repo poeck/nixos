@@ -1,14 +1,45 @@
-{ ... }:
 {
+  config,
+  lib,
+  pkgs,
+  username,
+  ...
+}:
+{
+  home.sessionVariables.SSH_AUTH_SOCK = "${config.home.homeDirectory}/.1password/agent.sock";
+  home.file.".ssh/paul.pub".source = ../../keys/paul.pub;
+
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-    matchBlocks = {
-      "*" = {
-        identityAgent = "~/.1password/agent.sock";
+    settings =
+      lib.genAttrs [ "atlas" "zephyrus" ] (name: {
+        HostName = "${name}.alpines-pauling.ts.net";
+        User = username;
+        # Select the public key; 1Password keeps and uses the private key.
+        IdentityFile = "~/.ssh/paul.pub";
+        IdentitiesOnly = true;
+        ForwardAgent = false;
+      })
+      // {
+        "*" = {
+          IdentityAgent = "~/.1password/agent.sock";
+        };
       };
-    };
   };
 
-  services.ssh-agent.enable = true;
+  # OpenSSH rejects the Nix store owner's UID for a user SSH config.
+  # Home Manager links this file during activation, then we copy it into place.
+  home.file.".ssh/config".force = true;
+  home.activation.copySshConfig = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+    run ${pkgs.bash}/bin/bash -eu -c '
+      ssh_config="$HOME/.ssh/config"
+      if [ -L "$ssh_config" ]; then
+        ssh_config_tmp="$(${pkgs.coreutils}/bin/mktemp "$ssh_config.XXXXXX")"
+        ${pkgs.coreutils}/bin/cp --dereference "$ssh_config" "$ssh_config_tmp"
+        ${pkgs.coreutils}/bin/chmod 600 "$ssh_config_tmp"
+        ${pkgs.coreutils}/bin/mv -f "$ssh_config_tmp" "$ssh_config"
+      fi
+    '
+  '';
 }

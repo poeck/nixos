@@ -1,11 +1,10 @@
-{ ... }:
+{ host, lib, ... }:
 {
   home.sessionVariables = {
     # Hint electron apps to use wayland
     NIXOS_OZONE_WL = "1";
     __GL_GSYNC_ALLOWED = 0;
     __GL_VRR_ALLOWED = 0;
-    SSH_AUTH_SOCK = "/run/user/1000/ssh-agent";
     DISABLE_QT5_COMPAT = 0;
     GDK_BACKEND = "wayland";
     ANKI_WAYLAND = 1;
@@ -28,17 +27,18 @@
     SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt";
   };
 
-  wayland.windowManager.hyprland = {
-    extraConfig = ''
-      # Run hyprland on the amd gpu
-      env = AQ_DRM_DEVICES, /dev/dri/amd-gpu
-      # Fix for electron apps
-      env = ELECTRON_OZONE_PLATFORM_HINT,auto
-      # Fix for programs like steam
-      env = QT_QPA_PLATFORM,wayland
-
-      # Load monitors from hyprdynamicmonitors
-      source = ~/.config/hypr/monitors.conf
-    '';
-  };
+  xdg.configFile."hypr/hypr_variables.lua".text = ''
+    ${lib.optionalString (host == "zephyrus") ''
+      -- Run the laptop's compositor on its AMD iGPU.
+      hl.env("AQ_DRM_DEVICES", "/dev/dri/amd-gpu")
+    ''}
+    ${lib.optionalString (host == "atlas") ''
+      -- Let Aquamarine discover the desktop GPU; do not pin the laptop's AMD node.
+      hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
+    ''}
+    -- Fix Electron apps.
+    hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
+    -- Fix programs such as Steam.
+    hl.env("QT_QPA_PLATFORM", "wayland")
+  '';
 }
