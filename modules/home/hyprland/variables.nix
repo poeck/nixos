@@ -5,7 +5,6 @@
     NIXOS_OZONE_WL = "1";
     __GL_GSYNC_ALLOWED = 0;
     __GL_VRR_ALLOWED = 0;
-    SSH_AUTH_SOCK = "/run/user/1000/ssh-agent";
     DISABLE_QT5_COMPAT = 0;
     GDK_BACKEND = "wayland";
     ANKI_WAYLAND = 1;

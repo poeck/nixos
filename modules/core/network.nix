@@ -3,6 +3,11 @@
   services.tailscale.enable = true;
   # Allow direct encrypted peer connections instead of relying on relays.
   services.tailscale.openFirewall = true;
+  services.tailscale.extraSetFlags = [
+    # Let OpenSSH authenticate with the 1Password key, and resolve MagicDNS.
+    "--ssh=false"
+    "--accept-dns=true"
+  ];
 
   services.resolved = {
     enable = true;

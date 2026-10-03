@@ -1,13 +1,31 @@
-{ lib, pkgs, ... }:
 {
+  config,
+  lib,
+  pkgs,
+  username,
+  ...
+}:
+{
+  home.sessionVariables.SSH_AUTH_SOCK = "${config.home.homeDirectory}/.1password/agent.sock";
+  home.file.".ssh/paul.pub".source = ../../keys/paul.pub;
+
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-    settings = {
-      "*" = {
-        IdentityAgent = "~/.1password/agent.sock";
+    settings =
+      lib.genAttrs [ "atlas" "zephyrus" ] (name: {
+        HostName = "${name}.alpines-pauling.ts.net";
+        User = username;
+        # Select the public key; 1Password keeps and uses the private key.
+        IdentityFile = "~/.ssh/paul.pub";
+        IdentitiesOnly = true;
+        ForwardAgent = false;
+      })
+      // {
+        "*" = {
+          IdentityAgent = "~/.1password/agent.sock";
+        };
       };
-    };
   };
 
   # OpenSSH rejects the Nix store owner's UID for a user SSH config.
@@ -24,6 +42,4 @@
       fi
     '
   '';
-
-  services.ssh-agent.enable = true;
 }

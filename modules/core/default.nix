@@ -8,6 +8,7 @@
     ./xserver.nix
     ./autologin.nix
     ./network.nix
+    ./ssh.nix
     ./nh.nix
     ./audio.nix
     ./program.nix

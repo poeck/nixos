@@ -112,7 +112,9 @@ FRITZ!Box's documented built-in remote wake requires a wired LAN connection;
 it is not a supported substitute for a Wi-Fi wake sender.
 
 The Oracle VPS now runs the private wake button at
-`https://oracle.alpines-pauling.ts.net/`, published with Tailscale Serve.
+`https://oracle.alpines-pauling.ts.net:8443/`, published with Tailscale Serve.
+Serve uses port `8443` because Oracle's existing Coolify proxy needs port `443`
+for service domains that also resolve to Oracle's Tailscale IP.
 The phone must be connected to Tailscale with the owner's account.
 For phones with Tailscale DNS disabled, use `http://100.89.248.58:8092/`.
 This address needs no DNS lookup. The HTTP connection travels inside
@@ -136,7 +138,8 @@ been verified. Local broadcast and unicast wake were retested successfully.
 Capture on Atlas showed no incoming VPN wake packets on UDP port `9`, while
 all three matching 102-byte magic packets arrived on each of ports `7` and
 `40009`. The wake service therefore uses UDP port `7` for the VPN destination.
-An actual remote wake from sleep still needs confirmation after this change.
+Wake from sleep through the wake page was confirmed after this change;
+further reliability testing is planned.
 A successful page response means packets were sent, not that Atlas woke.
 
 The service source is `scripts/atlas-wake.py`, with its Ubuntu systemd unit in
@@ -240,6 +243,56 @@ Check `systemctl --user status sunshine` and
 `journalctl --user -u sunshine -b` on Atlas if streaming fails. On Zephyrus,
 `tailscale ping atlas` checks the peer connection and reports whether it is
 direct or relayed.
+
+## SSH between Atlas and Zephyrus
+
+Both hosts run OpenSSH and allow `paul` to log in with the public key in
+`keys/paul.pub`. This is the **SSH Key Zephyrus** key already stored in
+1Password and used for Git signing. Its private key stays in 1Password.
+Password authentication and root SSH login are disabled.
+
+Apply the updated checkout on each host:
+
+```bash
+# On Atlas:
+sudo nixos-rebuild switch --flake .#atlas
+# On Zephyrus:
+sudo nixos-rebuild switch --flake .#zephyrus
+```
+
+Add new files to Git before rebuilding a Git-backed flake, or transfer the
+committed checkout. On each host, sign in to the 1Password desktop app and enable
+**Settings > Developer > Use the SSH agent**. The shared desktop configuration
+starts 1Password automatically; unlock it and approve its SSH authorization
+prompt when connecting. Log out and back in after the first rebuild so apps
+inherit the updated `SSH_AUTH_SOCK`.
+
+From the laptop, use `ssh atlas`; from the PC, use `ssh zephyrus`. Both aliases
+select user `paul`, the public key at `~/.ssh/paul.pub`, and the 1Password agent
+at `~/.1password/agent.sock`. Agent forwarding is disabled for these aliases;
+connections started on the other host use that host's own 1Password app.
+
+The aliases resolve `atlas.alpines-pauling.ts.net` and
+`zephyrus.alpines-pauling.ts.net`. Tailscale must be connected on both hosts,
+including at home. It can connect directly over the home LAN and continues
+working away from home without router port forwarding. TCP port 22 is allowed
+only on `tailscale0`. Tailscale SSH is disabled so OpenSSH always verifies the
+1Password key. MagicDNS must be enabled in the tailnet, and its access policy
+must permit TCP port 22 between these devices. Both devices were already
+enrolled when this configuration was prepared; after a fresh installation,
+run `sudo tailscale up` on that host to sign in.
+
+Useful checks:
+
+```bash
+systemctl status sshd tailscaled tailscaled-set
+SSH_AUTH_SOCK="$HOME/.1password/agent.sock" ssh-add -l
+tailscale ping atlas  # From Zephyrus; use zephyrus from Atlas.
+ssh -v atlas         # From Zephyrus; use zephyrus from Atlas.
+```
+
+Both machines must be awake to receive SSH connections. The earlier Atlas wake
+instructions also apply when connecting remotely.
 
 ## Chromium extensions
 
