@@ -24,6 +24,9 @@
 
     hl.bind("CTRL + SHIFT + Space", hl.dsp.exec_cmd("1password --quick-access"))
 
+    -- Toggle sharing on Atlas, or the receiver on Zephyrus.
+    hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("lan-mouse-desk"))
+
     ${lib.optionalString (host == "zephyrus") ''
       hl.bind(mainMod .. " + U", hl.dsp.focus({ monitor = "desc:Sharp Corporation LQ160R1JW02" }))
     ''}

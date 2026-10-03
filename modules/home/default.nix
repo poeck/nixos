@@ -29,5 +29,6 @@
     ./t3code.nix # T3 Code CLI and background server
     ./vicinae.nix # app launcher
     ./laptop-control.nix # local network power controls
+    ./lan-mouse.nix # manual sharing on Atlas; receiver on Zephyrus
   ];
 }

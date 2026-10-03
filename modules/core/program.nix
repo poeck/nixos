@@ -8,8 +8,7 @@
   programs = {
     chatgpt-desktop-app.enable = true;
     dconf.enable = true;
-    # Temporarily disabled: upstream reader-body test times out during the build.
-    inlark.enable = false;
+    inlark.enable = true;
     # Default shell
     zsh.enable = true;
   };

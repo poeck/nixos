@@ -244,6 +244,77 @@ Check `systemctl --user status sunshine` and
 `tailscale ping atlas` checks the peer connection and reports whether it is
 direct or relayed.
 
+## Share Atlas's keyboard and mouse with Zephyrus
+
+Lan Mouse runs as a receiver automatically in Zephyrus's Hyprland session.
+Its keyboard and trackpad always stay local. Atlas starts with sharing off;
+press **Super + Shift + L** on Atlas to enable or disable it. With sharing on,
+move past the left edge of Atlas's desktop to control Zephyrus, and move back
+through the laptop's right edge to return. A notification confirms each toggle.
+The same shortcut on Zephyrus enables or disables its receiver. Zephyrus starts
+enabled in a new Hyprland session, but a manual disable stays off until you
+enable it again or start a new session, including across suspend and resume.
+
+Apply the updated checkout on both hosts:
+
+```bash
+# On Atlas:
+sudo nixos-rebuild switch --flake .#atlas
+# On Zephyrus:
+sudo nixos-rebuild switch --flake .#zephyrus
+```
+
+After the first rebuild, log out and back in on Zephyrus, or run
+`lan-mouse-desk on` in its current Hyprland session to start the receiver.
+New files must be tracked before rebuilding a Git-backed flake.
+
+Pair once:
+
+1. Open **Lan Mouse** from the app launcher on both hosts. On Atlas, opening
+   this window also enables sharing; the GUI attaches to the managed service.
+2. Find Atlas's certificate fingerprint in its Lan Mouse window. On Atlas,
+   attempt to move the pointer past the left edge to connect to Zephyrus.
+3. On Zephyrus, authorize Atlas under **Incoming Connections**, checking that
+   the fingerprint matches. Only this direction needs authorization.
+4. Close the windows. Pairing is saved; closing the GUI keeps the service
+   running. Use the shortcut or `lan-mouse-desk off` to stop sharing on Atlas.
+
+Hold **left Ctrl + left Alt + left Shift + left Super** together to release
+the mouse back to Atlas. This releases the current capture without disabling
+sharing. When the pointer is on the laptop, use this chord before pressing
+Atlas's toggle shortcut, because ordinary shortcuts are forwarded to Zephyrus.
+
+Atlas's sharing stops before suspend or hibernate and stays off after waking.
+It also stops when the Hyprland session ends, and does not start on login.
+Zephyrus's receiver is ready after login or resume. Before moving the laptop
+away from the desk, turn sharing off on Atlas; network reachability does not
+detect whether the laptop is beside the monitors. To reject input immediately
+from the laptop, press **Super + Shift + L**, use **Lan Mouse: Toggle receiver**
+in its launcher, or run `lan-mouse-desk off`. An explicitly stopped receiver
+stays off until enabled again or the next Hyprland session.
+
+Both hosts use Tailscale; UDP 4242 is allowed only on `tailscale0`. The tailnet
+policy must permit that traffic. Atlas addresses Zephyrus by MagicDNS and uses
+Lan Mouse's layer-shell backend for Hyprland keyboard shortcut compatibility.
+
+Nix supplies the layout and release chord on each service start. Pairing
+approvals remain in the writable `~/.config/lan-mouse/config.toml`; the private
+certificate stays in `~/.config/lan-mouse/lan-mouse.pem`. Neither is stored in
+the repository or Nix store. GUI layout edits are reset on the next start;
+pairing approvals are retained. Clipboard sharing is not configured.
+
+Useful controls and diagnostics:
+
+```bash
+lan-mouse-desk status
+lan-mouse-desk on
+lan-mouse-desk off
+lan-mouse-desk gui
+systemctl --user status lan-mouse
+journalctl --user -u lan-mouse -b
+tailscale ping zephyrus # From Atlas
+```
+
 ## SSH between Atlas and Zephyrus
 
 Both hosts run OpenSSH and allow `paul` to log in with the public key in
