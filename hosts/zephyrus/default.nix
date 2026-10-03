@@ -15,6 +15,9 @@
   system.stateVersion = "25.11";
 
   environment.systemPackages = with pkgs; [
+    # Stream Atlas's desktop and games over Tailscale.
+    moonlight-qt
+
     # CLI for battery status
     acpi
     # CLI for dimming the screen
@@ -36,9 +39,9 @@
 
   networking.firewall.allowedTCPPorts = [ 8765 ];
 
-  # Hibernate after 30m of sleep
+  # Idle suspend starts at 15m; hibernate at 120m total inactivity.
   systemd.sleep.settings.Sleep = {
-    "HibernateDelaySec" = "30m";
+    "HibernateDelaySec" = "105m";
   };
 
   systemd.services.asus-shutdown.serviceConfig = {

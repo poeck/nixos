@@ -1,6 +1,8 @@
 { pkgs, host, ... }:
 {
   services.tailscale.enable = true;
+  # Allow direct encrypted peer connections instead of relying on relays.
+  services.tailscale.openFirewall = true;
 
   services.resolved = {
     enable = true;

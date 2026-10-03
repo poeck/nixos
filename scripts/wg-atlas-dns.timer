@@ -1,0 +1,11 @@
+[Unit]
+Description=Check the Atlas VPN endpoint periodically
+
+[Timer]
+OnBootSec=1m
+OnUnitActiveSec=1m
+RandomizedDelaySec=10s
+Unit=wg-atlas-dns.service
+
+[Install]
+WantedBy=timers.target

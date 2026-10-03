@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, host, ... }:
 {
   services = {
     # Virtual filesystems for NASj
@@ -24,7 +24,7 @@
     logind = {
       settings = {
         Login = {
-          HandleLidSwitch = "suspend-then-hibernate";
+          HandleLidSwitch = if host == "zephyrus" then "suspend-then-hibernate" else "suspend";
           HandlePowerKey = "poweroff";
           HandlePowerKeyLongPress = "poweroff";
         };

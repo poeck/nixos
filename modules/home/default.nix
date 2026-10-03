@@ -26,6 +26,7 @@
     ./zen.nix # zen browser
     ./zed.nix # text editor
     ./claude-code.nix # claude code
+    ./t3code.nix # T3 Code CLI and background server
     ./vicinae.nix # app launcher
     ./laptop-control.nix # local network power controls
   ];

@@ -1,0 +1,14 @@
+[Unit]
+Description=Refresh the Atlas VPN endpoint after home IP changes
+After=wg-quick@wg-atlas.service
+ConditionPathExists=/sys/class/net/wg-atlas
+
+[Service]
+Type=oneshot
+Environment=WG_ENDPOINT_RESOLUTION_RETRIES=2
+ExecStart=/bin/bash /usr/share/doc/wireguard-tools/examples/reresolve-dns/reresolve-dns.sh wg-atlas
+TimeoutStartSec=30
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes

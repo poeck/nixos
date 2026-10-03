@@ -9,6 +9,7 @@
   };
 
   home.sessionPath = [
+    "${config.home.homeDirectory}/.local/bin"
     "${config.home.sessionVariables.NPM_CONFIG_PREFIX}/bin"
     "${config.home.sessionVariables.PNPM_HOME}/bin"
   ];
