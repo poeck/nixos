@@ -1,4 +1,4 @@
-{ ... }:
+{ host, lib, ... }:
 {
   xdg.configFile."hypr/hypr_exec_once.lua".text = ''
     hl.on("hyprland.start", function()
@@ -28,6 +28,8 @@
         "handy --start-hidden",
         -- Best backup tool.
         "blinkdisk --hidden",
+        -- Discord starts in the tray on Atlas only.
+        ${lib.optionalString (host == "atlas") ''"discord --start-minimized",''}
       }
 
       for _, command in ipairs(commands) do

@@ -13,10 +13,13 @@
     polkitPolicyOwners = [ "${username}" ];
   };
 
-  # Zen is not in 1Password's default browser allowlist, so the extension cannot
-  # reach the desktop app until the real executable basename is allowed.
+  # Allow the real executable basenames of our additional browsers so their
+  # extensions can connect to the desktop app.
   environment.etc."1password/custom_allowed_browsers" = {
-    text = "zen";
+    text = ''
+      zen
+      helium
+    '';
     mode = "0755";
   };
 

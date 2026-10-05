@@ -5,6 +5,7 @@
     ./nixpkgs.nix
     ./bootloader.nix
     ./hardware.nix
+    ./helium.nix
     ./xserver.nix
     ./autologin.nix
     ./network.nix

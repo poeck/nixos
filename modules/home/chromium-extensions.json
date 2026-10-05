@@ -41,5 +41,12 @@
     "url": "https://clients2.googleusercontent.com/crx/blobs/AZPVhcS6ZLWwKYbwBbKeJ__zn2UCSdA5Tbbae_qBeWRZNORbBLb6GaKpOAjfR7nHPlGlQ4bQqNYAUyzhpTe-bmEdQql3zHCMoUhZqoR4WbGsSKQ99N1_gjH3YedAoLroiXUeAMZSmuUinrc7Q4Ej6vG5XkN6TQYzCzokHA/LIECBDDMKIIIHNEDOBMLMILLHODJKDMB_5_5_211_0.crx",
     "sha256": "sha256-cw7+ZTMk4jcmvxva7mpPFg5D3gZwLRL8iniS7dPqwcQ=",
     "version": "5.5.211"
+  },
+  {
+    "name": "Claude",
+    "id": "fcoeoabgfenejglbffodgkkbkcdhcgfn",
+    "url": "https://clients2.googleusercontent.com/crx/blobs/AZPVhcQImzh8akbSR2Mk8TSS0IHxaoeuCq1qSt3h1OIHo1-_O1T8TaUztx92SBx4twKvzr8bxhQ2lgUrkXpZepyq-a3qxH4kgURyEi61UxEuZRNiSwVqr6HLuyO2mYSribJuAMZSmuUDYUnBcE3nYbrg5bBJ_cLya8d4ew/FCOEOABGFENEJGLBFFODGKKBKCDHCGFN_1_0_98_0.crx",
+    "sha256": "sha256-aNtDr+oRbmHVTwODFzZ12PTMiiTaoW/yhxmRypaEPXg=",
+    "version": "1.0.98"
   }
 ]

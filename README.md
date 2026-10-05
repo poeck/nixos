@@ -365,15 +365,16 @@ ssh -v atlas         # From Zephyrus; use zephyrus from Atlas.
 Both machines must be awake to receive SSH connections. The earlier Atlas wake
 instructions also apply when connecting remotely.
 
-## Chromium extensions
+## Browser extension pins
 
 `modules/home/chromium-extensions.json` pins each extension's CRX download,
-version and SHA-256 hash. Builds use those exact packages instead of a mutable
-Web Store update endpoint. To update the pins intentionally:
+version and SHA-256 hash. Helium reuses the requested entries from this manifest;
+the standalone Chromium browser is no longer installed. Builds use those exact
+packages instead of a mutable Web Store update endpoint. To update the pins:
 
 ```bash
 cd /home/paul/nixos
-browser_version=$(nix eval --raw .#nixosConfigurations.zephyrus.config.home-manager.users.paul.programs.chromium.package.version)
+browser_version=$(helium --version | sed -n 's/.*(Chromium \([^)]*\)).*/\1/p')
 nix-shell -p python3 --run "python3 scripts/update-chromium-extensions.py $browser_version"
 git diff -- modules/home/chromium-extensions.json
 ```
@@ -383,6 +384,48 @@ the pins after all downloads succeed. Classic uBlock Origin uses the signed CRX
 from its developer's GitHub releases; its ID is `fkgkibajhfbepljeaefdnfnegdcjomkh`,
 which differs from the old Web Store ID. Existing settings under the old ID may
 need to be exported and imported when migrating an existing Chromium profile.
+
+## Helium browser
+
+Helium uses the reviewed `poeck/helium-browser-nix-flake` fork, pinned to commit
+`14a8f68137d4db62213555937f23ad95e7f8c4e6` (Helium 0.18.3.1). To update the browser,
+review a new fork revision, change the pin in `flake.nix`, then run
+`nix flake update helium-browser`. The local package override removes upstream
+flags that disable component updates and suppress outdated-browser warnings.
+
+`modules/home/helium.nix` installs the pinned 1Password, ChatGPT (the `Codex`
+manifest entry), and Claude extensions in both profiles, and AuthFill only in
+Personal, using `chromium-extensions.json`.
+Classic uBlock Origin is bundled with Helium; no second blocker or uBlock Origin
+Lite is installed. The module
+also configures 1Password's native messaging host and browser allowlist, plus
+ChatGPT's native messaging host from the official OpenAI Chrome plugin. That
+plugin must be installed for the ChatGPT desktop connection to work. Sign in
+to the extensions separately in each profile. Helium is not an officially
+supported browser for either AI extension; installation does not guarantee
+that all browser-control or desktop-connection features work.
+
+The application menu contains **Helium (Personal)** and **Helium (Otark)**;
+the corresponding commands are `helium-personal` and `helium-otark`. Personal
+is the default for web links. Otark starts with a green accent (`#16a34a`).
+Both profiles keep separate browsing data under
+`~/.config/net.imput.helium/Personal` and `Otark`. Preferences are seeded
+only when absent and stay writable; later changes in Helium are preserved.
+The existing `Default` profile is retained. Each new profile appears in
+Helium's profile picker after its first launch.
+
+The profile initializer removes AuthFill's registration from Otark and records
+a per-profile external-extension exclusion. It preserves other settings and
+keeps a private backup before making this targeted change. If Helium is running,
+the change is deferred until the next start after all Helium windows are closed.
+
+`modules/core/helium.nix` sets Google as the search provider through Chromium's
+shared Linux policy directory. This applies to both Helium profiles; the search
+provider is managed through Nix rather than the browser's settings. Zen remains
+installed as an alternative browser for now.
+
+Apply the configuration with `sudo nixos-rebuild switch --flake .#atlas`
+(or `.#zephyrus` on the laptop).
 
 ## Optional Otark certificate
 

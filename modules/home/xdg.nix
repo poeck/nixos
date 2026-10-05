@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ host, lib, ... }:
 with lib;
 let
   defaultApps = {
@@ -11,8 +11,8 @@ let
     pdf = [ "org.gnome.Evince.desktop" ];
     terminal = [ "alacritty.desktop" ];
     archive = [ "org.gnome.FileRoller.desktop" ];
-    discord = [ "webcord.desktop" ];
-    browser = [ "zen-beta.desktop" ];
+    discord = [ "discord.desktop" ];
+    browser = [ "helium-personal.desktop" ];
   };
 
   mimeMap = {
@@ -85,6 +85,17 @@ let
     );
 in
 {
+  # Override any Discord-created autostart entry on the laptop.
+  xdg.configFile."autostart/discord.desktop" = lib.mkIf (host == "zephyrus") {
+    force = true;
+    text = ''
+      [Desktop Entry]
+      Type=Application
+      Name=Discord
+      Hidden=true
+    '';
+  };
+
   xdg.configFile."mimeapps.list".force = true;
   xdg.mimeApps.enable = true;
   xdg.mimeApps.associations.added = associations;

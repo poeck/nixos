@@ -2,6 +2,11 @@
 {
   xdg.configFile."hypr/hypr_settings.lua".text = ''
     hl.config({
+      -- Expose native monitor resolutions to X11 games on scaled displays.
+      xwayland = {
+        force_zero_scaling = true,
+      },
+
       input = {
         kb_layout = "de",
         numlock_by_default = true,

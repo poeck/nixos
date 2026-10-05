@@ -80,7 +80,7 @@
     hl.workspace_rule({ workspace = "f[1]", gaps_out = 0, gaps_in = 0 })
     hl.workspace_rule({
       workspace = "9",
-      monitor = "desc:Philips Consumer Electronics Company PHL 246E9Q 0x000036F7",
+      monitor = "desc:AOC Q27G4ZR XZ1S5HA001828",
     })
   '';
 }

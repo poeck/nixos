@@ -22,7 +22,7 @@
     ./noctalia # status bar / shell
     ./alacritty # terminal
     ./tmux # terminal splits
-    ./chromium.nix # chromium
+    ./helium.nix # helium browser
     ./zen.nix # zen browser
     ./zed.nix # text editor
     ./claude-code.nix # claude code

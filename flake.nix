@@ -26,6 +26,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+    helium-browser = {
+      # Pin the reviewed fork; update intentionally with a new reviewed revision.
+      url = "github:poeck/helium-browser-nix-flake/14a8f68137d4db62213555937f23ad95e7f8c4e6";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-darwin.follows = "nixpkgs";
+    };
     minegrub.url = "github:Lxtharia/minegrub-theme";
     mineplymouth.url = "github:nikp123/minecraft-plymouth-theme";
     hyprdynamicmonitors.url = "github:fiffeek/hyprdynamicmonitors";
@@ -33,6 +39,7 @@
       url = "github:poeck/gatherway";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hermes-agent.url = "github:NousResearch/hermes-agent";
     llm-agents.url = "github:numtide/llm-agents.nix";
     t3code = {
       url = "github:poeck/t3code-nix-flake";
