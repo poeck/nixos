@@ -8,11 +8,11 @@
 }:
 let
   # Keep this version in sync with the nightly desktop in the t3code flake.
-  version = "0.0.45-nightly.20261002.2572";
+  version = "0.0.46-nightly.20261003.2632";
   releases = {
     x86_64-linux = {
       arch = "x64";
-      hash = "sha256-1mpg8gKsbPqEx2KtcIr3fBfIZM9LQS5dmjB9U3xZp0E=";
+      hash = "sha256-UNOf+dvtFmHvUC2YP1rNO5dAsOJ3V0Nzr6McgXGomfs=";
     };
     aarch64-linux = {
       arch = "arm64";

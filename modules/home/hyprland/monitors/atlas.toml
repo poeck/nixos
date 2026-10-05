@@ -6,7 +6,13 @@ config_file_type = "template"
 description = "Philips Consumer Electronics Company PHL 246E9Q 0x000036F7"
 
 [[profiles.default.conditions.required_monitors]]
-description = "Shenzhen KTC Technology Group PMO G241-FFK"
+description = "^AOC Q27G4ZR( |$)"
+match_description_using_regex = true
+
+[[profiles.default.conditions.required_monitors]]
+# The description may include a serial number after the model name.
+description = "^Shenzhen KTC Technology Group PMO G241-FFK( |$)"
+match_description_using_regex = true
 
 [fallback_profile]
 config_file = "./profiles/fallback.conf"

@@ -27,10 +27,14 @@
     -- Toggle sharing on Atlas, or the receiver on Zephyrus.
     hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("lan-mouse-desk"))
 
+    -- Focus monitors from left to right with U, I, O.
+    ${lib.optionalString (host == "atlas") ''
+      hl.bind(mainMod .. " + U", hl.dsp.focus({ monitor = "desc:Philips Consumer Electronics Company PHL 246E9Q 0x000036F7" }))
+    ''}
     ${lib.optionalString (host == "zephyrus") ''
       hl.bind(mainMod .. " + U", hl.dsp.focus({ monitor = "desc:Sharp Corporation LQ160R1JW02" }))
     ''}
-    hl.bind(mainMod .. " + I", hl.dsp.focus({ monitor = "desc:Philips Consumer Electronics Company PHL 246E9Q 0x000036F7" }))
+    hl.bind(mainMod .. " + I", hl.dsp.focus({ monitor = "${if host == "atlas" then "desc:AOC Q27G4ZR" else "desc:Philips Consumer Electronics Company PHL 246E9Q 0x000036F7"}" }))
     hl.bind(mainMod .. " + O", hl.dsp.focus({ monitor = "desc:Shenzhen KTC Technology Group PMO G241-FFK" }))
 
     -- Special workspace (scratchpad).

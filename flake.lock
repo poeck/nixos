@@ -41,11 +41,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790930216,
-        "narHash": "sha256-4+gEgqvyY6p+tmS6FrVmn1ooc3wt6oQvSDCIORsjbas=",
+        "lastModified": 1791009208,
+        "narHash": "sha256-eFunYuPcyL3gecKPii8WbQGprRuinyUznu8SVtGELXw=",
         "owner": "poeck",
         "repo": "chatgpt-desktop-app-nix-flake",
-        "rev": "7c2a6abd994494e25e6f3a71bd17cea19c2728df",
+        "rev": "3f9ef58d9ef15be1bdd11737aabee923271c4047",
         "type": "github"
       },
       "original": {
@@ -344,11 +344,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1790918187,
-        "narHash": "sha256-F3py52yPDHBSKKkx4CzpTMc5KxzCBT+jLUIRNOYpr4Q=",
+        "lastModified": 1791061662,
+        "narHash": "sha256-7NrbyeCugkaZEYy+oCcYA4p+l+2TPrhu0qS3qrcWJZE=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "20762f12777a611184868a1a4408bc42a014adf1",
+        "rev": "cd88eedb193fde4dc405e02763f56f8f4f8d343d",
         "type": "github"
       },
       "original": {
@@ -668,11 +668,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790934279,
-        "narHash": "sha256-2QNl5w2W2PPD59ljurnOgSHhrIffTRvNpZdLs3aQpxs=",
+        "lastModified": 1791044194,
+        "narHash": "sha256-p1xoXZPHgcwKnLdjlPYlLnW1/VRQv+SWFq/+KTYfqp4=",
         "owner": "poeck",
         "repo": "t3code-nix-flake",
-        "rev": "c733a3be70adc3b1b094f99eab6e1c9e334fd735",
+        "rev": "dbcbd3e6fbde6bdaaf212cf6b0fd540dbbbaa3d9",
         "type": "github"
       },
       "original": {
