@@ -39,7 +39,6 @@
       url = "github:poeck/gatherway";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hermes-agent.url = "github:NousResearch/hermes-agent";
     llm-agents.url = "github:numtide/llm-agents.nix";
     t3code = {
       url = "github:poeck/t3code-nix-flake";

@@ -20,7 +20,8 @@ let
       });
 
   # Helium already bundles classic uBlock Origin as a component extension.
-  # Share the requested additional extensions between Personal and Otark.
+  # External manifests are shared; profile defaults below exclude personal tools
+  # from Otark.
   extensions = lib.filter (
     extension:
     lib.elem extension.name [
@@ -28,6 +29,7 @@ let
       "AuthFill"
       "Codex"
       "Claude"
+      "SponsorBlock"
     ]
   ) (builtins.fromJSON (builtins.readFile ./chromium-extensions.json));
 
@@ -48,8 +50,11 @@ let
         extensions = {
           theme.id = "user_color_theme_id";
           # External extension manifests are shared by the browser. Chromium's
-          # per-profile uninstall list keeps AuthFill out of this profile.
-          external_uninstalls = [ "doanledhbgobnfeicgdchpilkjkbjddg" ];
+          # per-profile uninstall list keeps personal tools out of this profile.
+          external_uninstalls = [
+            "doanledhbgobnfeicgdchpilkjkbjddg" # AuthFill
+            "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock
+          ];
         };
         browser.theme = {
           is_grayscale2 = false;

@@ -48,5 +48,12 @@
     "url": "https://clients2.googleusercontent.com/crx/blobs/AZPVhcQImzh8akbSR2Mk8TSS0IHxaoeuCq1qSt3h1OIHo1-_O1T8TaUztx92SBx4twKvzr8bxhQ2lgUrkXpZepyq-a3qxH4kgURyEi61UxEuZRNiSwVqr6HLuyO2mYSribJuAMZSmuUDYUnBcE3nYbrg5bBJ_cLya8d4ew/FCOEOABGFENEJGLBFFODGKKBKCDHCGFN_1_0_98_0.crx",
     "sha256": "sha256-aNtDr+oRbmHVTwODFzZ12PTMiiTaoW/yhxmRypaEPXg=",
     "version": "1.0.98"
+  },
+  {
+    "name": "SponsorBlock",
+    "id": "mnjggcdmjocbbbhaepdhchncahnbgone",
+    "url": "https://clients2.googleusercontent.com/crx/blobs/AZPVhcTWfnmqjE44RBK5YQoPMBxSo1y7qcdg-DJ-fXQTElUiCRzoz076L2PnzCsPUQZqQOP-Qty-EFYPhnHaRYiJntKDMiuafq3_rcJ-LGKTOnEWoklqBe8_F207JV_shHYAxlKa5U8gzzlCzUWtqqLN4CT8eVJIRN0L/MNJGGCDMJOCBBBHAEPDHCHNCAHNBGONE_6_1_6_0.crx",
+    "sha256": "sha256-VYf+K2qZRhAcoN3nxu/nanVcXuW21uY9/EjH9zbNtP8=",
+    "version": "6.1.6"
   }
 ]

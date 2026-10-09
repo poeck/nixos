@@ -394,8 +394,8 @@ review a new fork revision, change the pin in `flake.nix`, then run
 flags that disable component updates and suppress outdated-browser warnings.
 
 `modules/home/helium.nix` installs the pinned 1Password, ChatGPT (the `Codex`
-manifest entry), and Claude extensions in both profiles, and AuthFill only in
-Personal, using `chromium-extensions.json`.
+manifest entry), and Claude extensions in both profiles, and AuthFill and
+SponsorBlock only in Personal, using `chromium-extensions.json`.
 Classic uBlock Origin is bundled with Helium; no second blocker or uBlock Origin
 Lite is installed. The module
 also configures 1Password's native messaging host and browser allowlist, plus
@@ -414,9 +414,9 @@ only when absent and stay writable; later changes in Helium are preserved.
 The existing `Default` profile is retained. Each new profile appears in
 Helium's profile picker after its first launch.
 
-The profile initializer removes AuthFill's registration from Otark and records
-a per-profile external-extension exclusion. It preserves other settings and
-keeps a private backup before making this targeted change. If Helium is running,
+The profile initializer removes AuthFill and SponsorBlock registrations from
+Otark and records per-profile external-extension exclusions. It preserves other
+settings and keeps a private backup before making this targeted change. If Helium is running,
 the change is deferred until the next start after all Helium windows are closed.
 
 `modules/core/helium.nix` sets Google as the search provider through Chromium's
