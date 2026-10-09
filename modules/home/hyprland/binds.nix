@@ -1,93 +1,81 @@
-{ ... }:
+{ host, lib, ... }:
 {
-  wayland.windowManager.hyprland.settings = {
-    binds = {
-      movefocus_cycles_fullscreen = true;
-    };
+  xdg.configFile."hypr/hypr_binds.lua".text = ''
+    local mainMod = "SUPER"
 
-    bind = [
-      "$mainMod, T, exec, alacritty"
-      "$mainMod, C, killactive,"
-      "$mainMod, V, togglefloating,"
-      "$mainMod, R, exec, vicinae toggle"
-      "$mainMod, S, togglesplit, # dwindle"
-      "$mainMod, F, fullscreen, 1"
+    hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("alacritty"))
+    hl.bind(mainMod .. " + C", hl.dsp.window.close())
+    hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
+    hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("vicinae toggle"))
+    hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "maximized" }))
 
-      # Move focus with mainMod + arrow keys
-      "$mainMod, h, movefocus, l"
-      "$mainMod, l, movefocus, r"
-      "$mainMod, k, movefocus, u"
-      "$mainMod, j, movefocus, d"
+    -- Move focus with mainMod + vim keys.
+    hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "l" }))
+    hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "r" }))
+    hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "u" }))
+    hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "d" }))
 
-      # Switch workspaces with mainMod + [0-9]
-      "$mainMod, 1, workspace, 1"
-      "$mainMod, 2, workspace, 2"
-      "$mainMod, 3, workspace, 3"
-      "$mainMod, 4, workspace, 4"
-      "$mainMod, 5, workspace, 5"
-      "$mainMod, 6, workspace, 6"
-      "$mainMod, 7, workspace, 7"
-      "$mainMod, 8, workspace, 8"
-      "$mainMod, 9, workspace, 9"
-      "$mainMod, 0, workspace, 10"
+    -- Switch workspaces and move the active window with mainMod + [0-9].
+    for i = 1, 10 do
+      local key = i % 10
+      hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
+      hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+    end
 
-      # Move active window to a workspace with mainMod + SHIFT + [0-9]
-      "$mainMod SHIFT, 1, movetoworkspace, 1"
-      "$mainMod SHIFT, 2, movetoworkspace, 2"
-      "$mainMod SHIFT, 3, movetoworkspace, 3"
-      "$mainMod SHIFT, 4, movetoworkspace, 4"
-      "$mainMod SHIFT, 5, movetoworkspace, 5"
-      "$mainMod SHIFT, 6, movetoworkspace, 6"
-      "$mainMod SHIFT, 7, movetoworkspace, 7"
-      "$mainMod SHIFT, 8, movetoworkspace, 8"
-      "$mainMod SHIFT, 9, movetoworkspace, 9"
-      "$mainMod SHIFT, 0, movetoworkspace, 10"
-      "CTRL SHIFT, Space, exec, 1password --quick-access"
+    hl.bind("CTRL + SHIFT + Space", hl.dsp.exec_cmd("1password --quick-access"))
 
-      "$mainMod, U, focusmonitor, desc:Shenzhen KTC Technology Group PMO G241-FFK"
-      "$mainMod, I, focusmonitor, desc:Philips Consumer Electronics Company PHL 246E9Q 0x000036F7"
-      "$mainMod, O, focusmonitor, desc:Sharp Corporation LQ160R1JW02"
+    -- Toggle sharing on Atlas, or the receiver on Zephyrus.
+    hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("lan-mouse-desk"))
 
-      # Example special workspace (scratchpad)
-      "$mainMod, m, togglespecialworkspace, magic"
-      "$mainMod SHIFT, m, movetoworkspace, special:magic"
+    -- Focus monitors from left to right with U, I, O.
+    ${lib.optionalString (host == "atlas") ''
+      hl.bind(mainMod .. " + U", hl.dsp.focus({ monitor = "desc:Philips Consumer Electronics Company PHL 246E9Q 0x000036F7" }))
+    ''}
+    ${lib.optionalString (host == "zephyrus") ''
+      hl.bind(mainMod .. " + U", hl.dsp.focus({ monitor = "desc:Sharp Corporation LQ160R1JW02" }))
+    ''}
+    hl.bind(mainMod .. " + I", hl.dsp.focus({ monitor = "${if host == "atlas" then "desc:AOC Q27G4ZR" else "desc:Philips Consumer Electronics Company PHL 246E9Q 0x000036F7"}" }))
+    hl.bind(mainMod .. " + O", hl.dsp.focus({ monitor = "desc:Shenzhen KTC Technology Group PMO G241-FFK" }))
 
-      "$mainMod, n, exec, swaync-client -t"
+    -- Special workspace (scratchpad).
+    hl.bind(mainMod .. " + m", hl.dsp.workspace.toggle_special("magic"))
+    hl.bind(mainMod .. " + SHIFT + m", hl.dsp.window.move({ workspace = "special:magic" }))
+    hl.bind(mainMod .. " + n", hl.dsp.workspace.toggle_special("gather"))
+    hl.bind(mainMod .. " + SHIFT + n", hl.dsp.window.move({ workspace = "special:gather" }))
 
-      # Scroll through existing workspaces with mainMod + scroll
-      "$mainMod, mouse_down, workspace, e+1"
-      "$mainMod, mouse_up, workspace, e-1"
+    -- Scroll through existing workspaces.
+    hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
+    hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 
-      # Screenshot
-      ",Print, exec, screenshot --copy"
-      "SHIFT, Print, exec, screenshot --save"
+    -- Screenshots.
+    hl.bind("Print", hl.dsp.exec_cmd("screenshot --copy"))
+    hl.bind("SHIFT + Print", hl.dsp.exec_cmd("screenshot --save"))
 
-      # Toggle waybar
-      "$mainMod, Space, exec, killall -SIGUSR1 .waybar-wrapped"
+    -- Toggle the Noctalia bar.
+    hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd("noctalia msg bar-toggle"))
 
-      # Dictation
-      "SUPER, D, exec, pkill -USR2 -n handy"
-    ];
+    -- Dictation.
+    hl.bind("Insert", hl.dsp.exec_cmd("pkill -USR2 -n handy"))
+    hl.bind("SHIFT + Insert", hl.dsp.exec_cmd("handy --toggle-post-process"))
 
-    bindel = [
-      ",XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-      ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-      ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-      ",XF86MonBrightnessUp, exec, brightnessctl s 10%+"
-      ",XF86MonBrightnessDown, exec, brightnessctl s 10%-"
-    ];
+    local repeatingLocked = { repeating = true, locked = true }
+    hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"), repeatingLocked)
+    hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), repeatingLocked)
+    hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), repeatingLocked)
+    hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl s 10%+"), repeatingLocked)
+    hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl s 10%-"), repeatingLocked)
 
-    bindl = [
-      ", XF86AudioNext, exec, playerctl next"
-      ", XF86AudioPause, exec, playerctl play-pause"
-      ", XF86AudioPlay, exec, playerctl play-pause"
-      ", XF86AudioPrev, exec, playerctl previous"
-    ];
+    local locked = { locked = true }
+    hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), locked)
+    hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), locked)
+    hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), locked)
+    hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), locked)
 
-    # mouse binding
-    bindm = [
-      "$mainMod, mouse:272, movewindow"
-      "$mainMod, mouse:273, resizewindow"
-    ];
-  };
+    -- Mouse bindings.
+    hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
+    hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+
+    -- T3 Code
+    hl.bind(mainMod .. " + s", hl.dsp.global("com.t3tools.T3Code:capture-window"))
+  '';
 }

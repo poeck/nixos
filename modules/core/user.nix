@@ -24,6 +24,8 @@
 
   users.users.${username} = {
     isNormalUser = true;
+    # Start user services at boot and keep them running after logout.
+    linger = true;
     description = "${username}";
     extraGroups = [
       "networkmanager"
@@ -31,6 +33,8 @@
       "podman"
       "gamemode"
       "nordvpn"
+      "dialout"
+      "ydotool"
     ];
     shell = pkgs.zsh;
   };

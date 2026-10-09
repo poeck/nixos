@@ -26,7 +26,7 @@
         gpgsign = true;
       };
       user = {
-        signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDjUGpuR4RN77nMKZsANUGpurG/pVP2K+/aOx9cmIxR6";
+        signingKey = lib.trim (builtins.readFile ../../keys/paul.pub);
       };
     };
   };

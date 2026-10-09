@@ -1,0 +1,59 @@
+[
+  {
+    "name": "uBlock Origin",
+    "id": "fkgkibajhfbepljeaefdnfnegdcjomkh",
+    "url": "https://github.com/gorhill/uBlock/releases/download/1.75.0/uBlock0_1.75.0.chromium.crx",
+    "sha256": "sha256-1ojtPwJi7E+L3NTI9lmHxURMVgrrOHqeAqyh+s36cEY=",
+    "version": "1.75.0",
+    "source": "github:gorhill/uBlock"
+  },
+  {
+    "name": "1Password",
+    "id": "aeblfdkhhhdcdjpifhhbdiojplfjncoa",
+    "url": "https://clients2.googleusercontent.com/crx/blobs/AZPVhcSV8E5Fdd17t3WR4gOsKzuaaIVaL8Ce69OnzoJgOT8gk7WiPoHMH9bqPGmAX-0FhtlyR5Z70goBbmrh8YncK-LxdXlseJbATCnOMtwAbq4IhJ2cNFeQwO5KTrLsD7RCAMZSmuUPEj33SNdcrhYlrSEXHgjx2jfmRw/AEBLFDKHHHDCDJPIFHHBDIOJPLFJNCOA_8_12_38_34.crx",
+    "sha256": "sha256-dSJ/2zaWXH2YCyf4qyqM01P12d6H5jSLjJr6kEzTNX4=",
+    "version": "8.12.38.34"
+  },
+  {
+    "name": "AuthFill",
+    "id": "doanledhbgobnfeicgdchpilkjkbjddg",
+    "url": "https://clients2.googleusercontent.com/crx/blobs/AZPVhcQ7ESg4BE08I_zr9g6fAKDH1vyl5ic7nrQFJxL1Wwl-jaKbwZMBmhrV2pGAE0LyGj8rj_6RpEFYGWCiPg4xvJtCxfeiE7ig-pxi2H87KSmWzooVo2uFuQl2QQNee0AAxlKa5VTMO2Ot-s_ZZL-4wnFjxOl86Wmq/DOANLEDHBGOBNFEICGDCHPILKJKBJDDG_1_2_0_0.crx",
+    "sha256": "sha256-BRkYYLi04yWx9LHZ2qUheT6XKZIHiFf64vYOMywzCh0=",
+    "version": "1.2.0"
+  },
+  {
+    "name": "Tampermonkey",
+    "id": "dhdgffkkebhmkfjojejmpbldmpobfkfo",
+    "url": "https://clients2.googleusercontent.com/crx/blobs/AZPVhcTP4D3kltEKTY7xRYMTKDaru-nchXg1b-0ExQ4zu10_ueyy9ftHLdfzYYqr2DrI8gJvANXeVTlzkoAMW9i0VwLiWODATLTfziOVEQLmpTFQ-il373DcahNOkUfsTTwAxlKa5Y5rQGsxzwD5q-SqTLKz2O90lzB7/DHDGFFKKEBHMKFJOJEJMPBLDMPOBFKFO_5_5_0_0.crx",
+    "sha256": "sha256-vK7AgsQ54RxN9oP0PQfprD1EOSUdcrkcW0Uvl32sFdU=",
+    "version": "5.5.0"
+  },
+  {
+    "name": "Codex",
+    "id": "hehggadaopoacecdllhhajmbjkdcmajg",
+    "url": "https://clients2.googleusercontent.com/crx/blobs/AZPVhcSlHX_tKL5WJoC_coVf3p--JTYCOT515EoE_GuGRmIfY6CzdqmNMV8xX6HSAfU9Sxc_a8E1_UyFNVI4828pK6CBahxUg7xCwBrP3JVOSfRmCNMZVVXZJaPRQ_Kw_HyiAMZSmuXFc_qPV5bLAyU9C-bTXf3Yvx7OXw/HEHGGADAOPOACECDLLHHAJMBJKDCMAJG_1_26_901_11451.crx",
+    "sha256": "sha256-aI1cCoFByb7jlNNzjUoXe0SHE8L6nCm1rxgVv92uRuE=",
+    "version": "1.26.901.11451"
+  },
+  {
+    "name": "Loom",
+    "id": "liecbddmkiiihnedobmlmillhodjkdmb",
+    "url": "https://clients2.googleusercontent.com/crx/blobs/AZPVhcS6ZLWwKYbwBbKeJ__zn2UCSdA5Tbbae_qBeWRZNORbBLb6GaKpOAjfR7nHPlGlQ4bQqNYAUyzhpTe-bmEdQql3zHCMoUhZqoR4WbGsSKQ99N1_gjH3YedAoLroiXUeAMZSmuUinrc7Q4Ej6vG5XkN6TQYzCzokHA/LIECBDDMKIIIHNEDOBMLMILLHODJKDMB_5_5_211_0.crx",
+    "sha256": "sha256-cw7+ZTMk4jcmvxva7mpPFg5D3gZwLRL8iniS7dPqwcQ=",
+    "version": "5.5.211"
+  },
+  {
+    "name": "Claude",
+    "id": "fcoeoabgfenejglbffodgkkbkcdhcgfn",
+    "url": "https://clients2.googleusercontent.com/crx/blobs/AZPVhcQImzh8akbSR2Mk8TSS0IHxaoeuCq1qSt3h1OIHo1-_O1T8TaUztx92SBx4twKvzr8bxhQ2lgUrkXpZepyq-a3qxH4kgURyEi61UxEuZRNiSwVqr6HLuyO2mYSribJuAMZSmuUDYUnBcE3nYbrg5bBJ_cLya8d4ew/FCOEOABGFENEJGLBFFODGKKBKCDHCGFN_1_0_98_0.crx",
+    "sha256": "sha256-aNtDr+oRbmHVTwODFzZ12PTMiiTaoW/yhxmRypaEPXg=",
+    "version": "1.0.98"
+  },
+  {
+    "name": "SponsorBlock",
+    "id": "mnjggcdmjocbbbhaepdhchncahnbgone",
+    "url": "https://clients2.googleusercontent.com/crx/blobs/AZPVhcTWfnmqjE44RBK5YQoPMBxSo1y7qcdg-DJ-fXQTElUiCRzoz076L2PnzCsPUQZqQOP-Qty-EFYPhnHaRYiJntKDMiuafq3_rcJ-LGKTOnEWoklqBe8_F207JV_shHYAxlKa5U8gzzlCzUWtqqLN4CT8eVJIRN0L/MNJGGCDMJOCBBBHAEPDHCHNCAHNBGONE_6_1_6_0.crx",
+    "sha256": "sha256-VYf+K2qZRhAcoN3nxu/nanVcXuW21uY9/EjH9zbNtP8=",
+    "version": "6.1.6"
+  }
+]

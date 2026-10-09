@@ -13,6 +13,16 @@
     polkitPolicyOwners = [ "${username}" ];
   };
 
+  # Allow the real executable basenames of our additional browsers so their
+  # extensions can connect to the desktop app.
+  environment.etc."1password/custom_allowed_browsers" = {
+    text = ''
+      zen
+      helium
+    '';
+    mode = "0755";
+  };
+
   # Backup script
   environment.etc."backup-op.sh" = {
     source = ./backup.sh;
@@ -22,8 +32,8 @@
   services.cron = {
     enable = true;
     systemCronJobs = [
-      "0 18 * * *   paul   . /etc/profile; /etc/backup-op.sh -f /home/paul/1Password/personal.enc -a my.1password.eu -p 2c73oapof6yxfzdx75ncgnnaqa"
-      "0 18 * * *   paul   . /etc/profile; /etc/backup-op.sh -f /home/paul/1Password/otark.enc -a my.1password.com -p ekcl6ap4cyt4b3kzpotnmn2uwu"
+      "0 18 * * *   ${username}   . /etc/profile; /etc/backup-op.sh -f /home/${username}/1Password/personal.enc -a my.1password.eu -p 2c73oapof6yxfzdx75ncgnnaqa"
+      "0 18 * * *   ${username}   . /etc/profile; /etc/backup-op.sh -f /home/${username}/1Password/otark.enc -a my.1password.com -p ekcl6ap4cyt4b3kzpotnmn2uwu"
     ];
   };
 }

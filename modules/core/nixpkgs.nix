@@ -11,7 +11,9 @@
           inherit (prev) system;
         })
       )
-      inputs.claude-code.overlays.default
+      inputs.firefox-addons.overlays.default
+      inputs.llm-agents.overlays.shared-nixpkgs
+      inputs.claude-desktop.overlays.default
     ];
   };
 }

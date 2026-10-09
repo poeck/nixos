@@ -33,5 +33,6 @@
       libXi
       libxcb
       mesa
+      libcap
     ]);
 }

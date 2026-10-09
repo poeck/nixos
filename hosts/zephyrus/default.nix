@@ -1,11 +1,23 @@
-{ pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  username,
+  ...
+}:
 {
   imports = [
     ./hardware-configuration.nix
     ./../../modules/core
   ];
 
+  # This SSD was freshly installed with NixOS 25.11.
+  system.stateVersion = "25.11";
+
   environment.systemPackages = with pkgs; [
+    # Stream Atlas's desktop and games over Tailscale.
+    moonlight-qt
+
     # CLI for battery status
     acpi
     # CLI for dimming the screen
@@ -20,19 +32,30 @@
   services.jellyfin = {
     enable = true;
     openFirewall = true;
-    user = "paul";
+    user = username;
   };
 
   powerManagement.enable = true;
 
-  # Hibernate after 30m of sleep
+  networking.firewall.allowedTCPPorts = [ 8765 ];
+
+  # Idle suspend starts at 15m; hibernate at 120m total inactivity.
   systemd.sleep.settings.Sleep = {
-    "HibernateDelaySec" = "30m";
+    "HibernateDelaySec" = "105m";
+  };
+
+  systemd.services.asus-shutdown.serviceConfig = {
+    SendSIGKILL = lib.mkForce true;
+    TimeoutStopSec = lib.mkForce "10s";
   };
 
   services = {
     power-profiles-daemon.enable = false; # Disable gnome's power profile daemon
     system76-scheduler.settings.cfsProfiles.enable = true; # Better scheduling for CPU cycles
+
+    asusd = {
+      enable = true;
+    };
 
     upower = {
       enable = true;
@@ -58,9 +81,6 @@
         CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power";
         PLATFORM_PROFILE_ON_AC = "performance";
         PLATFORM_PROFILE_ON_BAT = "balanced";
-        # Start charging at 80% and stop at 90%
-        START_CHARGE_THRESH_BAT1 = 80;
-        STOP_CHARGE_THRESH_BAT1 = 90;
         # Disable USB autosuspend to prevent mouse wake-up lag
         USB_AUTOSUSPEND = 0;
         # Disable wifi power saving to avoid latency/drops
@@ -77,11 +97,5 @@
       # Required by tlp (?)
       acpi_call
     ];
-  };
-
-  services = {
-    asusd = {
-      enable = true;
-    };
   };
 }

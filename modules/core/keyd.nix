@@ -18,8 +18,8 @@
             # Remap <> button to escape
             "102nd" = "S-f1";
 
-            # Unmapped / special
-            "`" = "S-f12";
+            # Caret key: reuse Handy's Shift+Insert binding (with post-processing).
+            "`" = "S-insert";
           };
 
           shift = {
