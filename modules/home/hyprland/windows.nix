@@ -70,7 +70,10 @@
       dim_around = true,
     })
     hl.layer_rule({
-      match = { namespace = "noctalia-background-.*" },
+      match = {
+        namespace = "^noctalia-(bar-.+|notification|dock|panel|attached-panel|osd|window-switcher)$",
+      },
+      no_anim = true,
       blur = true,
       blur_popups = true,
       ignore_alpha = 0.5,

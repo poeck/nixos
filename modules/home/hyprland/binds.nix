@@ -47,12 +47,14 @@
     hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
     hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 
-    -- Screenshots.
-    hl.bind("Print", hl.dsp.exec_cmd("screenshot --copy"))
-    hl.bind("SHIFT + Print", hl.dsp.exec_cmd("screenshot --save"))
+    -- Region screenshot (Noctalia copies and saves it).
+    hl.bind("Print", hl.dsp.exec_cmd("noctalia msg screenshot-region"))
 
     -- Toggle the Noctalia bar.
     hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd("noctalia msg bar-toggle"))
+
+    -- Toggle the Noctalia dock; the state persists across restarts.
+    hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("noctalia msg dock-toggle"))
 
     -- Dictation.
     hl.bind("Insert", hl.dsp.exec_cmd("pkill -USR2 -n handy"))

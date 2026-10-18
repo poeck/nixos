@@ -5,10 +5,6 @@
     [
       # Wayland itself
       wayland
-      # Screenshot tools
-      grimblast
-      grim
-      slurp
       # Color picker
       hyprpicker
       # Persist on program close
