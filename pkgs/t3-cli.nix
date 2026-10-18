@@ -7,18 +7,9 @@
   systemd,
 }:
 let
-  # Keep this version in sync with the nightly desktop in the t3code flake.
-  version = "0.0.46-nightly.20261014.3093";
-  releases = {
-    x86_64-linux = {
-      arch = "x64";
-      hash = "sha256-F2S2SctJPD9uGbYoovVaye6+wp209D/Ta1gVjltN2uo=";
-    };
-    aarch64-linux = {
-      arch = "arm64";
-      hash = "sha256-jvtLa85rrc+9/mU72QuNzUsldMDoQjJfuRsnaQU6wMQ=";
-    };
-  };
+  # Generated alongside flake.lock by scripts/update-system.py.
+  metadata = builtins.fromJSON (builtins.readFile ./t3-cli-release.json);
+  inherit (metadata) version releases;
   release = releases.${stdenv.hostPlatform.system};
 in
 stdenv.mkDerivation {

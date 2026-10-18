@@ -16,15 +16,17 @@
     config = {
       common = {
         default = [ "gtk" ];
-        "org.freedesktop.impl.portal.Secret" = [ "oo7-portal" ];
+        "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
       };
-      hyprland.default = [
-        "hyprland"
-        "gtk"
-      ];
+      hyprland = {
+        default = [
+          "hyprland"
+          "gtk"
+        ];
+        "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
+      };
     };
     extraPortals = with pkgs; [
-      oo7-portal
       xdg-desktop-portal-gtk
       xdg-desktop-portal-gnome
       xdg-desktop-portal-hyprland

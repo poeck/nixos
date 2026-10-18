@@ -8,6 +8,7 @@
 
     gnome = {
       at-spi2-core.enable = true;
+      gnome-keyring.enable = true;
       # File indexing?
       tinysparql.enable = true;
     };
@@ -36,6 +37,8 @@
     # Smart-card service used by WebAuthn/security-key integrations.
     pcscd.enable = true;
   };
+
+  programs.seahorse.enable = true;
 
   programs.gnupg.agent = {
     enable = true;

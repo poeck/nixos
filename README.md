@@ -21,6 +21,30 @@ no internal-panel rule or Super+U panel-focus binding. If an adapter changes
 the descriptions, adjust them after checking `hyprctl monitors all`.
 Zephyrus keeps its original three-display profile.
 
+## GNOME Keyring
+
+Both hosts use GNOME Keyring for Secret Service and the desktop Secret portal.
+The tty1 PAM session uses `pam_fde_boot_pw` to reuse the LUKS password entered
+in Plymouth, including during tty autologin. The login keyring must use that
+same password. No password is stored in the Nix configuration or Nix store.
+Seahorse (**Passwords and Keys**) is installed for managing the keyring.
+
+The keyring stays unlocked during suspend and Noctalia's screen lock. Noctalia
+still asks for the normal account password to unlock the desktop; there is no
+additional keyring prompt. This configuration does not disable the screen lock.
+
+On a fresh installation, PAM can create the login keyring
+using the cached LUKS password on the next boot. Automatic unlocking needs the
+cached password to remain available until tty1 starts. Changing the LUKS
+password later also requires changing the login keyring password in Seahorse.
+
+After reboot, check:
+
+```bash
+systemctl --user status gnome-keyring
+journalctl -b -u getty@tty1 --no-pager | rg 'loaded key|gkr-pam|keyring'
+```
+
 ## Install the prepared Zephyrus configuration
 
 The laptop hardware file describes the new SSD:
@@ -167,7 +191,13 @@ sudo wg show wg-atlas
 
 Both hosts install the T3 CLI and enable `t3code.service` for `paul`. Lingering
 starts the user service at boot and keeps it running after logout. The server
-listens at `http://127.0.0.1:3774`, alongside the desktop app on port 3773.
+listens at `http://127.0.0.1:3774`. Its `--tailscale-serve` startup flag publishes
+that backend over tailnet-only HTTPS on port 443 through Tailscale Serve. The
+service user needs Tailscale operator permission (`paul` is already the operator
+on Atlas). After rebuilding, use `t3 pair --tailscale` to generate a pairing link
+for another device. `tailscale serve status` shows the HTTPS endpoint and target.
+The desktop launcher uses `~/.t3-desktop`; keep its local environment disabled
+and pair it with the background server.
 Projects, threads, settings and Connect identity stay under `~/.t3/userdata`.
 Each device keeps its own local data and requires its own provider authentication
 and remote-access setup.
@@ -192,11 +222,16 @@ journalctl --user -u t3code.service -f
 ```
 
 Nix owns the CLI and service; `t3 update`, `t3 uninstall` and the service install
-and uninstall commands are disabled in the managed launcher. To update, refresh
-the desktop with `nix flake update t3code`, update the CLI version and release
-hashes in `pkgs/t3-cli.nix` to match, then rebuild. Configuration evaluation checks
-that the CLI and desktop versions agree. A changed service runtime restarts on
-rebuild, interrupting active turns on that service.
+and uninstall commands are disabled in the managed launcher. To update, run
+`python3 scripts/update-system.py` (all inputs) or
+`python3 scripts/update-system.py t3code` (T3 only), then rebuild. The updater reads
+the locked desktop version and records the matching CLI release's GitHub SHA-256
+digests for both Linux architectures in `pkgs/t3-cli-release.json`. Commit that file
+with `flake.lock`. Nix verifies the archive hashes when downloading; configuration
+evaluation checks that the CLI and desktop versions agree. If inputs were updated
+directly, run `python3 scripts/update-system.py --sync-t3-only` before rebuilding.
+A changed service runtime restarts on rebuild, interrupting active turns on that
+service.
 
 ## Stream Atlas to Zephyrus over Tailscale
 

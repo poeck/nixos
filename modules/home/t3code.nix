@@ -21,7 +21,7 @@ in
   assertions = [
     {
       assertion = pkgs.t3-cli.version == desktop.version;
-      message = "Update pkgs/t3-cli.nix to match the T3 Code nightly desktop version (${desktop.version}).";
+      message = "Run `python3 scripts/update-system.py --sync-t3-only` to match the T3 CLI to the locked desktop version (${desktop.version}). Use `python3 scripts/update-system.py` for future system updates.";
     }
   ];
 
@@ -41,8 +41,8 @@ in
         "PATH=${servicePath}"
       ];
       # Run the immutable Nix runtime directly, bypassing the self-update launcher.
-      # The desktop uses port 3773, so keep the standalone service on 3774.
-      ExecStart = "${lib.getExe pkgs.t3-cli} serve --host 127.0.0.1 --port 3774";
+      # Keep the backend on loopback; Tailscale Serve publishes HTTPS to the tailnet.
+      ExecStart = "${lib.getExe pkgs.t3-cli} serve --host 127.0.0.1 --port 3774 --tailscale-serve --tailscale-serve-port 443";
       KillMode = "mixed";
       OOMPolicy = "continue";
       Restart = "always";

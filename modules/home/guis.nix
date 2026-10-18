@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ config, pkgs, inputs, ... }:
 {
   # The bundled Electron launcher can fall back to XWayland, which makes the
   # UI blurry on fractionally scaled displays. A user desktop entry with the
@@ -28,11 +28,12 @@
   };
 
   # Hyprland is not auto-detected as a Secret Service desktop by Electron.
-  # Select the running oo7 keyring so T3 Code can encrypt saved connections.
+  # Select GNOME Keyring so T3 Code can encrypt saved connections.
+  # Keep desktop client settings separate from the background server's ~/.t3.
   xdg.desktopEntries.t3code-nightly = {
     name = "T3 Code Nightly";
     comment = "Control coding agents";
-    exec = "t3code-nightly --password-store=gnome-libsecret %U";
+    exec = "${pkgs.coreutils}/bin/env T3CODE_HOME=${config.home.homeDirectory}/.t3-desktop t3code-nightly --password-store=gnome-libsecret %U";
     icon = "t3code-nightly";
     terminal = false;
     categories = [ "Development" ];
