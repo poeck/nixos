@@ -76,9 +76,10 @@
         radius = 0;
         concave_edge_corners = false;
 
-        # Show the bar only on empty workspaces, overlaying windows instead of pushing them.
-        smart_auto_hide = true;
-        reserve_space = false;
+        # Keep the bar visible and reserve space so windows stay below it.
+        auto_hide = false;
+        smart_auto_hide = false;
+        reserve_space = true;
         show_on_workspace_switch = false;
 
         start = [
