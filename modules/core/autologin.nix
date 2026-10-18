@@ -18,10 +18,10 @@
   # agetty's autologin skips PAM authentication. Inject the cached Plymouth /
   # LUKS password during the session phase, before GNOME Keyring consumes it.
   # Keep the password in the kernel keyring; never put it in the Nix store.
-  systemd.services."getty@tty1" = {
-    overrideStrategy = "asDropin";
-    serviceConfig.KeyringMode = "inherit";
-  };
+  # Extend the NixOS template itself. An instance drop-in named overrides.conf
+  # masks the template's overrides.conf, losing its Nix store ExecStart and
+  # autologin setup and falling back to the nonexistent /usr/bin/agetty.
+  systemd.services."getty@".serviceConfig.KeyringMode = "inherit";
   security.pam.services.login.rules.session = {
     fde_boot_pw_guard = {
       order = config.security.pam.services.login.rules.session.gnome_keyring.order - 20;
