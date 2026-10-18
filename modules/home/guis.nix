@@ -1,8 +1,4 @@
 { pkgs, inputs, ... }:
-let
-  makeSandbox = import ./lib/make-sandbox.nix { inherit pkgs inputs; };
-  makeElectronSandbox = import ./lib/make-electron-sandbox.nix { inherit pkgs inputs; };
-in
 {
   # The bundled Electron launcher can fall back to XWayland, which makes the
   # UI blurry on fractionally scaled displays. A user desktop entry with the
@@ -54,6 +50,8 @@ in
     proton-authenticator
     slack
     expresslrs-configurator
+    affine
+    pavucontrol
     (pkgs.symlinkJoin {
       name = "handy";
       paths = [
@@ -62,51 +60,5 @@ in
         pkgs.dotool
       ];
     })
-    (makeElectronSandbox {
-      package = pkgs.affine;
-      binPath = "bin/affine";
-      permissions = [
-        "network"
-      ];
-    })
-    (makeSandbox {
-      package = pkgs.geary;
-      binPath = "bin/geary";
-      permissions = [
-        "gui"
-        "network"
-        "keyring"
-        "notifications"
-      ];
-      extraConfig =
-        { sloth, ... }:
-        {
-          dbus.policies = {
-            "org.gnome.Geary" = "own";
-            "org.gnome.OnlineAccounts" = "talk";
-            "org.gnome.evolution.dataserver.Sources5" = "talk";
-            "org.gnome.evolution.dataserver.AddressBook10" = "talk";
-            "org.gnome.evolution.dataserver.Calendar8" = "talk";
-          };
-          bubblewrap.bind.rw = [
-            [
-              sloth.xdgDownloadDir
-              sloth.xdgDownloadDir
-            ]
-          ];
-        };
-    }).config.env
-    (makeSandbox {
-      package = pkgs.pavucontrol;
-      permissions = [
-        "gui"
-        "audio"
-      ];
-      extraConfig = _: {
-        dbus.policies = {
-          "org.pulseaudio.pavucontrol" = "own";
-        };
-      };
-    }).config.env
   ];
 }

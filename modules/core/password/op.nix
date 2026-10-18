@@ -17,7 +17,6 @@
   # extensions can connect to the desktop app.
   environment.etc."1password/custom_allowed_browsers" = {
     text = ''
-      zen
       helium
     '';
     mode = "0755";

@@ -1,5 +1,5 @@
 {
-  description = "FrostPhoenix's nixos configuration";
+  description = "NixOS Config";
 
   inputs = {
     # Nix
@@ -9,23 +9,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Third party
-    firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    zen-browser = {
-      # Community-maintained flake. To update, change this revision and run
-      # `nix flake update zen-browser`.
-      url = "github:0xc000022070/zen-browser-flake/018726119b87c9fb906857af802d3cbfbc10a46d";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
     helium-browser = {
       # Pin the reviewed fork; update intentionally with a new reviewed revision.
       url = "github:poeck/helium-browser-nix-flake/14a8f68137d4db62213555937f23ad95e7f8c4e6";
@@ -52,10 +35,6 @@
     inlark = {
       # Follow the default branch; refresh with `nix flake update inlark`.
       url = "github:inlark/inlark";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nixpak = {
-      url = "github:nixpak/nixpak";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

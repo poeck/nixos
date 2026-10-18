@@ -23,7 +23,6 @@
     ./alacritty # terminal
     ./tmux # terminal splits
     ./helium.nix # helium browser
-    ./zen.nix # zen browser
     ./zed.nix # text editor
     ./claude-code.nix # claude code
     ./t3code.nix # T3 Code CLI and background server

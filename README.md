@@ -421,9 +421,7 @@ the change is deferred until the next start after all Helium windows are closed.
 
 `modules/core/helium.nix` sets Google as the search provider through Chromium's
 shared Linux policy directory. This applies to both Helium profiles; the search
-provider is managed through Nix rather than the browser's settings. Zen remains
-installed as an alternative browser for now.
-
+provider is managed through Nix rather than the browser's settings. 
 Apply the configuration with `sudo nixos-rebuild switch --flake .#atlas`
 (or `.#zephyrus` on the laptop).
 
