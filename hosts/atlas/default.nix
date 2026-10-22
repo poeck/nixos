@@ -13,6 +13,13 @@
   services.power-profiles-daemon.enable = true;
   services.system76-scheduler.settings.cfsProfiles.enable = true;
 
+  # The G915's wired connection causes unwanted wakes when charging alongside
+  # its receiver. Use mouse wake while charging; wireless keyboard wake remains
+  # available when the cable is unplugged.
+  services.udev.extraRules = ''
+    ACTION=="add|bind|change", SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTR{idVendor}=="046d", ATTR{idProduct}=="c343", TEST=="power/wakeup", ATTR{power/wakeup}="disabled"
+  '';
+
   # Keep Wi-Fi associated during suspend and wake on a magic packet.
   # NetworkManager's magic-packet flag is 0x8; other triggers stay disabled.
   networking.networkmanager.settings.connection."wifi.wake-on-wlan" = 8;
