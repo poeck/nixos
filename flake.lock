@@ -288,11 +288,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1792678500,
-        "narHash": "sha256-awaEuXiaZmrbic0u6l5vJYaXhPgjF9qQaIOKAvVWYhk=",
+        "lastModified": 1792684805,
+        "narHash": "sha256-6zaSYeBogQw4OyigGiEBuwOLQmxUK2jYu7DE5YI9SEs=",
         "owner": "poeck",
         "repo": "island",
-        "rev": "c810f2cb6b901ccaa8a2af9458663e9eb065f78d",
+        "rev": "8a7df1d533351f0fbbc45ba669237b5b1b113a5d",
         "type": "github"
       },
       "original": {

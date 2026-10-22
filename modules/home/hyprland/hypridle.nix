@@ -1,6 +1,7 @@
 { config, host, ... }:
 let
   island = "${config.services.island.package}/bin/island";
+  dpms = action: "hyprctl dispatch 'hl.dsp.dpms({ action = \"${action}\" })'";
   timeouts =
     if host == "zephyrus" then
       {
@@ -23,7 +24,7 @@ in
       general = {
         lock_cmd = "${island} lock --wait";
         before_sleep_cmd = "${island} lock --wait";
-        after_sleep_cmd = "hyprctl dispatch dpms on";
+        after_sleep_cmd = dpms "enable";
         # Hold the sleep inhibitor until the compositor confirms the lock.
         inhibit_sleep = 3;
       };
@@ -31,8 +32,8 @@ in
       listener = [
         {
           timeout = timeouts.display;
-          on-timeout = "hyprctl dispatch dpms off";
-          on-resume = "hyprctl dispatch dpms on";
+          on-timeout = dpms "disable";
+          on-resume = dpms "enable";
         }
         {
           timeout = timeouts.lock;
