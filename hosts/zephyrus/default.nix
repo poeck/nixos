@@ -37,8 +37,6 @@
 
   powerManagement.enable = true;
 
-  networking.firewall.allowedTCPPorts = [ 8765 ];
-
   # Idle suspend starts at 15m; hibernate at 120m total inactivity.
   systemd.sleep.settings.Sleep = {
     "HibernateDelaySec" = "105m";
@@ -69,6 +67,8 @@
 
     tlp = {
       enable = true;
+      # Expose TLP's profiles to Island without running a competing power daemon.
+      pd.enable = true;
       settings = {
         CPU_BOOST_ON_AC = 1;
         CPU_BOOST_ON_BAT = 1;

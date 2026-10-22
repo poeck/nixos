@@ -29,7 +29,7 @@ in Plymouth, including during tty autologin. The login keyring must use that
 same password. No password is stored in the Nix configuration or Nix store.
 Seahorse (**Passwords and Keys**) is installed for managing the keyring.
 
-The keyring stays unlocked during suspend and Noctalia's screen lock. Noctalia
+The keyring stays unlocked during suspend and Island's screen lock. Island
 still asks for the normal account password to unlock the desktop; there is no
 additional keyring prompt. This configuration does not disable the screen lock.
 
@@ -103,7 +103,7 @@ Atlas uses ordinary suspend. Zephyrus uses suspend-then-hibernate.
 
 Automatic idle timings count from the last keyboard or mouse activity:
 
-| Host | Displays off | Lock with Noctalia | Suspend | Hibernate |
+| Host | Displays off | Lock with Island | Suspend | Hibernate |
 | --- | --- | --- | --- | --- |
 | Atlas | 15 minutes | 29 minutes | 30 minutes | Never automatically |
 | Zephyrus | 13 minutes | 14 minutes | 15 minutes | 120 minutes total |
@@ -112,6 +112,29 @@ Zephyrus's hibernation delay is 105 minutes after entering suspend. Closing its
 lid starts suspend-then-hibernate immediately, with the same 105-minute delay.
 Idle inhibitors can postpone these actions, and low-battery alarms can trigger
 hibernation earlier on Zephyrus. Atlas disables suspend-then-hibernate.
+
+## Island desktop shell
+
+Both hosts use [Island](https://github.com/poeck/island) in live mode for the
+status bar, application launcher, media, calendar, weather, system tray, system
+monitor, audio, network, Bluetooth, notifications, OSDs, session menu, Polkit
+authentication and screen lock. Notifications and Polkit ownership are enabled;
+other supported features are available by default. Atlas prefers the AOC display;
+Zephyrus prefers its internal Sharp display, with an available-output fallback.
+Atlas uses power-profiles-daemon and Zephyrus exposes TLP profiles through tlp-pd
+for Island's power-profile selector. Weather initially uses Vienna.
+
+| Shortcut | Action |
+| --- | --- |
+| Super+R | Toggle the application launcher |
+| Super+P | Toggle the session / power menu |
+| Super+Space | Show or hide the bar over fullscreen windows |
+
+Home Manager starts Island with the graphical session. Hypridle uses Island's
+PAM locker and waits for compositor-confirmed locking before sleep. The PAM
+service is `swaylock`. Island retains its upstream Quickshell/Qt dependency pin;
+update it with `nix flake update island`. Check the running integration with
+`island doctor` and `island status`.
 
 ### Wake Atlas over Wi-Fi
 

@@ -1,4 +1,25 @@
-{ host, lib, ... }:
+{ config, host, lib, pkgs, ... }:
+let
+  island = "${config.services.island.package}/bin/island";
+  screenshotRegion = pkgs.writeShellApplication {
+    name = "screenshot-region";
+    runtimeInputs = [
+      pkgs.coreutils
+      pkgs.grim
+      pkgs.slurp
+      pkgs.wl-clipboard
+    ];
+    text = ''
+      geometry="$(slurp)" || exit 0
+      [[ -n "$geometry" ]] || exit 0
+
+      screenshot="$(mktemp --suffix=.png)"
+      trap 'rm -f "$screenshot"' EXIT
+      grim -g "$geometry" "$screenshot"
+      wl-copy --type image/png < "$screenshot"
+    '';
+  };
+in
 {
   xdg.configFile."hypr/hypr_binds.lua".text = ''
     local mainMod = "SUPER"
@@ -6,7 +27,8 @@
     hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("alacritty"))
     hl.bind(mainMod .. " + C", hl.dsp.window.close())
     hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
-    hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("vicinae toggle"))
+    hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("${island} launcher toggle"))
+    hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("${island} session toggle"))
     hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "maximized" }))
 
     -- Move focus with mainMod + vim keys.
@@ -47,14 +69,11 @@
     hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
     hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 
-    -- Region screenshot (Noctalia copies and saves it).
-    hl.bind("Print", hl.dsp.exec_cmd("noctalia msg screenshot-region"))
+    -- Select a region with slurp, capture with grim, and copy it to the clipboard.
+    hl.bind("Print", hl.dsp.exec_cmd("${screenshotRegion}/bin/screenshot-region"))
 
-    -- Toggle the Noctalia bar.
-    hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd("noctalia msg bar-toggle"))
-
-    -- Toggle the Noctalia dock; the state persists across restarts.
-    hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("noctalia msg dock-toggle"))
+    -- Reveal or hide Island's bar over fullscreen windows.
+    hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd("${island} bar toggle"))
 
     -- Dictation.
     hl.bind("Insert", hl.dsp.exec_cmd("pkill -USR2 -n handy"))

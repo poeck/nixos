@@ -1,13 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, src, ... }:
 
 let
   pname = "blinkdisk";
-  version = "1.9.0";
-
-  src = pkgs.fetchurl {
-    url = "https://github.com/blinkdisk/blinkdisk/releases/download/v${version}/BlinkDisk-Linux-x86_64.AppImage";
-    hash = "sha256-VF9Lmi2sn+Pl6RBoPFWDSxMUHknrzz3xY/OYH7ewTtA=";
-  };
+  version = "latest";
 
   appimageContents = pkgs.appimageTools.extract {
     inherit pname version src;

@@ -19,15 +19,13 @@
     ./xdg.nix # xdg config
     ./zsh.nix # shell
     ./hyprland # window manager
-    ./noctalia # status bar / shell
+    ./island.nix # status bar, launcher, notifications, authentication and lock screen
     ./alacritty # terminal
     ./tmux # terminal splits
     ./helium.nix # helium browser
     ./zed.nix # text editor
     ./claude-code.nix # claude code
     ./t3code.nix # T3 Code CLI and background server
-    ./vicinae.nix # app launcher
-    ./laptop-control.nix # local network power controls
     ./lan-mouse.nix # manual sharing on Atlas; receiver on Zephyrus
   ];
 }

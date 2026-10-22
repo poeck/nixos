@@ -1,6 +1,9 @@
 { pkgs, host, ... }:
 {
   services = {
+    # Battery and power-device telemetry for Island on both hosts.
+    upower.enable = true;
+
     # Virtual filesystems for NASj
     gvfs.enable = true;
     # Discard unused blocks from fs

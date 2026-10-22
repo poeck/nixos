@@ -17,8 +17,6 @@
   # NetworkManager's magic-packet flag is 0x8; other triggers stay disabled.
   networking.networkmanager.settings.connection."wifi.wake-on-wlan" = 8;
 
-  networking.firewall.allowedTCPPorts = [ 8765 ];
-
   services.sunshine = {
     enable = true;
     autoStart = true;

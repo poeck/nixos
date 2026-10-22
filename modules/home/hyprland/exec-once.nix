@@ -9,8 +9,6 @@
         "dbus-update-activation-environment --systemd --all && systemctl --user stop hyprland-session.target && systemctl --user start hyprland-session.target",
         -- Auto suspend and lock.
         "hypridle",
-        -- Status bar / shell.
-        "noctalia",
         -- Wi-Fi tray.
         "nm-applet",
         -- Wallpaper.

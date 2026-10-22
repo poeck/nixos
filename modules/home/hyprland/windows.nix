@@ -61,24 +61,6 @@
     hl.window_rule({ match = tiledFullscreen, border_size = 0 })
     hl.window_rule({ match = tiledFullscreen, rounding = 0 })
 
-    -- Layer rules.
-    hl.layer_rule({
-      match = { namespace = "vicinae" },
-      blur = true,
-      ignore_alpha = 0,
-      no_anim = true,
-      dim_around = true,
-    })
-    hl.layer_rule({
-      match = {
-        namespace = "^noctalia-(bar-.+|notification|dock|panel|attached-panel|osd|window-switcher)$",
-      },
-      no_anim = true,
-      blur = true,
-      blur_popups = true,
-      ignore_alpha = 0.5,
-    })
-
     -- Workspace rules.
     hl.workspace_rule({ workspace = "f[1]", gaps_out = 0, gaps_in = 0 })
     hl.workspace_rule({

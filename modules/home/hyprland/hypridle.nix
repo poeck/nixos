@@ -1,5 +1,6 @@
-{ host, ... }:
+{ config, host, ... }:
 let
+  island = "${config.services.island.package}/bin/island";
   timeouts =
     if host == "zephyrus" then
       {
@@ -20,9 +21,11 @@ in
 
     settings = {
       general = {
-        lock_cmd = "noctalia msg session lock";
-        before_sleep_cmd = "loginctl lock-session";
+        lock_cmd = "${island} lock --wait";
+        before_sleep_cmd = "${island} lock --wait";
         after_sleep_cmd = "hyprctl dispatch dpms on";
+        # Hold the sleep inhibitor until the compositor confirms the lock.
+        inhibit_sleep = 3;
       };
 
       listener = [

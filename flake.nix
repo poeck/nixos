@@ -9,6 +9,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Keep Island's tested Quickshell/Qt dependency pin.
+    island.url = "github:poeck/island";
+
+    blinkdisk = {
+      # Follow the latest release; refresh with `nix flake update blinkdisk`.
+      url = "file+https://github.com/blinkdisk/blinkdisk/releases/latest/download/BlinkDisk-Linux-x86_64.AppImage";
+      flake = false;
+    };
     helium-browser = {
       # Pin the reviewed fork; update intentionally with a new reviewed revision.
       url = "github:poeck/helium-browser-nix-flake/14a8f68137d4db62213555937f23ad95e7f8c4e6";

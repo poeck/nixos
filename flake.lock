@@ -1,5 +1,17 @@
 {
   "nodes": {
+    "blinkdisk": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-/yzQhLswINJRYpmKseYF+FblqsNVbDUL0r5MXmzSIpk=",
+        "type": "file",
+        "url": "https://github.com/blinkdisk/blinkdisk/releases/latest/download/BlinkDisk-Linux-x86_64.AppImage"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/blinkdisk/blinkdisk/releases/latest/download/BlinkDisk-Linux-x86_64.AppImage"
+      }
+    },
     "bun2nix": {
       "inputs": {
         "flake-parts": [
@@ -271,11 +283,29 @@
         "type": "github"
       }
     },
+    "island": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_3"
+      },
+      "locked": {
+        "lastModified": 1792678500,
+        "narHash": "sha256-awaEuXiaZmrbic0u6l5vJYaXhPgjF9qQaIOKAvVWYhk=",
+        "owner": "poeck",
+        "repo": "island",
+        "rev": "c810f2cb6b901ccaa8a2af9458663e9eb065f78d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "poeck",
+        "repo": "island",
+        "type": "github"
+      }
+    },
     "llm-agents": {
       "inputs": {
         "bun2nix": "bun2nix",
         "flake-parts": "flake-parts_2",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_4",
         "systems": "systems_4",
         "treefmt-nix": "treefmt-nix"
       },
@@ -295,7 +325,7 @@
     },
     "minegrub": {
       "inputs": {
-        "nixpkgs": "nixpkgs_4"
+        "nixpkgs": "nixpkgs_5"
       },
       "locked": {
         "lastModified": 1791490285,
@@ -314,7 +344,7 @@
     "mineplymouth": {
       "inputs": {
         "flake-parts": "flake-parts_3",
-        "nixpkgs": "nixpkgs_5",
+        "nixpkgs": "nixpkgs_6",
         "systems": "systems_5"
       },
       "locked": {
@@ -395,6 +425,22 @@
     },
     "nixpkgs_3": {
       "locked": {
+        "lastModified": 1792108179,
+        "narHash": "sha256-53Ff10ySNXyesHjafJJw91ytVvwqZKROMrZcQCzwS44=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "9b245a61778999b12b2d1ec48721095176f11c1f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "9b245a61778999b12b2d1ec48721095176f11c1f",
+        "type": "github"
+      }
+    },
+    "nixpkgs_4": {
+      "locked": {
         "lastModified": 1792116957,
         "narHash": "sha256-EjZqHKObBfIOeHZnMRVV87HB3pPq/WBkmRJWyFxmZu8=",
         "owner": "NixOS",
@@ -409,7 +455,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_4": {
+    "nixpkgs_5": {
       "locked": {
         "lastModified": 1689850295,
         "narHash": "sha256-fUYf6WdQlhd2H+3aR8jST5dhFH1d0eE22aes8fNIfyk=",
@@ -425,7 +471,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_5": {
+    "nixpkgs_6": {
       "locked": {
         "lastModified": 1762363567,
         "narHash": "sha256-YRqMDEtSMbitIMj+JLpheSz0pwEr0Rmy5mC7myl17xs=",
@@ -441,7 +487,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_6": {
+    "nixpkgs_7": {
       "locked": {
         "lastModified": 1792094642,
         "narHash": "sha256-zp8ToDMnqZcu4o4IH9pdwXFXGp7yLm/M0dEnNWnyd7I=",
@@ -459,6 +505,7 @@
     },
     "root": {
       "inputs": {
+        "blinkdisk": "blinkdisk",
         "chatgpt-desktop-app": "chatgpt-desktop-app",
         "claude-desktop": "claude-desktop",
         "gather-linux": "gather-linux",
@@ -466,10 +513,11 @@
         "home-manager": "home-manager",
         "hyprdynamicmonitors": "hyprdynamicmonitors",
         "inlark": "inlark",
+        "island": "island",
         "llm-agents": "llm-agents",
         "minegrub": "minegrub",
         "mineplymouth": "mineplymouth",
-        "nixpkgs": "nixpkgs_6",
+        "nixpkgs": "nixpkgs_7",
         "t3code": "t3code"
       }
     },
