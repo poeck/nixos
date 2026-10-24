@@ -27,16 +27,22 @@
     startupNotify = true;
   };
 
-  # Hyprland is not auto-detected as a Secret Service desktop by Electron.
-  # Select GNOME Keyring so T3 Code can encrypt saved connections.
-  # Keep desktop client settings separate from the background server's ~/.t3.
-  xdg.desktopEntries.t3code-nightly = {
-    name = "T3 Code Nightly";
-    comment = "Control coding agents";
-    exec = "${pkgs.coreutils}/bin/env T3CODE_HOME=${config.home.homeDirectory}/.t3-desktop t3code-nightly --password-store=gnome-libsecret %U";
-    icon = "t3code-nightly";
-    terminal = false;
-    categories = [ "Development" ];
+  # A pre-existing local desktop entry takes precedence over desktop entries in
+  # the Nix profile. Own that local entry so the app never shares the service's
+  # ~/.t3 directory. Hyprland also needs an explicit Secret Service backend.
+  xdg.dataFile."applications/t3code-nightly.desktop" = {
+    force = true;
+    text = ''
+      [Desktop Entry]
+      Type=Application
+      Version=1.5
+      Name=T3 Code Nightly
+      Comment=Control coding agents
+      Exec=${pkgs.coreutils}/bin/env T3CODE_HOME=${config.home.homeDirectory}/.t3-desktop t3code-nightly --password-store=gnome-libsecret %U
+      Icon=t3code-nightly
+      Terminal=false
+      Categories=Development;
+    '';
   };
 
   home.packages = with pkgs; [

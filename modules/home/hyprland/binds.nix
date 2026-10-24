@@ -88,6 +88,7 @@ in
 
     -- Select a region with slurp, capture with grim, and copy it to the clipboard.
     hl.bind("Print", hl.dsp.exec_cmd("${screenshotRegion}/bin/screenshot-region"))
+    hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("${screenshotRegion}/bin/screenshot-region"))
 
     -- Reveal or hide Island's bar over fullscreen windows.
     hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd("${island} bar toggle"))

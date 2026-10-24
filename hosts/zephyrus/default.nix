@@ -35,6 +35,9 @@
     user = username;
   };
 
+  # Bahnbreite: accept Pixel pairing only on the USB tethering interface.
+  networking.firewall.interfaces."enp103s0f3u1i1".allowedTCPPorts = [ 8765 ];
+
   powerManagement.enable = true;
 
   # Idle suspend starts at 15m; hibernate at 120m total inactivity.

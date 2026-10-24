@@ -225,8 +225,11 @@ that backend over tailnet-only HTTPS on port 443 through Tailscale Serve. The
 service user needs Tailscale operator permission (`paul` is already the operator
 on Atlas). After rebuilding, use `t3 pair --tailscale` to generate a pairing link
 for another device. `tailscale serve status` shows the HTTPS endpoint and target.
-The desktop launcher uses `~/.t3-desktop`; keep its local environment disabled
-and pair it with the background server.
+The desktop launcher uses `~/.t3-desktop`, separate from the service's `~/.t3`.
+On each host, disable **Local environment** in the desktop app under
+**Settings → Connections**, restart the app, and add the host's background
+service using the link from `t3 pair --tailscale`. The desktop app then acts as
+a client of that host's service; its local environment stays disabled.
 Projects, threads, settings and Connect identity stay under `~/.t3/userdata`.
 Each device keeps its own local data and requires its own provider authentication
 and remote-access setup.
