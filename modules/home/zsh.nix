@@ -1,16 +1,7 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 let
   sudoAskpass = pkgs.writeShellScript "sudo-askpass" ''
-    printf -v context 'Action: %s\nRun as: %s\nDirectory: %s\n\n%s' \
-      "''${SUDO_ASKPASS_ACTION:-Sudo request}" \
-      "''${SUDO_ASKPASS_TARGET:-root}" \
-      "''${SUDO_ASKPASS_DIRECTORY:-unknown}" \
-      "''${1:-Enter your sudo password}"
-
-    exec ${pkgs.zenity}/bin/zenity --entry --hide-text \
-      --title="Authentication Required" \
-      --width=480 \
-      --text="$context"
+    exec ${config.services.island.package}/bin/island-askpass "$@"
   '';
 
   graphicalSudo = pkgs.writeShellScriptBin "sudo" ''
