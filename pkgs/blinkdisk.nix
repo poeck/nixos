@@ -1,13 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, src, ... }:
 
 let
   pname = "blinkdisk";
-  version = "1.7.0";
-
-  src = pkgs.fetchurl {
-    url = "https://github.com/blinkdisk/blinkdisk/releases/download/v${version}/BlinkDisk-Linux-x86_64.AppImage";
-    hash = "sha256-vpVZ+KQADeu8ZZ451EBnnOXSpjGPDad9+UC3gzXTz/k=";
-  };
+  version = "latest";
 
   appimageContents = pkgs.appimageTools.extract {
     inherit pname version src;
@@ -15,8 +10,6 @@ let
 in
 pkgs.appimageTools.wrapType2 {
   inherit pname version src;
-
-  pkgs = pkgs;
 
   extraInstallCommands = ''
     install -m 444 -D ${appimageContents}/${pname}.desktop \

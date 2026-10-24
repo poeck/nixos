@@ -1,29 +1,47 @@
-{ pkgs, inputs, ... }:
+{ config, pkgs, ... }:
 {
+  # Route media keys to the most recently active MPRIS player.
+  services.playerctld.enable = true;
+
+  home.sessionVariables = {
+    NPM_CONFIG_PREFIX = "${config.home.homeDirectory}/.npm-global";
+    PNPM_HOME = "${config.xdg.dataHome}/pnpm";
+  };
+
+  home.sessionPath = [
+    "${config.home.homeDirectory}/.local/bin"
+    "${config.home.sessionVariables.NPM_CONFIG_PREFIX}/bin"
+    "${config.home.sessionVariables.PNPM_HOME}/bin"
+  ];
+
   home.packages = with pkgs; [
+    acli
     ripgrep
     ffmpeg
     file
     jq
-    killall
     libnotify
     openssl
     pamixer
     playerctl
     udiskie
     unzip
-    wget
     gnumake
     wl-clipboard
     xdg-utils
     btop
     fastfetch
+    (python3.withPackages (
+      python-pkgs: with python-pkgs; [
+        pip
+      ]
+    ))
     nodejs_24
     pnpm
     go
-    opencode
-    claude-code
-    wtp
-    wtype
+    gh
+    llm-agents.claude-code
+    llm-agents.codex
+    glab
   ];
 }

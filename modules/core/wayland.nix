@@ -5,16 +5,26 @@
     enable = true;
   };
 
+  # Keyboard input fallback for Linux Computer Use on Hyprland, whose portal
+  # backend does not implement org.freedesktop.portal.RemoteDesktop.
+  programs.ydotool.enable = true;
+
   xdg.portal = {
     enable = true;
     xdgOpenUsePortal = true;
     # Used for screen sharing
     config = {
-      common.default = [ "gtk" ];
-      hyprland.default = [
-        "hyprland"
-        "gtk"
-      ];
+      common = {
+        default = [ "gtk" ];
+        "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
+      };
+      hyprland = {
+        default = [
+          "hyprland"
+          "gtk"
+        ];
+        "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
+      };
     };
     extraPortals = with pkgs; [
       xdg-desktop-portal-gtk

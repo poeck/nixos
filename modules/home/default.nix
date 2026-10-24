@@ -12,19 +12,20 @@
     ./git.nix # version control
     ./gnome.nix # gnome apps
     ./gtk.nix # gtk theme
-    ./nemo.nix # file manager
+    ./easyeffects.nix # audio effects
+    ./keyring.nix # secret service
+    ./nautilus.nix # file manager
     ./ssh.nix # ssh config
-    ./notifications # notification center
-    ./vicinae.nix # launcher
     ./xdg.nix # xdg config
+    ./zsh.nix # shell
     ./hyprland # window manager
-    ./waybar # status bar
-    ./nvim # neovim editor
-    ./zsh # shell
+    ./island.nix # status bar, launcher, notifications, authentication and lock screen
     ./alacritty # terminal
     ./tmux # terminal splits
-    ./chromium.nix # chromium
+    ./helium.nix # helium browser
     ./zed.nix # text editor
     ./claude-code.nix # claude code
+    ./t3code.nix # T3 Code CLI and background server
+    ./lan-mouse.nix # manual sharing on Atlas; receiver on Zephyrus
   ];
 }

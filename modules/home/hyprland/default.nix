@@ -6,9 +6,10 @@
     ./settings.nix
     ./binds.nix
     ./windows.nix
-    ./hyprlock.nix
     ./hypridle.nix
+    ./activity-guard.nix
     ./variables.nix
     ./monitors
+    ./remote-desktop.nix
   ];
 }

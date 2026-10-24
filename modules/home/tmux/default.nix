@@ -45,6 +45,9 @@
       setw -g window-status-current-format "#[fg=#3a3735,bg=#504945,nobold,nounderscore,noitalics] #[fg=#a89984,bg=#504945] #I #W #F #[fg=#504945,bg=#3a3735,nobold,nounderscore,noitalics] "
 
       # Terminal overrides
+      # Forward modified keys (for example Shift+Enter) when requested by apps.
+      set -s extended-keys on
+      set -s extended-keys-format csi-u
       set -g terminal-overrides ',xterm-256color:Tc'
       set -as terminal-overrides ',xterm*:sitm=\E[3m'
 

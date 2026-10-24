@@ -1,0 +1,26 @@
+[Unit]
+Description=Atlas wake button over Tailscale
+After=network-online.target tailscaled.service
+Wants=network-online.target tailscaled.service
+
+[Service]
+Type=simple
+DynamicUser=yes
+EnvironmentFile=/etc/atlas-wake.env
+ExecStart=/usr/bin/python3 /opt/atlas-wake/atlas-wake.py
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+RestrictAddressFamilies=AF_INET AF_NETLINK AF_UNIX
+CapabilityBoundingSet=
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target
