@@ -327,6 +327,22 @@ select it; an existing stream must reconnect. `off` restores the saved layout
 and selects the AOC again. **Super + Ctrl + Shift + R** also returns to local
 mode, even while the screen is locked. Neither command unlocks the desktop.
 
+While remote mode is enabled, a root system service adds temporary
+`RefuseManualStart=yes` drop-ins for `poweroff.target` and `halt.target`.
+Normal desktop shutdown actions, `shutdown` and `systemctl poweroff` (including
+via sudo) are refused; suspend and reboot remain available. `atlas-remote off`
+automatically removes only these guard drop-ins. A systemd path unit watches
+the existing remote marker, so no password is needed when switching modes.
+The change is event-driven and can take a moment to apply. Check it with:
+
+```bash
+systemctl show poweroff.target halt.target -p Id -p RefuseManualStart
+```
+
+Both targets report `RefuseManualStart=yes` while protected. The guard is an
+accident-prevention measure; forced shutdown commands bypassing systemd and
+holding the physical power button can still turn Atlas off.
+
 Remote mode remains enabled when Moonlight disconnects and across ordinary
 suspend/resume. HyprDynamicMonitors is paused, config reloads retain the remote
 layout, and display-idle/resume hooks keep the virtual monitor usable without
@@ -345,8 +361,8 @@ scales and existing workspace assignments are saved for the return trip.
 
 Before relying on this away from home, test Moonlight input and Island unlock
 on the virtual screen, 1Password authorization, disconnect/reconnect, and a
-full suspend/wake cycle while remote mode is enabled. Initrd remote unlocking
-is not configured; a reboot still requires entering the LUKS password locally.
+full suspend/wake cycle while remote mode is enabled. For reboot recovery, see
+Atlas remote LUKS unlock below.
 
 Sunshine's streaming and setup ports are allowed only on `tailscale0`; UPnP
 is disabled. Tailnet access policies still apply. Its web UI permits WAN-class
@@ -590,3 +606,92 @@ sudo reboot
 
 Use `.#atlas` on the PC. Do not copy Atlas's Intel/NVIDIA hardware configuration
 onto the laptop, or the laptop's SSD UUIDs onto Atlas.
+
+
+## Atlas remote LUKS unlock
+
+Atlas's systemd initrd connects to the home Wi-Fi (`wlo1`, Intel AX201) and
+obtains its reserved address `192.168.178.116` from the FRITZ!Box. SSH listens
+on port 2222 only during early boot. The configured Paul public key grants
+access only to the interactive LUKS password agent, with forwarding disabled.
+Local Plymouth unlocking remains available independently of Wi-Fi.
+
+The route is Zephyrus → Tailscale SSH on Oracle → Oracle's existing WireGuard
+connection to the FRITZ!Box → Atlas. Oracle and its `wg-quick@wg-atlas` service
+must be running. No WireGuard installation on Zephyrus is required. Tailscale
+may require browser confirmation for the Oracle SSH hop.
+
+On Zephyrus, unlock 1Password and use `ssh atlas-unlock` after applying the
+updated shared SSH configuration there. Until then, this equivalent command
+works with the existing public key and 1Password SSH agent:
+
+```bash
+ssh -J paul@oracle.alpines-pauling.ts.net -t -p 2222 \
+  -i ~/.ssh/paul.pub -o IdentitiesOnly=yes \
+  -o IdentityAgent=~/.1password/agent.sock -o HostKeyAlias=atlas-initrd \
+  root@192.168.178.116
+```
+
+Verify the initial host-key fingerprint against the dedicated key on Atlas
+before accepting it. The key prepared for this installation has fingerprint:
+
+```text
+SHA256:RcgXquVIPgZR+3xT5aZoBPbyVGP9u5vGMmb7p7ip2/s
+```
+
+Enter the LUKS password in the SSH terminal. The session
+will disconnect when boot continues; normal Tailscale/desktop access follows.
+A connection refused or timeout while Atlas is already running is expected:
+the initrd SSH service does not run in the normal system.
+
+### Preparing or updating the boot image
+
+The root-only helper copies the active home Wi-Fi credentials without printing
+them and creates a separate initrd SSH host key, preserving an existing key:
+
+```bash
+cd /home/paul/nixos
+nix build --out-link /tmp/atlas-initrd-prepare \
+  path:/home/paul/nixos#nixosConfigurations.atlas.config.system.build.atlasInitrdPrepare
+sudo /tmp/atlas-initrd-prepare/bin/atlas-initrd-prepare
+sudo nixos-rebuild boot --flake path:/home/paul/nixos#atlas
+```
+
+Credentials live under `/etc/secrets/initrd/atlas` (directory mode 0700,
+private files 0600). At bootloader installation time, GRUB receives a separate
+secrets archive alongside the base initrd and loads both together. Neither the
+Wi-Fi PSK nor the SSH private key enters the Nix store or Git.
+They **are present in that archive on the unencrypted boot partition**;
+someone with physical access can extract them. The LUKS password is never
+stored there. Re-run the helper and rebuild after changing the Wi-Fi password.
+If the Wi-Fi firmware version changes with a kernel update, review the pinned
+firmware name in `hosts/atlas/remote-unlock.nix`.
+
+### First boot test and recovery
+
+The configuration was built and installed for the next boot on Atlas. The
+installed base initrd matches the built image; the separate secrets archive
+contains the expected files with root-only archive permissions. GRUB loads
+both and retains the previous generation.
+
+The supervised remote reboot test passed on 2026-10-24: initrd Wi-Fi connected,
+SSH authentication arrived through Oracle (`10.254.77.1`), and entering the LUKS
+passphrase remotely allowed the new system to boot. The login journal confirms
+`pam_fde_boot_pw` loaded the cached key and GNOME Keyring unlocked successfully.
+Sunshine and GNOME Keyring were running afterward, no system units had failed,
+and the initrd SSH listener on port 2222 was gone.
+
+For future retests after boot/network changes:
+
+1. Keep Atlas physically accessible and have Zephyrus with unlocked 1Password
+   ready. Confirm `ssh paul@oracle` works and Oracle's home tunnel is active.
+2. Reboot Atlas, leave the Plymouth password blank and wait for Wi-Fi/DHCP.
+3. Connect from Zephyrus using the command above, verify the host fingerprint,
+   and enter the LUKS password. Retry the connection if Wi-Fi is still starting.
+4. Check normal Tailscale, desktop and 1Password access after boot. Also check
+   GNOME Keyring: the login journal should confirm the keyring was unlocked.
+5. If remote unlock fails, enter the password locally in Plymouth. The previous
+   NixOS generation remains selectable in GRUB for recovery.
+
+This enables recovery after a reboot. It does not enable Wi-Fi wake from a
+complete shutdown. Continue using suspend for ordinary remote operation.

@@ -22,6 +22,19 @@
         ForwardAgent = false;
       })
       // {
+        "atlas-unlock" = {
+          # Atlas has no Tailscale until its encrypted root is unlocked.
+          HostName = "192.168.178.116";
+          Port = 2222;
+          User = "root";
+          ProxyJump = "paul@oracle.alpines-pauling.ts.net";
+          HostKeyAlias = "atlas-initrd";
+          RequestTTY = "force";
+          IdentityFile = "~/.ssh/paul.pub";
+          IdentitiesOnly = true;
+          ForwardAgent = false;
+          ConnectTimeout = 10;
+        };
         "*" = {
           IdentityAgent = "~/.1password/agent.sock";
         };

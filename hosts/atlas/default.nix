@@ -3,6 +3,8 @@
   imports = [
     ./hardware-configuration.nix
     ./graphics.nix
+    ./remote-unlock.nix
+    ./remote-power-guard.nix
     ../../modules/core
     ../../modules/core/media.nix
   ];
