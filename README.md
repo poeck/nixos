@@ -111,13 +111,60 @@ Automatic idle timings count from the last keyboard or mouse activity:
 
 | Host | Displays off | Lock with Island | Suspend | Hibernate |
 | --- | --- | --- | --- | --- |
-| Atlas | 15 minutes | 29 minutes | 30 minutes | Never automatically |
+| Atlas | 15 minutes | 29 minutes | 30 minutes, extended while T3 works | Never automatically |
 | Zephyrus | 13 minutes | 14 minutes | 15 minutes | 120 minutes total |
 
 Zephyrus's hibernation delay is 105 minutes after entering suspend. Closing its
 lid starts suspend-then-hibernate immediately, with the same 105-minute delay.
 Idle inhibitors can postpone these actions, and low-battery alarms can trigger
 hibernation earlier on Zephyrus. Atlas disables suspend-then-hibernate.
+
+### Keep Atlas awake for T3 work
+
+On Atlas, `atlas-activity-guard.service` polls T3's authenticated MCP endpoint
+on `127.0.0.1:3774/mcp` every 15 seconds. It lists all projects with
+`t3_project_list` and queries `t3_thread_list` with `includeSubagents=true` and
+statuses `preparing`, `queued`, `starting`, `running`. No SQLite files are read
+and no model calls are made. Model/network waits within a running turn still
+count as work. A thread waiting for user input does not count as active work.
+
+Hypridle keeps its display and lock timers, but its 30-minute suspend listener
+now records desktop inactivity. Atlas suspends only when that condition holds
+and T3 has been idle for 30 minutes. Input and wake events reset the relevant
+grace period. A final MCP check runs before requesting suspend. Manual suspend
+remains available; there is no global sleep inhibitor.
+
+If MCP is unreachable, authorization expires, or a query fails, ordinary
+30-minute desktop idle suspension applies. The independent
+`atlas-activity-fallback.timer` checks once per minute; if the main service
+stops or its heartbeat becomes stale, it also restores ordinary idle behavior
+without requiring another keyboard/mouse event. Detection may take up to about
+two minutes. Restarting the monitor gives working MCP a fresh AI grace period.
+
+The client uses a dedicated read-only MCP OAuth credential, granted via a
+local, single-use CLI pairing code and PKCE. It is stored under
+`~/.config/atlas-activity-guard/` with mode 0600 and never enters Git, the Nix
+store, process arguments, or logs. T3 currently issues MCP credentials for
+30 days; renew one using the command below. Renewal verifies access to all
+projects before replacing the saved credential.
+
+```bash
+atlas-activity-guard status
+atlas-activity-guard probe
+# First setup on a new Atlas installation:
+atlas-activity-guard authorize
+# Renew the dedicated read-only MCP credential:
+atlas-activity-guard renew
+systemctl --user status atlas-activity-guard.service atlas-activity-fallback.timer
+journalctl --user -u atlas-activity-guard.service -n 30
+```
+
+The policy, fallback behavior, pagination, and MCP response handling can be
+tested without performing a power action:
+
+```bash
+python3 -B scripts/test-atlas-activity-guard.py
+```
 
 ## Island desktop shell
 

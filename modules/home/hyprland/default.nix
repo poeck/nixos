@@ -7,6 +7,7 @@
     ./binds.nix
     ./windows.nix
     ./hypridle.nix
+    ./activity-guard.nix
     ./variables.nix
     ./monitors
     ./remote-desktop.nix
