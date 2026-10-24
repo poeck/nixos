@@ -9,5 +9,6 @@
     ./hypridle.nix
     ./variables.nix
     ./monitors
+    ./remote-desktop.nix
   ];
 }

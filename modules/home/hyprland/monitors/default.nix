@@ -1,11 +1,14 @@
-{ inputs, pkgs, host, ... }:
+{
+  inputs,
+  lib,
+  pkgs,
+  host,
+  ...
+}:
 let
   # Keep Atlas from loading the saved profile containing the laptop panel.
   generatedMonitorFile =
-    if host == "atlas" then
-      "generated_monitors_atlas.lua"
-    else
-      "generated_monitors.lua";
+    if host == "atlas" then "generated_monitors_atlas.lua" else "generated_monitors.lua";
   applyMonitorConfig = pkgs.writeShellApplication {
     name = "apply-hypr-monitor-config";
     runtimeInputs = [
@@ -14,6 +17,13 @@ let
       pkgs.gnused
     ];
     text = ''
+      ${lib.optionalString (host == "atlas") ''
+        # Never overwrite the saved local layout from a headless session.
+        marker="''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/atlas-remote/enabled"
+        if [[ -r "$marker" && "$(cat "$marker")" == "''${HYPRLAND_INSTANCE_SIGNATURE:-unset}" ]]; then
+          exit 0
+        fi
+      ''}
       config_file="''${1:-$HOME/.config/hypr/monitors.conf}"
       generated_file="''${2:-$HOME/.config/hypr/${generatedMonitorFile}}"
       [[ -r "$config_file" ]] || exit 0
@@ -77,6 +87,23 @@ in
   # translates and saves the selected profile as Lua, so every Hyprland reload
   # reapplies that profile instead of racing it with a scale-1 fallback.
   xdg.configFile."hypr/hypr_monitors.lua".text = ''
+    ${lib.optionalString (host == "atlas") ''
+      -- The marker belongs to one compositor session, never to a later boot.
+      function atlas_remote_active()
+        local runtime = os.getenv("XDG_RUNTIME_DIR")
+        if runtime == nil then return false end
+        local marker = io.open(runtime .. "/atlas-remote/enabled", "r")
+        if marker == nil then return false end
+        local session = marker:read("*l")
+        marker:close()
+        return session == os.getenv("HYPRLAND_INSTANCE_SIGNATURE")
+      end
+
+      if atlas_remote_active() then
+        dofile(os.getenv("XDG_RUNTIME_DIR") .. "/atlas-remote/monitors.lua")
+        return
+      end
+    ''}
     local configHome = os.getenv("XDG_CONFIG_HOME")
     if configHome == nil or configHome == "" then
       configHome = os.getenv("HOME") .. "/.config"

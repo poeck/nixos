@@ -264,9 +264,11 @@ service.
 
 ## Stream Atlas to Zephyrus over Tailscale
 
-Atlas enables Sunshine as a user service with DRM/KMS screen capture and NVIDIA
-NVENC encoding. It starts with the graphical session. Zephyrus installs the
-Moonlight client (`moonlight`). Both hosts allow Tailscale's encrypted peer
+Atlas enables Sunshine as a user service with Wayland/WLR screen capture and
+NVIDIA NVENC encoding. It starts with the graphical session. A small package
+wrapper supplies `/run/opengl-driver/lib` so Sunshine's bundled FFmpeg can load
+the NVIDIA driver libraries. No KMS capability or CUDA toolkit build is needed.
+Zephyrus installs the Moonlight client (`moonlight`). Both hosts allow Tailscale's encrypted peer
 traffic on UDP 41641 to help establish direct connections.
 
 Apply this checkout on Atlas:
@@ -291,8 +293,57 @@ immediately without transferring the checkout, run
 3. Select Atlas in Moonlight. Enter its displayed PIN in Sunshine's **PIN**
    page. The page is also accessible from the laptop at
    `https://100.92.181.17:47990` while connected to Tailscale.
-4. Select **Desktop** to connect. Keep Atlas awake with Hyprland running and a
-   display active. Start with 1080p at 60 FPS and adjust bitrate as needed.
+4. Select **Desktop** to connect. In normal mode Sunshine selects the AOC by
+   description, instead of defaulting to the first (Philips) screen. Keep Atlas
+   awake with Hyprland running. Start at 60 FPS and adjust bitrate as needed.
+
+### Switch between the local desk and a virtual remote screen
+
+On Atlas, **Super + Shift + R** toggles remote mode. The launcher also contains
+**Atlas: Toggle remote desktop**. Terminal commands are:
+
+```bash
+atlas-remote on
+atlas-remote status
+atlas-remote off
+```
+
+From the laptop, after waking Atlas and connecting to Tailscale:
+
+```bash
+ssh atlas '~/.local/bin/atlas-remote on'
+# Connect to Desktop in Moonlight.
+ssh atlas '~/.local/bin/atlas-remote off'
+```
+
+`on` creates a 1920x1200, 60 Hz virtual monitor named `ATLAS-REMOTE`, saves the
+current physical monitor and workspace layout, and disables the physical
+outputs. The same desktop, applications, Island lock screen and 1Password
+remain running. Workspaces move to the virtual output. Sunshine restarts to
+select it; an existing stream must reconnect. `off` restores the saved layout
+and selects the AOC again. **Super + Ctrl + Shift + R** also returns to local
+mode, even while the screen is locked. Neither command unlocks the desktop.
+
+Remote mode remains enabled when Moonlight disconnects and across ordinary
+suspend/resume. HyprDynamicMonitors is paused, config reloads retain the remote
+layout, and display-idle/resume hooks keep the virtual monitor usable without
+enabling physical outputs. Lock and suspend timeouts are unchanged. The mode
+and layout snapshot live under `$XDG_RUNTIME_DIR/atlas-remote` and are tied to
+the current Hyprland session; a new compositor session or reboot starts local.
+Only monitor/workspace metadata is saved, not window contents or passwords.
+
+`off` keeps the virtual screen available if no physical output can be restored.
+A failed `on` attempts to restore local mode automatically. SSH commands import
+the graphical session's display environment, so no manual `DISPLAY` or
+`HYPRLAND_INSTANCE_SIGNATURE` setup is required. Repeating `on` repairs the
+virtual layout and restarts Sunshine. Application window sizes/positions may
+change when moving from three monitors to one; monitor modes, positions,
+scales and existing workspace assignments are saved for the return trip.
+
+Before relying on this away from home, test Moonlight input and Island unlock
+on the virtual screen, 1Password authorization, disconnect/reconnect, and a
+full suspend/wake cycle while remote mode is enabled. Initrd remote unlocking
+is not configured; a reboot still requires entering the LUKS password locally.
 
 Sunshine's streaming and setup ports are allowed only on `tailscale0`; UPnP
 is disabled. Tailnet access policies still apply. Its web UI permits WAN-class

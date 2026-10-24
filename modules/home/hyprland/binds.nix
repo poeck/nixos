@@ -1,4 +1,10 @@
-{ config, host, lib, pkgs, ... }:
+{
+  config,
+  host,
+  lib,
+  pkgs,
+  ...
+}:
 let
   island = "${config.services.island.package}/bin/island";
   screenshotRegion = pkgs.writeShellApplication {
@@ -49,6 +55,12 @@ in
     -- Toggle sharing on Atlas, or the receiver on Zephyrus.
     hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("lan-mouse-desk"))
 
+    ${lib.optionalString (host == "atlas") ''
+      hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("atlas-remote toggle"))
+      -- A local recovery key also works while the desktop is locked.
+      hl.bind(mainMod .. " + CTRL + SHIFT + R", hl.dsp.exec_cmd("atlas-remote off"), { locked = true })
+    ''}
+
     -- Focus monitors from left to right with U, I, O.
     ${lib.optionalString (host == "atlas") ''
       hl.bind(mainMod .. " + U", hl.dsp.focus({ monitor = "desc:Philips Consumer Electronics Company PHL 246E9Q 0x000036F7" }))
@@ -56,7 +68,12 @@ in
     ${lib.optionalString (host == "zephyrus") ''
       hl.bind(mainMod .. " + U", hl.dsp.focus({ monitor = "desc:Sharp Corporation LQ160R1JW02" }))
     ''}
-    hl.bind(mainMod .. " + I", hl.dsp.focus({ monitor = "${if host == "atlas" then "desc:AOC Q27G4ZR" else "desc:Philips Consumer Electronics Company PHL 246E9Q 0x000036F7"}" }))
+    hl.bind(mainMod .. " + I", hl.dsp.focus({ monitor = "${
+      if host == "atlas" then
+        "desc:AOC Q27G4ZR"
+      else
+        "desc:Philips Consumer Electronics Company PHL 246E9Q 0x000036F7"
+    }" }))
     hl.bind(mainMod .. " + O", hl.dsp.focus({ monitor = "desc:Shenzhen KTC Technology Group PMO G241-FFK" }))
 
     -- Special workspace (scratchpad).

@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -27,13 +27,29 @@
   services.sunshine = {
     enable = true;
     autoStart = true;
-    capSysAdmin = true;
+    # WLR also captures Hyprland's virtual output and needs no KMS capability.
+    capSysAdmin = false;
+    package = pkgs.symlinkJoin {
+      name = "sunshine-nvenc-${pkgs.sunshine.version}";
+      paths = [ pkgs.sunshine ];
+      nativeBuildInputs = [ pkgs.makeWrapper ];
+      # Sunshine's bundled FFmpeg dlopens these driver libraries. The default
+      # non-CUDA build omits the driver runpath, although NVENC itself works.
+      postBuild = ''
+        wrapProgram $out/bin/sunshine \
+          --prefix LD_LIBRARY_PATH : /run/opengl-driver/lib
+      '';
+      meta.mainProgram = "sunshine";
+    };
     # Open streaming ports only on Tailscale below.
     openFirewall = false;
     settings = {
       sunshine_name = "atlas";
-      capture = "kms";
+      capture = "wlr";
       encoder = "nvenc";
+      # The user-service launcher selects ATLAS-REMOTE in remote mode and
+      # resolves the AOC connector by description in normal desktop mode.
+      output_name = "DP-2";
       upnp = "disabled";
       # Sunshine classifies Tailscale's 100.64.0.0/10 addresses as WAN.
       origin_web_ui_allowed = "wan";

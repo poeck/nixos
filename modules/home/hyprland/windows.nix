@@ -1,4 +1,4 @@
-{ ... }:
+{ host, ... }:
 {
   xdg.configFile."hypr/hypr_windows.lua".text = ''
     -- Make file dialogs float.
@@ -65,7 +65,12 @@
     hl.workspace_rule({ workspace = "f[1]", gaps_out = 0, gaps_in = 0 })
     hl.workspace_rule({
       workspace = "9",
-      monitor = "desc:AOC Q27G4ZR XZ1S5HA001828",
+      monitor = ${
+        if host == "atlas" then
+          ''atlas_remote_active() and "ATLAS-REMOTE" or "desc:AOC Q27G4ZR XZ1S5HA001828"''
+        else
+          ''"desc:AOC Q27G4ZR XZ1S5HA001828"''
+      },
     })
   '';
 }
