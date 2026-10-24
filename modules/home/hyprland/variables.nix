@@ -16,8 +16,9 @@
     MOZ_ENABLE_WAYLAND = 1;
     # WLR_BACKEND, WLR_RENDERER, WLR_NO_HARDWARE_CURSORS are deprecated
     # since Hyprland moved to Aquamarine. Use cursor {} in settings instead.
-    # Let Electron detect GNOME Keyring while keeping Hyprland first.
-    XDG_CURRENT_DESKTOP = "Hyprland:GNOME";
+    # Keep the real desktop identity; Electron keyring selection belongs in
+    # application launchers, not the session's desktop environment.
+    XDG_CURRENT_DESKTOP = "Hyprland";
     XDG_SESSION_TYPE = "wayland";
     XDG_SESSION_DESKTOP = "Hyprland";
     SDL_VIDEODRIVER = "wayland";

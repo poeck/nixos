@@ -7,7 +7,7 @@
     name = "ChatGPT";
     comment = "ChatGPT by OpenAI";
     genericName = "AI assistant";
-    exec = "chatgpt --ozone-platform=wayland %U";
+    exec = "chatgpt --ozone-platform=wayland --password-store=gnome-libsecret %U";
     icon = "chatgpt";
     terminal = false;
     categories = [

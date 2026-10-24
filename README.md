@@ -29,6 +29,12 @@ in Plymouth, including during tty autologin. The login keyring must use that
 same password. No password is stored in the Nix configuration or Nix store.
 Seahorse (**Passwords and Keys**) is installed for managing the keyring.
 
+The session identifies itself as `Hyprland`. Inlark's executable and the
+ChatGPT and T3 Code desktop launchers select Electron's keyring backend with
+`--password-store=gnome-libsecret`. Adding `GNOME` to `XDG_CURRENT_DESKTOP`
+changes desktop and portal detection and triggers Hyprland's startup warning;
+it is not needed to run GNOME Keyring.
+
 The keyring stays unlocked during suspend and Island's screen lock. Island
 still asks for the normal account password to unlock the desktop; there is no
 additional keyring prompt. This configuration does not disable the screen lock.
