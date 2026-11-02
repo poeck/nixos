@@ -1,0 +1,24 @@
+diff --git a/src/services/AppService.qml b/src/services/AppService.qml
+index ea6bb33..f5d94c3 100644
+--- a/src/services/AppService.qml
++++ b/src/services/AppService.qml
+@@ -24,7 +24,18 @@ Item {
+         let args = Array.from(entry.command);
+         if (!args.length) { error = "This application has no launch command."; return false; }
+         if (entry.runInTerminal) args = Array.from(Settings.terminal).concat(args);
+-        Quickshell.execDetached({command: args, workingDirectory: entry.workingDirectory});
++        // The Nix Quickshell wrapper adds paths for its own Qt build. Helium
++        // and other external apps must load plugins from their own runtime.
++        Quickshell.execDetached({
++            command: args,
++            workingDirectory: entry.workingDirectory,
++            environment: {
++                QT_PLUGIN_PATH: "",
++                QML_IMPORT_PATH: "",
++                QML2_IMPORT_PATH: "",
++                NIXPKGS_QT6_QML_IMPORT_PATH: ""
++            }
++        });
+         const next = Object.assign({}, history); next[entry.id] = Date.now(); history = next;
+         historyFile.setText(JSON.stringify(next));
+         query = ""; return true;

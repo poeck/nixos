@@ -1,10 +1,14 @@
 {
   pkgs,
+  inputs,
   ...
 }:
 {
-  blinkdisk = pkgs.callPackage ./blinkdisk.nix { };
-  wtp = pkgs.callPackage ./wtp.nix { };
-  keeper = pkgs.callPackage ./keeper.nix { };
+  acli = pkgs.callPackage ./acli.nix { };
+  blinkdisk = pkgs.callPackage ./blinkdisk.nix {
+    src = inputs.blinkdisk;
+  };
+  keeper-password-manager = pkgs.callPackage ./keeper-password-manager.nix { };
   sandbox = pkgs.callPackage ./sandbox.nix { };
+  t3-cli = pkgs.callPackage ./t3-cli.nix { };
 }

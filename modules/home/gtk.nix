@@ -1,9 +1,6 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    # Common fonts
-    corefonts
-    vista-fonts
     # Symbols
     nerd-fonts.symbols-only
     # Terminal font
@@ -31,16 +28,8 @@
       size = 11;
     };
     theme = {
-      name = "Colloid-Green-Dark-Gruvbox";
-      package = pkgs.colloid-gtk-theme.override {
-        colorVariants = [ "dark" ];
-        themeVariants = [ "green" ];
-        tweaks = [
-          "gruvbox"
-          "rimless"
-          "float"
-        ];
-      };
+      name = "gruvbox-dark";
+      package = pkgs.gruvbox-dark-gtk;
     };
     cursorTheme = {
       name = "Bibata-Modern-Ice";
@@ -50,6 +39,7 @@
   };
 
   home.pointerCursor = {
+    enable = true;
     name = "Bibata-Modern-Ice";
     package = pkgs.bibata-cursors;
     size = 24;

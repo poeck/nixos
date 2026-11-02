@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 {
   services.pulseaudio.enable = false;
 
@@ -46,11 +46,4 @@
       };
     };
   };
-
-  # Allows TTS (e.g in chromium)
-  services.speechd.enable = true;
-  environment.systemPackages = with pkgs; [
-    espeak
-    espeakup
-  ];
 }

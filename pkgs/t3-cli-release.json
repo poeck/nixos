@@ -1,0 +1,13 @@
+{
+  "version": "0.1.7-nightly.20261101.4035",
+  "releases": {
+    "x86_64-linux": {
+      "arch": "x64",
+      "hash": "sha256-T4JbZJsS8zZ7KzoAEUD3xZhf1W8YDAyb/viGwX5J3Ic="
+    },
+    "aarch64-linux": {
+      "arch": "arm64",
+      "hash": "sha256-xIsdY5RUgB/xl7saHsFlcAd+ZKDEu/GU9wcn+nY3QhI="
+    }
+  }
+}
