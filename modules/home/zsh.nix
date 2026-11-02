@@ -5,7 +5,10 @@ let
   '';
 
   graphicalSudo = pkgs.writeShellScriptBin "sudo" ''
-    if [ -n "''${WAYLAND_DISPLAY:-}''${DISPLAY:-}" ]; then
+    # Keep terminal sudo usable if the helper or its live broker is unavailable.
+    if [ -n "''${WAYLAND_DISPLAY:-}''${DISPLAY:-}" ] \
+      && [ -x ${config.services.island.package}/bin/island-askpass ] \
+      && [ -S "''${XDG_RUNTIME_DIR:-}/island-askpass/socket" ]; then
       sudo_args=( "$@" )
       target=root
       action="Sudo request"
@@ -14,6 +17,9 @@ let
       while (( $# )); do
         case "$1" in
           --) shift; break ;;
+          # Preserve explicitly requested terminal/non-interactive authentication.
+          -S|--stdin|-n|--non-interactive)
+            exec /run/wrappers/bin/sudo "''${sudo_args[@]}" ;;
           -u|--user)
             if (( $# < 2 )); then break; fi
             target=$2
@@ -27,7 +33,7 @@ let
           -v|--validate) action="Validate sudo credentials"; shift ;;
           -e|--edit) action="Edit files with sudo"; shift ;;
           -s|--shell|-i|--login) action="Open a shell"; shift ;;
-          -A|-B|-b|-E|-H|-K|-k|-n|-P|-S) shift ;;
+          -A|-B|-b|-E|-H|-K|-k|-P) shift ;;
           -*) break ;;
           *) break ;;
         esac

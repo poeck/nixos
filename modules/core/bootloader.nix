@@ -43,6 +43,8 @@ in
       grub = {
         # Use grub as the bootloader
         enable = true;
+        # The EFI partition is small; keep recent rollback entries on /boot.
+        configurationLimit = 5;
         # Enables efi support
         efiSupport = true;
         # Switch to UEFI mode
@@ -80,17 +82,6 @@ in
 
     # Supress kernel logs at boot
     consoleLogLevel = 0;
-
-    initrd = {
-      verbose = false;
-      # Experimental feature that makes initrd use
-      # systemd for PID to start plymouth earlier
-      #
-      # This is required to
-      # 1. Enter the luks passphrase in plymouth instead of tty
-      # 2. Unlock the gnome keyring via the luks passphrase
-      systemd.enable = true;
-    };
 
     # Use the latest kernel
     kernelPackages = pkgs.linuxPackages_latest;

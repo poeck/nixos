@@ -22,6 +22,10 @@ in
     home.packages = [ guard ];
     home.file.".local/bin/atlas-activity-guard".source = "${guard}/bin/atlas-activity-guard";
 
+    # Adopt the enable-links previously created by systemctl --user enable.
+    xdg.configFile."systemd/user/graphical-session.target.wants/atlas-activity-guard.service".force = true;
+    xdg.configFile."systemd/user/graphical-session.target.wants/atlas-activity-fallback.timer".force = true;
+
     # This separate timer survives a stopped/crashed main monitor. The idle
     # marker is set only after Hypridle's normal 30-minute desktop timeout.
     systemd.user.timers.atlas-activity-fallback = {

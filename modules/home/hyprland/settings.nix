@@ -45,7 +45,6 @@
       misc = {
         disable_hyprland_logo = true,
         always_follow_on_dnd = true,
-        layers_hog_keyboard_focus = true,
         animate_manual_resizes = false,
         enable_swallow = true,
         focus_on_activate = true,
@@ -53,9 +52,12 @@
         middle_click_paste = false,
       },
 
+      layers = {
+        layers_hog_keyboard_focus = true,
+      },
+
       dwindle = {
         force_split = 2,
-        special_scale_factor = 1.0,
         split_width_multiplier = 1.0,
         use_active_for_splits = true,
         preserve_split = true,

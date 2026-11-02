@@ -19,7 +19,13 @@ in
   environment.systemPackages = [ inlark ];
 
   programs = {
-    chatgpt-desktop-app.enable = true;
+    chatgpt-desktop-app = {
+      enable = true;
+      package = pkgs.callPackage ../../pkgs/chatgpt-desktop-app.nix {
+        upstream = inputs.chatgpt-desktop-app.packages.${pkgs.stdenv.hostPlatform.system}.default;
+        upstreamSource = inputs.chatgpt-desktop-app;
+      };
+    };
     dconf.enable = true;
     # Default shell
     zsh.enable = true;

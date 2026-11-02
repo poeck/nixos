@@ -22,8 +22,8 @@ in
 {
   assertions = [
     {
-      assertion = config.boot.initrd.systemd.enable && config.boot.loader.supportsInitrdSecrets;
-      message = "Atlas remote unlock requires systemd initrd and bootloader-side secret injection.";
+      assertion = config.boot.loader.supportsInitrdSecrets;
+      message = "Atlas remote unlock requires bootloader-side secret injection.";
     }
   ];
 
